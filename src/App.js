@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 
-import { fetchWeather } from './api/fetchWeather';
+import { fetchNutrition } from './api/fetchNutrition';
 import './App.css';
 
 const App = () => {
   const [query, setQuery] = useState('');
-  const [weather, setWeather] = useState({});
+  const [nutrition, setNutrition] = useState({});
 
   const search = async (e) => {
     if (e.key === 'Enter') {
-      const data = await fetchWeather(query);
+      const data = await fetchNutrition(query);
       console.log(data);
-      setWeather(data);
+      setNutrition(data);
       setQuery('');
     }
   };
+//   let foodItem = nutrition.items[0];
 
   return (
     <div className='main-container'>
@@ -26,24 +27,22 @@ const App = () => {
         onChange={(e) => setQuery(e.target.value)}
         onKeyPress={search}
       />
-      {weather.main && (
+      {nutrition.items && (
         <div className='city'>
           <h2 className='city-name'>
-            <span>{weather.name}</span>
-            <sup>{weather.sys.country}</sup>
-          </h2>
-          <div className='city-temp'>
-            {Math.round(weather.main.temp)}
-            <sup>&deg;C</sup>
-          </div>
-          <div className='info'>
-            <img
-              className='city-icon'
-              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-              alt={weather.weather[0].description}
+            <span>{nutrition.items[0].name}</span>
 
-            />
-            <p>{weather.weather[0].description}</p>
+            <span>{nutrition.items[0].calories}</span>
+          </h2>
+
+          <div className='info'>
+            {/* <img
+              className='city-icon'
+              src={`https://opennutritionmap.org/img/wn/${nutrition.nutrition[0].icon}@2x.png`}
+              alt={nutrition.nutrition[0].description}
+
+            /> */}
+            {/* <p>{nutrition.nutrition[0].description}</p> */}
           </div>
         </div>
       )}
