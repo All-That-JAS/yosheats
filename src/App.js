@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import egg from './eggsoutline.png';
+
 
 import { fetchNutrition } from './api/fetchNutrition';
 import './App.css';
@@ -15,7 +17,6 @@ const App = () => {
       setQuery('');
     }
   };
-//   let foodItem = nutrition.items[0];
 
   return (
     <div className='main-container'>
@@ -29,20 +30,28 @@ const App = () => {
       />
       {nutrition.items && (
         <div className='city'>
-          <h2 className='city-name'>
-            <span>{nutrition.items[0].name}</span>
-
-            <span>{nutrition.items[0].calories}</span>
-          </h2>
+          <div className='city-name'>
+            <h3>
+              Food:{' '}
+              {nutrition.items[0].name[0].toUpperCase() +
+                nutrition.items[0].name.slice(1)}
+            </h3>
+            <h6>
+              <p>Serving Size(g): {nutrition.items[0].serving_size_g}</p>
+              <p>Calories: {nutrition.items[0].calories}</p>
+              <p>Total Fat(g): {nutrition.items[0].fat_total_g}</p>
+              <p>Sodium(mg): {nutrition.items[0].sodium_mg}</p>
+              <p>
+                Total Carbohydrates(g):{' '}
+                {nutrition.items[0].carbohydrates_total_g}
+              </p>
+              <p>Sugar(g): {nutrition.items[0].sugar_g}</p>
+              <p>Protein(g): {nutrition.items[0].protein_g}</p>
+            </h6>
+          </div>
 
           <div className='info'>
-            {/* <img
-              className='city-icon'
-              src={`https://opennutritionmap.org/img/wn/${nutrition.nutrition[0].icon}@2x.png`}
-              alt={nutrition.nutrition[0].description}
-
-            /> */}
-            {/* <p>{nutrition.nutrition[0].description}</p> */}
+            <img className='egg-icon' src={egg} alt={'yoshi egg'} />
           </div>
         </div>
       )}
