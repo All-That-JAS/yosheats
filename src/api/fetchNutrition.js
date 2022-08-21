@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 // require('dotenv').config();
-// const API_KEY = process.env.API_KEY;
+// const API_KEY = process.env.NUTRITION_API_KEY
 const API_KEY = 'facb73a640msh588e2977227516ep15652fjsnec1bb3f103ac';
-// const axios = require('axios');
 
 const URL = 'https://calorieninjas.p.rapidapi.com/v1/nutrition';
 
