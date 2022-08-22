@@ -10,7 +10,16 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+  setDoc,
+} from 'firebase/firestore';
+import { db } from '../firebase'
 
 // import {app, auth} from '../firebase' - could delete if not broken
 import { auth } from '../firebase';
@@ -55,7 +64,10 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password).then(cred => {
+      const newUser = doc(db, `users/${cred.user.uid}`)
+      setDoc(newUser, {email: email, password: password})
+    });
   }
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
