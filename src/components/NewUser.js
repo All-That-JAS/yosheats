@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { db } from '../firebase'
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+  query,
+  where
+} from 'firebase/firestore';
+import { useAuth } from '../contexts/AuthContext';
 
 const NewUser = () => {
     // const newUser = {}
-    function calculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age) {
+    async function CalculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age) {
         // if (activityLevel === '') {
         //    alert('Please enter activity level')
         // }
@@ -73,7 +85,14 @@ const NewUser = () => {
         let dailyFat = (dailyCalories * .27) / 4
         let dailyProtein = (dailyCalories * .18) / 9
 
-        return [incompleteBMR, weightCalc, feetInInches, totalInches, heightInCm, ageCalc]
+        const { currentUser } = useAuth();
+
+       // console.log(currentUser)
+
+        const userDoc = doc(db, 'users', currentUser.uid)
+        await updateDoc(userDoc, { dailyCalories: dailyCalories, dailyCarbs: dailyCarbs, dailyFat: dailyFat, dailyProtein: dailyProtein })
+
+        // return [incompleteBMR, weightCalc, feetInInches, totalInches, heightInCm, ageCalc]
         // return [dailyCalories, dailyCarbs, dailyFat, dailyProtein]
         // return heightInches
         // newUser.dailyCarbs = dailyCarbs
@@ -84,7 +103,6 @@ const NewUser = () => {
         //if they want to drop 1 pound per week, they need a daily calorie deficit of 500, so TDEE-500
         //if they want to add 1 pound per week, they need a daily calorie surplus of 500, so TDEE+500
     }
-    //function 
     const [goal, setGoal] = useState('');
     const [activityLevel, setActivityLevel] = useState('');
     const [heightFeet, setHeightFeet] = useState(0);
@@ -190,7 +208,9 @@ const NewUser = () => {
                         <option value="Male">Male</option>
                     </select>
                 </div>
-                <button type='submit' onClick={console.log(calculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age))}>Submit</button>
+                <button type='submit' onClick={() =>
+                    CalculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age
+                        )}>Submit</button>
             </form> 
         </div>
     )
