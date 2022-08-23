@@ -65,8 +65,13 @@ export function AuthProvider({ children }) {
 
   function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password).then(cred => {
-      const newUser = doc(db, `users/${cred.user.uid}`)
-      setDoc(newUser, {email: email, password: password})
+      const data = {
+        email: email,
+        streakCounter: 0
+      }
+      // const res = await db.collection('user-goals').doc(cred.user.uid).set(data)
+      const newUser = doc(db, `user-goals/${cred.user.uid}`)
+      setDoc(newUser, data)
     });
   }
   function login(email, password) {

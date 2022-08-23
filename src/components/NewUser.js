@@ -79,7 +79,6 @@ const NewUser = () => {
             default:
                 dailyCalories = TDEE
         }
-        // newUser.dailyCalories = dailyCalories
 
         let dailyCarbs = (dailyCalories * .55) / 4
         let dailyFat = (dailyCalories * .27) / 4
@@ -87,21 +86,8 @@ const NewUser = () => {
 
         const { currentUser } = useAuth();
 
-       // console.log(currentUser)
-
-       
-
-        const userDoc = doc(db, 'users', currentUser.uid)
+        const userDoc = doc(db, 'user-goals', currentUser.uid)
         updateDoc(userDoc, { dailyCalories, dailyCarbs, dailyFat, dailyProtein })
-
-        return [dailyCalories, dailyCarbs, dailyFat, dailyProtein]
-
-        // return [incompleteBMR, weightCalc, feetInInches, totalInches, heightInCm, ageCalc]
-        // return [dailyCalories, dailyCarbs, dailyFat, dailyProtein]
-        // return heightInches
-        // newUser.dailyCarbs = dailyCarbs
-        // newUser.dailyFat = dailyFat
-        // newUser.dailyProtein = dailyProtein
 
         //if person wants general well-being, daily calories should be same amount as TDEE
         //if they want to drop 1 pound per week, they need a daily calorie deficit of 500, so TDEE-500
