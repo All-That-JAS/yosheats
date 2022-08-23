@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { db } from '../firebase'
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+  query,
+  where
+} from 'firebase/firestore';
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const NewUser = () => {
-    // const newUser = {}
-    function calculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age) {
+    function CalculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age) {
         // if (activityLevel === '') {
         //    alert('Please enter activity level')
         // }
@@ -73,7 +85,18 @@ const NewUser = () => {
         let dailyFat = (dailyCalories * .27) / 4
         let dailyProtein = (dailyCalories * .18) / 9
 
-        return [incompleteBMR, weightCalc, feetInInches, totalInches, heightInCm, ageCalc]
+        const { currentUser } = useAuth();
+
+       // console.log(currentUser)
+
+       
+
+        const userDoc = doc(db, 'users', currentUser.uid)
+        updateDoc(userDoc, { dailyCalories, dailyCarbs, dailyFat, dailyProtein })
+
+        return [dailyCalories, dailyCarbs, dailyFat, dailyProtein]
+
+        // return [incompleteBMR, weightCalc, feetInInches, totalInches, heightInCm, ageCalc]
         // return [dailyCalories, dailyCarbs, dailyFat, dailyProtein]
         // return heightInches
         // newUser.dailyCarbs = dailyCarbs
@@ -84,7 +107,6 @@ const NewUser = () => {
         //if they want to drop 1 pound per week, they need a daily calorie deficit of 500, so TDEE-500
         //if they want to add 1 pound per week, they need a daily calorie surplus of 500, so TDEE+500
     }
-    //function 
     const [goal, setGoal] = useState('');
     const [activityLevel, setActivityLevel] = useState('');
     const [heightFeet, setHeightFeet] = useState(0);
@@ -92,6 +114,12 @@ const NewUser = () => {
     const [weight, setWeight] = useState(0);
     const [age, setAge] = useState(0);
     const [assignedSex, setAssignedSex] = useState('');
+    let navigate = useNavigate();
+
+    function handleSubmit(evt) {
+        evt.preventDefault()
+        navigate('/')
+    }
 
     return (
         <div>
@@ -101,7 +129,7 @@ const NewUser = () => {
 
             {/* once they hit submit (onClick), have
             a popup of suggested numbers */}
-            <form id="newUser-info">
+            <form id="newUser-info" onSubmit={handleSubmit}>
                 <div>
                     Choose Your Goal:
                     <select id="filterGoal"
@@ -109,7 +137,7 @@ const NewUser = () => {
                     // probably need to do useState
                     onChange={(e) => setGoal(e.target.value)}
                     >
-                        <option value="" selected disabled hidden>Choose one</option>
+                        <option value="" disabled hidden>Choose one</option>
                         <option value="General well-being">General well-being</option>
                         <option value="Weight loss">Weight loss</option>
                         <option value="Muscle gain">Muscle gain</option>
@@ -126,7 +154,7 @@ const NewUser = () => {
                     // probably need to do useState
                     onChange={(e) => setActivityLevel(e.target.value)}
                     >
-                        <option value="" selected disabled hidden>Choose one</option>
+                        <option value="" disabled hidden>Choose one</option>
                         <option value="Not active">Not active</option>
                         <option value="Lightly active">Lightly active</option>
                         <option value="Moderately active">Moderately active</option>
@@ -185,12 +213,14 @@ const NewUser = () => {
                     // probably need to do useState
                     onChange={(e) => setAssignedSex(e.target.value)}
                     >
-                        <option value="" selected disabled hidden>Choose one</option>
+                        <option value="" disabled hidden>Choose one</option>
                         <option value="Female">Female</option>
                         <option value="Male">Male</option>
                     </select>
                 </div>
-                <button type='submit' onClick={console.log(calculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age))}>Submit</button>
+                <button type='submit' onClick={
+                    CalculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age
+                        )}>Submit</button>
             </form> 
         </div>
     )
