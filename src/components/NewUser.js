@@ -137,7 +137,7 @@ const NewUser = () => {
                     // probably need to do useState
                     onChange={(e) => setGoal(e.target.value)}
                     >
-                        <option value="" selected disabled hidden>Choose one</option>
+                        <option value="" disabled hidden>Choose one</option>
                         <option value="General well-being">General well-being</option>
                         <option value="Weight loss">Weight loss</option>
                         <option value="Muscle gain">Muscle gain</option>
@@ -154,7 +154,7 @@ const NewUser = () => {
                     // probably need to do useState
                     onChange={(e) => setActivityLevel(e.target.value)}
                     >
-                        <option value="" selected disabled hidden>Choose one</option>
+                        <option value="" disabled hidden>Choose one</option>
                         <option value="Not active">Not active</option>
                         <option value="Lightly active">Lightly active</option>
                         <option value="Moderately active">Moderately active</option>
@@ -213,7 +213,7 @@ const NewUser = () => {
                     // probably need to do useState
                     onChange={(e) => setAssignedSex(e.target.value)}
                     >
-                        <option value="" selected disabled hidden>Choose one</option>
+                        <option value="" disabled hidden>Choose one</option>
                         <option value="Female">Female</option>
                         <option value="Male">Male</option>
                     </select>
