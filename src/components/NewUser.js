@@ -11,10 +11,10 @@ import {
   where
 } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const NewUser = () => {
-    // const newUser = {}
-    async function CalculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age) {
+    function CalculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age) {
         // if (activityLevel === '') {
         //    alert('Please enter activity level')
         // }
@@ -89,8 +89,12 @@ const NewUser = () => {
 
        // console.log(currentUser)
 
+       
+
         const userDoc = doc(db, 'users', currentUser.uid)
-        await updateDoc(userDoc, { dailyCalories: dailyCalories, dailyCarbs: dailyCarbs, dailyFat: dailyFat, dailyProtein: dailyProtein })
+        updateDoc(userDoc, { dailyCalories, dailyCarbs, dailyFat, dailyProtein })
+
+        return [dailyCalories, dailyCarbs, dailyFat, dailyProtein]
 
         // return [incompleteBMR, weightCalc, feetInInches, totalInches, heightInCm, ageCalc]
         // return [dailyCalories, dailyCarbs, dailyFat, dailyProtein]
@@ -110,6 +114,12 @@ const NewUser = () => {
     const [weight, setWeight] = useState(0);
     const [age, setAge] = useState(0);
     const [assignedSex, setAssignedSex] = useState('');
+    let navigate = useNavigate();
+
+    function handleSubmit(evt) {
+        evt.preventDefault()
+        navigate('/')
+    }
 
     return (
         <div>
@@ -119,7 +129,7 @@ const NewUser = () => {
 
             {/* once they hit submit (onClick), have
             a popup of suggested numbers */}
-            <form id="newUser-info">
+            <form id="newUser-info" onSubmit={handleSubmit}>
                 <div>
                     Choose Your Goal:
                     <select id="filterGoal"
@@ -208,7 +218,7 @@ const NewUser = () => {
                         <option value="Male">Male</option>
                     </select>
                 </div>
-                <button type='submit' onClick={() =>
+                <button type='submit' onClick={
                     CalculateBMRAndActivityLevel(activityLevel, heightFeet, heightInches, weight, assignedSex, age
                         )}>Submit</button>
             </form> 
