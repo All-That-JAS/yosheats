@@ -3,16 +3,16 @@ import egg from "./eggsoutline.png";
 import { fetchNutrition } from "../api/fetchNutrition";
 import { db } from "../firebase";
 import {
-  collection,
-  getDocs,
+  // collection,
+  // getDocs,
   getDoc,
   setDoc,
   updateDoc,
   doc,
-  deleteDoc,
-  query,
-  where,
-  getDocFromCache,
+  // deleteDoc,
+  // query,
+  // where,
+  // getDocFromCache,
 } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -25,7 +25,6 @@ const App = () => {
   const search = async (e) => {
     if (e.key === "Enter") {
       const data = await fetchNutrition(queryState);
-      console.log("hi from search", data);
       setNutrition(data);
       setQueryState("");
     }
@@ -39,15 +38,6 @@ const App = () => {
     (date.getMonth() + 1) +
     "-" +
     Date().split(" ")[2];
-
-  //TODO: DO WE NEED THIS? Get rid of this if unused
-  // const userDaysCollection = db
-  //   .collection('user-days')
-  //   .where('userId', '===', `${currentUser.uid}`);
-
-  // if (userDaysCollection)
-  /* if this collection includes today's day
-   */
 
   const dayDoc = doc(db, "user-days", todayDate);
 
@@ -70,20 +60,19 @@ const App = () => {
       docSnapProtein,
       docSnapListOfFoods;
 
+    if (!docSnap.exists()) {
+      setDoc(dayDoc, {
+        [`${currentUser.uid}`]: {},
+      });
+    }
+
     if (docSnap.exists() && docSnap.data()[`${currentUser.uid}`]) {
-      console.log("docSnap.data()", docSnap.data());
-      // console.log("currentUser.uid", [`${currentUser.uid}`]);
-      // console.log("docSnap.data()", docSnap.data());
-      // console.log(docSnap.data()[`${currentUser.uid}`]);
       docSnapCalories = docSnap.data()[`${currentUser.uid}`].calories;
       docSnapFat = docSnap.data()[`${currentUser.uid}`].fat;
       docSnapCarb = docSnap.data()[`${currentUser.uid}`].carb;
       docSnapProtein = docSnap.data()[`${currentUser.uid}`].protein;
       docSnapListOfFoods = docSnap.data()[`${currentUser.uid}`].listOfFoods;
     } else {
-      //TODO: MAKE SURE USER ID MATCHES BEFORE ADDING FOOD ITEM: CURRENTLY APP STILL ADDS FOOD ITEM TO PREVIOUS
-      //USER THAT IS LOGGED IN ONCE
-
       await updateDoc(dayDoc, {
         [`${currentUser.uid}`]: {
           calories: 0,
@@ -120,13 +109,7 @@ const App = () => {
         listOfFoods: currentListOfFoods,
       },
     });
-
-    //To view user-days object:  docSnap.data());
-    // console.log('snap', docSnap);
   }
-
-  /* onsubmit - add item to doc with today's date
-   */
 
   return (
     <div className="main-container">
@@ -149,7 +132,6 @@ const App = () => {
             <h6>
               {/* 1 serving size = 100g / do some math here
 allow user to toggle (-/+) size
-
  */}
               <p>Serving Size(g): {nutrition.items[0].serving_size_g}</p>
               <p>Calories: {nutrition.items[0].calories}</p>
