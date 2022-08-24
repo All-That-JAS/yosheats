@@ -5,12 +5,14 @@ import { db } from '../firebase';
 import {
   collection,
   getDocs,
+  getDoc,
   setDoc,
   updateDoc,
   doc,
   deleteDoc,
   query,
   where,
+  getDocFromCache,
 } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -38,17 +40,14 @@ const App = () => {
     '-' +
     Date().split(' ')[2];
 
-
-const q = query(collection(db, 'user-days'), where('userId', '===', `${currentUser.uid}`));
- 
-//TODO: DO WE NEED THIS? Get rid of this if unused
-// const userDaysCollection = db
+  //TODO: DO WE NEED THIS? Get rid of this if unused
+  // const userDaysCollection = db
   //   .collection('user-days')
   //   .where('userId', '===', `${currentUser.uid}`);
 
-    // if (userDaysCollection)
-/* if this collection includes today's day
-*/
+  // if (userDaysCollection)
+  /* if this collection includes today's day
+   */
 
   const dayDoc = doc(db, 'user-days', todayDate);
 
@@ -56,28 +55,49 @@ const q = query(collection(db, 'user-days'), where('userId', '===', `${currentUs
     e.preventDefault();
   }
 
+  let currentCalories = 0;
+  let currentFat = 0;
+  let currentCarb = 0;
+  let currentProtein = 0;
+
   async function handleClick() {
- 
-    //add a check to see uuid
-    // console.log('daydoc', dayDoc);
-    // console.log('inside await - user', currentUser);
-    // console.log('inside await - collection', userDaysCollection);
+    const docSnap = await getDoc(dayDoc);
 
-    await setDoc(dayDoc, {
-      calories: nutrition.items[0].calories,
-      totalFat: nutrition.items[0].fat_total_g,
-      totalCarb: nutrition.items[0].carbohydrates_total_g,
-      protein: nutrition.items[0].protein_g,
+    let docSnapCalories, docSnapFat, docSnapCarb, docSnapProtein;
+
+    if (docSnap.exists()) {
+      docSnapCalories = docSnap.data().calories;
+      docSnapFat = docSnap.data().fat;
+      docSnapCarb = docSnap.data().carb;
+      docSnapProtein = docSnap.data().protein;
+    } else {
+      await setDoc(dayDoc, {
+        calories: 0,
+        fat: 0,
+        carb: 0,
+        protein: 0,
+      });
+      docSnapCalories = 0;
+      docSnapFat = 0;
+      docSnapCarb = 0;
+      docSnapProtein = 0;
+    }
+
+    currentCalories = Math.round(nutrition.items[0].calories) + docSnapCalories;
+    currentFat = Math.round(nutrition.items[0].fat_total_g) + docSnapFat;
+    currentCarb =
+      Math.round(nutrition.items[0].carbohydrates_total_g) + docSnapCarb;
+    currentProtein = Math.round(nutrition.items[0].protein_g) + docSnapProtein;
+
+    await updateDoc(dayDoc, {
+      calories: currentCalories,
+      fat: currentFat,
+      carb: currentCarb,
+      protein: currentProtein,
     });
 
-    //TODO: work on getting each doc 
-    const querySnapshot = await getDocs(q);
-    await querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log('query', doc.id, " => ", doc.data());
-      console.log('doc', doc)
-    });
-
+    //To view user-days object:  docSnap.data());
+    // console.log('snap', docSnap);
   }
 
   /* onsubmit - add item to doc with today's date
