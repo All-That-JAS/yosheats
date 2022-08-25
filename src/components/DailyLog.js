@@ -24,14 +24,6 @@ const DailyLog = () => {
     }
   }
 
-  const date = new Date();
-  const todayDate =
-    Date().split(" ")[3] +
-    "-" +
-    (date.getMonth() + 1) +
-    "-" +
-    Date().split(" ")[2];
-
   const [todaysFoods, setTodaysFoods] = useState([]);
   const [todaysCalories, setTodaysCalories] = useState(0);
   const [todaysCarbs, setTodaysCarbs] = useState(0);
@@ -43,10 +35,19 @@ const DailyLog = () => {
   const [userProteins, setUserProteins] = useState(0);
 
   const { currentUser } = useAuth();
-  const dayDoc = doc(db, "user-days", todayDate);
-  const userDoc = doc(db, "user-goals", currentUser.uid);
 
   useEffect(() => {
+    const date = new Date();
+
+    const todayDate =
+    Date().split(" ")[3] +
+    "-" +
+    (date.getMonth() + 1) +
+    "-" +
+    Date().split(" ")[2];
+
+    const dayDoc = doc(db, "user-days", todayDate);
+
     const getTodaysInfo = async() => {
         const dayDocSnap = await getDoc(dayDoc)
 
@@ -67,7 +68,6 @@ const DailyLog = () => {
               },
             });
           }
-
         setTodaysFoods(dayDocSnap.data()[`${currentUser.uid}`].listOfFoods)
         setTodaysCalories(dayDocSnap.data()[`${currentUser.uid}`].calories)
         setTodaysCarbs(dayDocSnap.data()[`${currentUser.uid}`].carb)
@@ -75,9 +75,10 @@ const DailyLog = () => {
         setTodaysProteins(dayDocSnap.data()[`${currentUser.uid}`].protein)
     }
     getTodaysInfo()
-  }, [dayDoc, currentUser.uid]);
+  }, [currentUser.uid]);
 
   useEffect(() => {
+    const userDoc = doc(db, "user-days", currentUser.uid);
     const getUserGoals = async() => {
         const userDocSnap = await getDoc(userDoc)
         setUserCalories(userDocSnap.data().dailyCalories)
@@ -87,7 +88,7 @@ const DailyLog = () => {
     }
     getUserGoals()
     //is the dependency here necessary? userDoc won't change except when the daily streak counter increases, and we're not displaying the streak counter on this page
-  }, [userDoc]);
+  }, [currentUser.uid]);
 
   return (
       <div>
