@@ -39,19 +39,20 @@ const DailyLog = () => {
 
   const { currentUser } = useAuth();
 //   const userDaysCollectionRef = collection(db, 'user-days')
-const dayDoc = doc(db, "user-days", todayDate);
+  const dayDoc = doc(db, "user-days", todayDate);
 
   useEffect(() => {
-    const getTodaysFoods = async() => {
-        //instead, I need to get the single doc for today
-        //then I need to grab the object for currentUser
-        //then I need to map over the food items in listofFoods
+    const getTodaysInfo = async() => {
         const docSnap = await getDoc(dayDoc)
-        setTodaysFoods(docSnap.data()[`${currentUser.uid}`].listofFoods)
+        setTodaysFoods(docSnap.data()[`${currentUser.uid}`].listOfFoods)
+        setTodaysCalories(docSnap.data()[`${currentUser.uid}`].calories)
+        setTodaysCarbs(docSnap.data()[`${currentUser.uid}`].carb)
+        setTodaysFats(docSnap.data()[`${currentUser.uid}`].fat)
+        setTodaysProteins(docSnap.data()[`${currentUser.uid}`].protein)
     }
-    getTodaysFoods()
-    // const docSnap = await getDoc(dayDoc)
-  }, []);
+    getTodaysInfo()
+    // getTodaysCalories()
+  });
 
   let navigate = useNavigate();
 
@@ -61,25 +62,28 @@ const dayDoc = doc(db, "user-days", todayDate);
         Foods Consumed Today:
       </h3>
       <ul>
-        <li>
-            {console.log(todaysFoods)}
-            Candy
-        </li>
+        {todaysFoods.map((food) => {
+            return (
+                <li>
+                    {food}
+                </li>
+            )
+        })}
       </ul>
       <h3>
         Progress Toward Goals:
       </h3>
       <h5>
-        Calories:
+        Calories: {todaysCalories} calories
       </h5>
       <h5>
-        Carbs:
+        Carbs: {todaysCarbs} g
       </h5>
       <h5>
-        Fats:
+        Fats: {todaysFats} g
       </h5>
       <h5>
-        Proteins:
+        Proteins: {todaysProteins} g
       </h5>
     </div>
   );
