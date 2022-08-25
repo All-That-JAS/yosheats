@@ -9,6 +9,7 @@ import PrivateRoute from './PrivateRoute';
 import UserDisplay from './components/UserDisplay';
 import UpdateUser from './components/UpdateUser';
 import ForgotPassword from './components/ForgotPassword';
+import DailyLog from './components/DailyLog'
 
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/AuthContext';
@@ -50,6 +51,7 @@ function RouteList() {
               <Route path='/newuser' element={<NewUser />} />
               <Route path='/userdisplay' element={<UserDisplay />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
+              <Route path='/dailylog' element={<DailyLog />} />
             </Routes>
           </AuthProvider>
         </Router>
