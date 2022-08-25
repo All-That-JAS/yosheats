@@ -50,6 +50,10 @@ const DailyLog = () => {
     const getTodaysInfo = async() => {
         const dayDocSnap = await getDoc(dayDoc)
 
+        // ideally we might want to put dayDocSnap in state
+
+        // separate useEffects for daily diet & user info?
+
         // TODO: check to see if code below works if we delete today's day doc
         // longer-term -- do we want to find some way to automatically make a day doc once it hits midnight? is that too tricky with time zones? otherwise we will probably have to add code like this in every component that requires us to check today's day doc
         if (!dayDocSnap.exists()) {
@@ -64,19 +68,26 @@ const DailyLog = () => {
             });
           }
 
-        const userDocSnap = await getDoc(userDoc)
         setTodaysFoods(dayDocSnap.data()[`${currentUser.uid}`].listOfFoods)
         setTodaysCalories(dayDocSnap.data()[`${currentUser.uid}`].calories)
         setTodaysCarbs(dayDocSnap.data()[`${currentUser.uid}`].carb)
         setTodaysFats(dayDocSnap.data()[`${currentUser.uid}`].fat)
         setTodaysProteins(dayDocSnap.data()[`${currentUser.uid}`].protein)
+    }
+    getTodaysInfo()
+  }, [dayDoc, currentUser.uid]);
+
+  useEffect(() => {
+    const getUserGoals = async() => {
+        const userDocSnap = await getDoc(userDoc)
         setUserCalories(userDocSnap.data().dailyCalories)
         setUserCarbs(userDocSnap.data().dailyCarbs)
         setUserFats(userDocSnap.data().dailyFat)
         setUserProteins(userDocSnap.data().dailyProtein)
     }
-    getTodaysInfo()
-  });
+    getUserGoals()
+    //is the dependency here necessary? userDoc won't change except when the daily streak counter increases, and we're not displaying the streak counter on this page
+  }, [userDoc]);
 
   return (
       <div>
