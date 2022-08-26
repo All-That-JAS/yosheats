@@ -113,21 +113,26 @@ const App = () => {
         listOfFoods: currentListOfFoods,
       },
     });
+
+    alert('Food item(s) added successfully, yum!')
+    // <Alert variant='info'>
+    //   Food item(s) added successfully, yum!
+    // </Alert>;
   }
 
   return (
-    <div className="main-container">
+    <div className='main-container'>
       <input
-        type="text"
-        className="search"
-        placeholder="Search..."
+        type='text'
+        className='search'
+        placeholder='Search...'
         value={queryState}
         onChange={(e) => setQueryState(e.target.value)}
         onKeyPress={search}
       />
       {nutrition.items && (
-        <div className="city">
-          <div className="city-name">
+        <div className='city'>
+          <div className='city-name'>
             <h3>
               Food:{' '}
               {nutrition.items[0].name[0].toUpperCase() +
@@ -150,12 +155,11 @@ allow user to toggle (-/+) size
             </h6>
           </div>
 
-          <button type="submit" onClick={handleClick}>
+          <button type='submit' onClick={handleClick}>
             Add to Log
           </button>
-
-          <div className="info">
-            <img className="egg-icon" src={egg} alt={'yoshi egg'} />
+          <div className='info'>
+            <img className='egg-icon' src={egg} alt={'yoshi egg'} />
           </div>
         </div>
       )}

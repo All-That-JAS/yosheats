@@ -19,7 +19,7 @@ import CalendarApp from "./components/Calendar";
 function RouteList() {
   return (
     <Container
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "60vh" }}
       className="d-flex align-items-center justify-content-center"
     >
       <div className="w-100" style={{ maxWidth: "400px" }}>
