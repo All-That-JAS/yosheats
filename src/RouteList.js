@@ -16,43 +16,41 @@ import { AuthProvider } from './contexts/AuthContext';
 function RouteList() {
   return (
     <Container
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: '60vh' }}
       className='d-flex align-items-center justify-content-center'
     >
-      <div className='w-100' style={{ maxWidth: '400px' }}>
-        <Router>
-          <AuthProvider>
-            <Routes>
-
-              <Route
-                exact
-                path='/'
-                element={
-                  <PrivateRoute>
-                    {' '}
-                    <Dashboard />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                exact
-                path='/update-profile'
-                element={
-                  <PrivateRoute>
-                    {' '}
-                    <UpdateUser />
-                  </PrivateRoute>
-                }
-              />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/nutrition' element={<NutritionAPI />} />
-              <Route path='/newuser' element={<NewUser />} />
-              <Route path='/userdisplay' element={<UserDisplay />} />
-              <Route path='/forgot-password' element={<ForgotPassword />} />
-            </Routes>
-          </AuthProvider>
-        </Router>
+      {/* <div className='w-100' style={{ maxWidth: '400px' }}> */}
+      <div>
+        <AuthProvider>
+          <Routes>
+            <Route
+              exact
+              path='/'
+              element={
+                <PrivateRoute>
+                  {' '}
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path='/update-profile'
+              element={
+                <PrivateRoute>
+                  {' '}
+                  <UpdateUser />
+                </PrivateRoute>
+              }
+            />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/nutrition' element={<NutritionAPI />} />
+            <Route path='/newuser' element={<NewUser />} />
+            <Route path='/userdisplay' element={<UserDisplay />} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+          </Routes>
+        </AuthProvider>
       </div>
     </Container>
   );

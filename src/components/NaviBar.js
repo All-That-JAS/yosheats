@@ -1,33 +1,36 @@
-// import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { NavLink } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-// import { Link, NavLink } from 'react-router-dom';
-// import { Container, Nav, NavDropdown } from 'react-bootstrap';
-// import Button from 'react-bootstrap/Button';
-// import Image from 'react-bootstrap/Image';
 
-// const NaviBar = () => {
-//   return (
-//     <nav >
-//       <NavLink
-//         to='/'
-//         className={({ isActive }) => ('underline' + isActive ? ' active' : '')}
-//       >
-//         Home
-//       </NavLink>
-//       <NavLink
-//         to='/nutrition'
-//         className={({ isActive }) => ('underline' + isActive ? ' active' : '')}
-//       >
-//         Nutrition Tracker
-//       </NavLink>
-//       <NavLink
-//         to='/newuser'
-//         className={({ isActive }) => ('underline' + isActive ? ' active' : '')}
-//       >
-//         New User
-//       </NavLink>
-//       </nav>
-//   );
-// };
+function Navibar() {
+  return (
+    <>
+      <Navbar bg='light' variant='light'>
+        <Container>
+          <Navbar.Brand>
+            <Link style={{ textDecoration: 'none', color: '#818080' }} to='/'>
+              Yosheats
+            </Link>
+          </Navbar.Brand>
+          <Nav className='me-auto'>
+            <NavLink>
+              <Link style={{ textDecoration: 'none', color: '#818080' }} to='/'>
+                Home
+              </Link>
+            </NavLink>
+            <NavLink>
+              <Link style={{ textDecoration: 'none', color: '#818080' }} to='/nutrition'>
+                Nutrition
+              </Link>
+            </NavLink>
+          </Nav>
+        </Container>
+      </Navbar>
+    </>
+  );
+}
 
-// export default NaviBar;
+export default Navibar;

@@ -2,13 +2,12 @@ import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import {signInWithGooglePopUp} from '../contexts/AuthContext'
 
 
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const {login} = useAuth();
+  const {login, signInWithGooglePopUp} = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
@@ -31,9 +30,12 @@ export default function Login() {
     setLoading(false);
   }
 
-  function handleGoogleLogIn () {
+  async function handleGoogleLogIn (e) {
+    e.preventDefault();
     try {
-      signInWithGooglePopUp();
+      setError('');
+      setLoading(true);
+      await signInWithGooglePopUp();
       navigate('/');
     } catch {
       setError('Failed to sign in to account');
