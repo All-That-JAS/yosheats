@@ -1,4 +1,4 @@
-const protein = [
+export const proteins = [
   {
     "chicken breast": {
       servingSize: "3 ounces",
@@ -63,7 +63,7 @@ const protein = [
     },
   },
 ];
-const fats = [
+export const fats = [
   {
     avocado: {
       servingSize: "1",
@@ -128,7 +128,7 @@ const fats = [
     },
   },
 ];
-const carbs = [
+export const carbs = [
   {
     date: {
       servingSize: "1",
