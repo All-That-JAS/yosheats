@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import egg from "./eggsoutline.png";
-import { fetchNutrition } from "../api/fetchNutrition";
-import { db } from "../firebase";
+import React, { useState } from 'react';
+import egg from './eggsoutline.png';
+import { fetchNutrition } from '../api/fetchNutrition';
+import { db } from '../firebase';
 import {
   // collection,
   // getDocs,
@@ -13,33 +13,33 @@ import {
   // query,
   // where,
   // getDocFromCache,
-} from "firebase/firestore";
-import { useAuth } from "../contexts/AuthContext";
+} from 'firebase/firestore';
+import { useAuth } from '../contexts/AuthContext';
 
-import "./Nutrition.css";
+import './Nutrition.css';
 
 const App = () => {
-  const [queryState, setQueryState] = useState("");
+  const [queryState, setQueryState] = useState('');
   const [nutrition, setNutrition] = useState({});
 
   const search = async (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       const data = await fetchNutrition(queryState);
       setNutrition(data);
-      setQueryState("");
+      setQueryState('');
     }
   };
   const { currentUser } = useAuth();
 
   const date = new Date();
   const todayDate =
-    Date().split(" ")[3] +
-    "-" +
+    Date().split(' ')[3] +
+    '-' +
     (date.getMonth() + 1) +
-    "-" +
-    Date().split(" ")[2];
+    '-' +
+    Date().split(' ')[2];
 
-  const dayDoc = doc(db, "user-days", todayDate);
+  const dayDoc = doc(db, 'user-days', todayDate);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -95,10 +95,14 @@ const App = () => {
       nutrition.items[0].carbohydrates_total_g + docSnapCarb
     );
     currentProtein = Math.round(nutrition.items[0].protein_g + docSnapProtein);
-    currentListOfFoods = docSnapListOfFoods.concat([
+
+    let foodName =
       nutrition.items[0].name[0].toUpperCase() +
-        nutrition.items[0].name.slice(1),
-    ]);
+      nutrition.items[0].name.slice(1);
+    let foodServingSize = nutrition.items[0].serving_size_g;
+    let foodItem = [{ [foodName]: foodServingSize }];
+
+    currentListOfFoods = docSnapListOfFoods.concat(foodItem);
 
     await updateDoc(dayDoc, {
       [`${currentUser.uid}`]: {
@@ -125,7 +129,7 @@ const App = () => {
         <div className="city">
           <div className="city-name">
             <h3>
-              Food:{" "}
+              Food:{' '}
               {nutrition.items[0].name[0].toUpperCase() +
                 nutrition.items[0].name.slice(1)}
             </h3>
@@ -138,7 +142,7 @@ allow user to toggle (-/+) size
               <p>Total Fat(g): {nutrition.items[0].fat_total_g}</p>
               <p>Sodium(mg): {nutrition.items[0].sodium_mg}</p>
               <p>
-                Total Carbohydrates(g):{" "}
+                Total Carbohydrates(g):{' '}
                 {nutrition.items[0].carbohydrates_total_g}
               </p>
               <p>Sugar(g): {nutrition.items[0].sugar_g}</p>
@@ -151,7 +155,7 @@ allow user to toggle (-/+) size
           </button>
 
           <div className="info">
-            <img className="egg-icon" src={egg} alt={"yoshi egg"} />
+            <img className="egg-icon" src={egg} alt={'yoshi egg'} />
           </div>
         </div>
       )}
