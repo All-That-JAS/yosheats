@@ -11,36 +11,37 @@ import UpdateUser from './components/UpdateUser';
 import ForgotPassword from './components/ForgotPassword';
 import DailyLog from './components/DailyLog'
 
-import { Container } from 'react-bootstrap';
-import { AuthProvider } from './contexts/AuthContext';
+
+import { Container } from "react-bootstrap";
+import { AuthProvider } from "./contexts/AuthContext";
+import CalendarApp from "./components/Calendar";
 
 function RouteList() {
   return (
     <Container
-      style={{ minHeight: '100vh' }}
-      className='d-flex align-items-center justify-content-center'
+      style={{ minHeight: "100vh" }}
+      className="d-flex align-items-center justify-content-center"
     >
-      <div className='w-100' style={{ maxWidth: '400px' }}>
+      <div className="w-100" style={{ maxWidth: "400px" }}>
         <Router>
           <AuthProvider>
             <Routes>
-
               <Route
                 exact
-                path='/'
+                path="/"
                 element={
                   <PrivateRoute>
-                    {' '}
+                    {" "}
                     <Dashboard />
                   </PrivateRoute>
                 }
               />
               <Route
                 exact
-                path='/update-profile'
+                path="/update-profile"
                 element={
                   <PrivateRoute>
-                    {' '}
+                    {" "}
                     <UpdateUser />
                   </PrivateRoute>
                 }
