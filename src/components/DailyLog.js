@@ -78,7 +78,7 @@ const DailyLog = () => {
   }, [currentUser.uid]);
 
   useEffect(() => {
-    const userDoc = doc(db, "user-days", currentUser.uid);
+    const userDoc = doc(db, "user-goals", currentUser.uid);
     const getUserGoals = async() => {
         const userDocSnap = await getDoc(userDoc)
         setUserCalories(userDocSnap.data().dailyCalories)
