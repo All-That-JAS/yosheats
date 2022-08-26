@@ -23,7 +23,7 @@ function RouteList() {
       className="d-flex align-items-center justify-content-center"
     >
       <div className="w-100" style={{ maxWidth: "400px" }}>
-        <Router>
+    
           <AuthProvider>
             <Routes>
               <Route
@@ -55,7 +55,6 @@ function RouteList() {
               <Route path='/dailylog' element={<DailyLog />} />
             </Routes>
           </AuthProvider>
-        </Router>
       </div>
     </Container>
   );
