@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import egg from './eggsoutline.png';
 import { fetchNutrition } from '../api/fetchNutrition';
-import {Alert} from 'react-bootstrap';
 import { db } from '../firebase';
 import {
   // collection,
@@ -96,10 +95,14 @@ const App = () => {
       nutrition.items[0].carbohydrates_total_g + docSnapCarb
     );
     currentProtein = Math.round(nutrition.items[0].protein_g + docSnapProtein);
-    currentListOfFoods = docSnapListOfFoods.concat([
+
+    let foodName =
       nutrition.items[0].name[0].toUpperCase() +
-        nutrition.items[0].name.slice(1),
-    ]);
+      nutrition.items[0].name.slice(1);
+    let foodServingSize = nutrition.items[0].serving_size_g;
+    let foodItem = [{ [foodName]: foodServingSize }];
+
+    currentListOfFoods = docSnapListOfFoods.concat(foodItem);
 
     await updateDoc(dayDoc, {
       [`${currentUser.uid}`]: {
@@ -155,7 +158,6 @@ allow user to toggle (-/+) size
           <button type='submit' onClick={handleClick}>
             Add to Log
           </button>
-
           <div className='info'>
             <img className='egg-icon' src={egg} alt={'yoshi egg'} />
           </div>
