@@ -1,5 +1,5 @@
-const quotes = {
-  Hippocrates: 'Let food be thy medicine, thy medicine shall be thy food',
+export const quotes = {
+  Hippocrates: 'Let food be thy medicine, thy medicine shall be thy food.',
   'Jim Rohn': `Take care of your body. It’s the only place you have to live.`,
   'Unknown A': 'The greatest wealth is health.',
   'Unknown B': `You don’t have to eat less, you just have to eat right.`,
