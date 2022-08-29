@@ -7,7 +7,6 @@ import {
   Container,
   Col,
   Row,
-  Badge,
 } from 'react-bootstrap';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { useAuth } from '../contexts/AuthContext';
