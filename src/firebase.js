@@ -1,12 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from '@firebase/firestore';
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics } from 'firebase/analytics';
 
 //firebase sets tokens for you
 
 const app = initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  // apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: 'AIzaSyDTxoA9_lLttipGq4Aqp1I5EdGqswmW9sI',
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
@@ -21,6 +22,6 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 const analytics = getAnalytics(app);
 /*google analytics - add gtag (google tag )
-*/
+ */
 
 export default app;
