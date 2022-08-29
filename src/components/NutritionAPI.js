@@ -15,10 +15,11 @@ import {
   // getDocFromCache,
 } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
+import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
 
 import './Nutrition.css';
 
-const App = () => {
+const Nutrition = () => {
   const [queryState, setQueryState] = useState('');
   const [nutrition, setNutrition] = useState({});
 
@@ -114,57 +115,86 @@ const App = () => {
       },
     });
 
-    alert('Food item(s) added successfully, yum!')
-    // <Alert variant='info'>
-    //   Food item(s) added successfully, yum!
-    // </Alert>;
+    alert('Food item(s) added successfully, yum!');
   }
 
   return (
     <div className='main-container'>
-      <input
-        type='text'
-        className='search'
-        placeholder='Search...'
-        value={queryState}
-        onChange={(e) => setQueryState(e.target.value)}
-        onKeyPress={search}
-      />
-      {nutrition.items && (
-        <div className='city'>
-          <div className='city-name'>
-            <h3>
-              Food:{' '}
-              {nutrition.items[0].name[0].toUpperCase() +
-                nutrition.items[0].name.slice(1)}
-            </h3>
-            <h6>
-              {/* 1 serving size = 100g / do some math here
+      <Container>
+        <Row>
+          <Col></Col>
+          <Col>
+            <Card className='m-5' style={{ width: '30rem' }}>
+              <Card.Header>
+                <Card.Text className=' fw-bolder fs-4 text-center'>
+                  Food Search
+                </Card.Text>
+              </Card.Header>
+              <Card.Body>
+                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
+                  Please quantify your item and do not pluralize it.
+                </Card.Text>
+                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
+                  i.e. 1 apple
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col></Col>
+        </Row>
+        <Row>
+          <Col></Col>
+          <Col>
+          <input
+              type='text'
+              className='search'
+              placeholder='Search...'
+              value={queryState}
+              onChange={(e) => setQueryState(e.target.value)}
+              onKeyPress={search}
+              style={{ minWidth: '50vh' }}
+            />
+            {nutrition.items && (
+              <div className='city'>
+                <div className='city-name'>
+                  <h3>
+                    Food:{' '}
+                    {nutrition.items[0].name[0].toUpperCase() +
+                      nutrition.items[0].name.slice(1)}
+                  </h3>
+                  <h6>
+                    {/* 1 serving size = 100g / do some math here
 allow user to toggle (-/+) size
  */}
-              <p>Serving Size(g): {nutrition.items[0].serving_size_g}</p>
-              <p>Calories: {nutrition.items[0].calories}</p>
-              <p>Total Fat(g): {nutrition.items[0].fat_total_g}</p>
-              <p>Sodium(mg): {nutrition.items[0].sodium_mg}</p>
-              <p>
-                Total Carbohydrates(g):{' '}
-                {nutrition.items[0].carbohydrates_total_g}
-              </p>
-              <p>Sugar(g): {nutrition.items[0].sugar_g}</p>
-              <p>Protein(g): {nutrition.items[0].protein_g}</p>
-            </h6>
-          </div>
+                    <p>Serving Size(g): {nutrition.items[0].serving_size_g}</p>
+                    <p>Calories: {nutrition.items[0].calories}</p>
+                    <p>Total Fat(g): {nutrition.items[0].fat_total_g}</p>
+                    <p>Sodium(mg): {nutrition.items[0].sodium_mg}</p>
+                    <p>
+                      Total Carbohydrates(g):{' '}
+                      {nutrition.items[0].carbohydrates_total_g}
+                    </p>
+                    <p>Sugar(g): {nutrition.items[0].sugar_g}</p>
+                    <p>Protein(g): {nutrition.items[0].protein_g}</p>
+                  </h6>
+                </div>
 
-          <button type='submit' onClick={handleClick}>
-            Add to Log
-          </button>
-          <div className='info'>
-            <img className='egg-icon' src={egg} alt={'yoshi egg'} />
-          </div>
-        </div>
-      )}
+                <button type='submit' onClick={handleClick}>
+                  Add to Log
+                </button>
+                <div className='info'>
+                  <img className='egg-icon' src={egg} alt={'yoshi egg'} />
+                </div>
+              </div>
+            )}
+            
+          </Col>
+          <Col></Col>
+        </Row>
+
+      </Container>
     </div>
   );
 };
 
-export default App;
+export default Nutrition;

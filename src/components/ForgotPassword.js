@@ -2,10 +2,11 @@
 // very similar to Login Page
 
 import React, { useRef, useState } from 'react';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from '../contexts/AuthContext';
+import { Form, Button, Card, Alert, Col, Container, Row  } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import CardHeader from 'react-bootstrap/esm/CardHeader';
 
+import { useAuth } from '../contexts/AuthContext';
 
 export default function ForgotPassword() {
   const emailRef = useRef();
@@ -31,16 +32,23 @@ export default function ForgotPassword() {
 
   return (
     <>
-      <Card>
+    <Container>
+        <Row>
+          <Col></Col>
+          <Col><Card>
+          <CardHeader>
+                <Card.Text className='fw-bolder fs-4 text-center my-3'>
+                Reset Password
+                </Card.Text>
+              </CardHeader>
         <Card.Body>
-          <h2 className='text-center mb-4'>Reset Password</h2>
           {error && <Alert variant='danger'>{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id='email'>
               <Form.Label>Email </Form.Label>
               <Form.Control ref={emailRef} type='email' required />
             </Form.Group>
-            <Button disabled={loading} className='w-100' type='submit'>
+            <Button disabled={loading} className='w-100 mt-3' type='submit'>
               Reset Password
             </Button>
           </Form>
@@ -51,7 +59,11 @@ export default function ForgotPassword() {
       </Card>
       <div className='w-100 text-center mt-2'>
         Need an account? <Link to='/signup'>Sign Up</Link>
-      </div>
+      </div></Col>
+          <Col></Col>
+          </Row>
+          </Container>
+      
     </>
   );
 }

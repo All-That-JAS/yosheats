@@ -10,6 +10,7 @@ import UserDisplay from './components/UserDisplay';
 import UpdateUser from './components/UpdateUser';
 import ForgotPassword from './components/ForgotPassword';
 import DailyLog from './components/DailyLog';
+import Recommendation from './components/Recommendation';
 
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/AuthContext';
@@ -21,7 +22,7 @@ function RouteList() {
       style={{ minHeight: '60vh' }}
       className="d-flex align-items-center justify-content-center"
     >
-      <div className="w-100" style={{ maxWidth: '400px' }}>
+      <div className="w-100" >
         <AuthProvider>
           <Routes>
             <Route
@@ -52,6 +53,7 @@ function RouteList() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/dailylog" element={<DailyLog />} />
             <Route path="/calendar" element={<CalendarApp />} />
+            <Route path="/rec" element={<Recommendation />} />
           </Routes>
         </AuthProvider>
       </div>

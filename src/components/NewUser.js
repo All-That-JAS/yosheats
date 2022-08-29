@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
+import React, { useState, useEffect } from 'react';
+import { db } from '../firebase';
 import {
   collection,
   getDocs,
@@ -9,9 +9,22 @@ import {
   deleteDoc,
   query,
   where,
-} from "firebase/firestore";
-import { useAuth } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+} from 'firebase/firestore';
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import {
+  Form,
+  Button,
+  Card,
+  Alert,
+  Container,
+  Col,
+  Row,
+  Badge,
+} from 'react-bootstrap';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import CardHeader from 'react-bootstrap/CardHeader';
 
 const NewUser = () => {
   function CalculateBMRAndActivityLevel(
@@ -43,27 +56,27 @@ const NewUser = () => {
     let heightInCm = totalInches * 2.54;
     let ageCalc = 5 * age;
     let incompleteBMR = weightCalc + 6.25 * heightInCm - ageCalc;
-    if (assignedSex === "Male") {
+    if (assignedSex === 'Male') {
       incompleteBMR += 5;
     }
-    if (assignedSex === "Female") {
+    if (assignedSex === 'Female') {
       incompleteBMR -= 161;
     }
     let TDEE = incompleteBMR;
     switch (activityLevel) {
-      case "Not active":
+      case 'Not active':
         TDEE *= 1.2;
         break;
-      case "Lightly active":
+      case 'Lightly active':
         TDEE *= 1.375;
         break;
-      case "Moderately active":
+      case 'Moderately active':
         TDEE *= 1.55;
         break;
-      case "Very active":
+      case 'Very active':
         TDEE *= 1.725;
         break;
-      case "Extra active":
+      case 'Extra active':
         TDEE *= 1.9;
         break;
       default:
@@ -71,16 +84,16 @@ const NewUser = () => {
     }
     let dailyCalories;
     switch (goal) {
-      case "General well-being":
+      case 'General well-being':
         dailyCalories = Math.round(TDEE);
         break;
-      case "Weight loss":
+      case 'Weight loss':
         dailyCalories = Math.round(TDEE - 500);
         break;
-      case "Muscle gain":
+      case 'Muscle gain':
         dailyCalories = Math.round(TDEE + 500);
         break;
-      case "High-performance athlete":
+      case 'High-performance athlete':
         dailyCalories = Math.round(TDEE + 1000);
         break;
       default:
@@ -93,150 +106,201 @@ const NewUser = () => {
 
     const { currentUser } = useAuth();
 
-    const userDoc = doc(db, "user-goals", currentUser.uid);
+    const userDoc = doc(db, 'user-goals', currentUser.uid);
     updateDoc(userDoc, { dailyCalories, dailyCarbs, dailyFat, dailyProtein });
 
     //if person wants general well-being, daily calories should be same amount as TDEE
     //if they want to drop 1 pound per week, they need a daily calorie deficit of 500, so TDEE-500
     //if they want to add 1 pound per week, they need a daily calorie surplus of 500, so TDEE+500
   }
-  const [goal, setGoal] = useState("");
-  const [activityLevel, setActivityLevel] = useState("");
+  const [goal, setGoal] = useState('');
+  const [activityLevel, setActivityLevel] = useState('');
   const [heightFeet, setHeightFeet] = useState(0);
   const [heightInches, setHeightInches] = useState(0);
   const [weight, setWeight] = useState(0);
   const [age, setAge] = useState(0);
-  const [assignedSex, setAssignedSex] = useState("");
+  const [assignedSex, setAssignedSex] = useState('');
   let navigate = useNavigate();
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    navigate("/");
+    alert('Success! Check your dashboard for your daily nutritional goals.');
+
+    navigate('/');
   }
 
   return (
-    <div>
+    <>
       {/* put a form with 4 categories:
             goal, activity level, sex/age/location,
             current height/weight, goal weight */}
 
       {/* once they hit submit (onClick), have
             a popup of suggested numbers */}
-      <form id="newUser-info" onSubmit={handleSubmit}>
-        <div>
-          Choose Your Goal:
-          <select
-            id="filterGoal"
-            value={goal}
-            // probably need to do useState
-            onChange={(e) => setGoal(e.target.value)}
-          >
-            <option value="" disabled hidden>
-              Choose one
-            </option>
-            <option value="General well-being">General well-being</option>
-            <option value="Weight loss">Weight loss</option>
-            <option value="Muscle gain">Muscle gain</option>
-            <option value="High-performance athlete">
-              High-performance athlete
-            </option>
-            {/* depending on what is selected, alter goal calculations */}
+      <Container className='mt-5'>
+        <Row>
+          <Col></Col>
+          <Col>
+            <Card style={{ width: '31rem' }}>
+              <CardHeader>
+                <Card.Text className='fw-bolder fs-4 text-center my-3'>
+                  New User Profile
+                </Card.Text>
+              </CardHeader>
+              <Card.Text className=' fs-6 text-center text-lowercase mt-4 mb-1'>
+                Input information for personalized daily nutritional goals
+              </Card.Text>
 
-            {/* 3 or 4 different calculations dependinng on user's goal */}
-          </select>
-        </div>
-        <div>
-          Activity Level:
-          <select
-            id="filterActivityLevel"
-            value={activityLevel}
-            // probably need to do useState
-            onChange={(e) => setActivityLevel(e.target.value)}
-          >
-            <option value="" disabled hidden>
-              Choose one
-            </option>
-            <option value="Not active">Not active</option>
-            <option value="Lightly active">Lightly active</option>
-            <option value="Moderately active">Moderately active</option>
-            <option value="Very active">Very active</option>
-            <option value="Extra active">Extra active</option>
-            {/* depending on what is selected, alter goal calculations */}
+              <Form className='newUser-info' onSubmit={handleSubmit}>
+                {/* <Form.Group className='mb-3' controlId='formBasicEmail'>
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type='email' placeholder='Enter email' />
+          <Form.Text className='text-muted'>
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group> */}
 
-            {/* 3 or 4 different calculations dependinng on user's goal */}
-          </select>
-        </div>
-        <label>
-          Height
-          <input
-            type="number"
-            placeholder="Feet"
-            value={heightFeet}
-            onChange={(e) => setHeightFeet(e.target.value)}
-          >
-            {/* in onchange, convert from ft & inches to just inches */}
+                <FloatingLabel
+                  controlId='floatingSelect'
+                  label='Choose Your Goal:'
+                  className='m-3'
+                >
+                  <Form.Select
+                    aria-label='Floating label select example'
+                    id='filterGoal'
+                    value={goal}
+                    onChange={(e) => setGoal(e.target.value)}
+                  >
+                    <option value='' disabled hidden></option>
+                    <option value='General well-being'>
+                      General well-being
+                    </option>
+                    <option value='Weight loss'>Weight loss</option>
+                    <option value='Muscle gain'>Muscle gain</option>
+                    <option value='High-performance athlete'>
+                      High-performance athlete
+                    </option>
+                    {/* depending on what is selected, alter goal calculations */}
 
-            {/* could do drag bar for height/weight or let people put in number in ft & inches and we can calculate */}
-          </input>
-          <input
-            type="number"
-            placeholder="Inches"
-            value={heightInches}
-            onChange={(e) => setHeightInches(e.target.value)}
-          ></input>
-        </label>
-        <label>
-          Weight
-          <input
-            type="number"
-            placeholder="Pounds"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-          >
-            {/* could do drag bar for height/weight or let people put in number in ft & inches and we can calculate */}
-          </input>
-        </label>
-        <label>
-          Age
-          <input
-            type="number"
-            placeholder="Age"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-          >
-            {/* could do drag bar for height/weight or let people put in number in ft & inches and we can calculate */}
-          </input>
-        </label>
-        <div>
-          Assigned Sex at Birth:
-          <select
-            id="assigned-sex"
-            value={assignedSex}
-            // probably need to do useState
-            onChange={(e) => setAssignedSex(e.target.value)}
-          >
-            <option value="" disabled hidden>
-              Choose one
-            </option>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-          </select>
-        </div>
-        <button
-          type="submit"
-          onClick={CalculateBMRAndActivityLevel(
-            activityLevel,
-            heightFeet,
-            heightInches,
-            weight,
-            assignedSex,
-            age
-          )}
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+                    {/* 3 or 4 different calculations dependinng on user's goal */}
+                  </Form.Select>
+                </FloatingLabel>
+
+                <FloatingLabel
+                  controlId='floatingSelectGrid'
+                  label='Activity Level'
+                  className='m-3'
+                >
+                  <Form.Select
+                    aria-label='Floating label select example'
+                    id='filterActivityLevel'
+                    value={activityLevel}
+                    onChange={(e) => setActivityLevel(e.target.value)}
+                  >
+                    <option value='' disabled hidden></option>
+                    <option value='Not active'>Not active</option>
+                    <option value='Lightly active'>Lightly active</option>
+                    <option value='Moderately active'>Moderately active</option>
+                    <option value='Very active'>Very active</option>
+                    <option value='Extra active'>Extra active</option>
+                  </Form.Select>
+                </FloatingLabel>
+
+                <FloatingLabel
+                  controlId='floatingSelectGrid'
+                  label='Assigned Sex at Birth:'
+                  className='m-3'
+                >
+                  <Form.Select
+                    aria-label='Floating label select example'
+                    id='assigned-sex'
+                    value={assignedSex}
+                    onChange={(e) => setAssignedSex(e.target.value)}
+                  >
+                    <option value='' disabled hidden></option>
+                    <option value='Female'>Female</option>
+                    <option value='Male'>Male</option>
+                  </Form.Select>
+                </FloatingLabel>
+                <br></br>
+                <Row>
+                  <InputGroup className='mb-3 m-3' style={{ width: '30rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Height (ft)
+                    </InputGroup.Text>
+                    <Form.Control
+                      aria-label='Dollar amount (with dot and two decimal places)'
+                      type='number'
+                      placeholder='Feet'
+                      value={heightFeet}
+                      onChange={(e) => setHeightFeet(e.target.value)}
+                    />
+                  </InputGroup>
+                  <InputGroup className='m-3' style={{ width: '30rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Height (in)
+                    </InputGroup.Text>
+                    <Form.Control
+                      aria-label='Dollar amount (with dot and two decimal places)'
+                      type='number'
+                      placeholder='Inches'
+                      value={heightInches}
+                      onChange={(e) => setHeightInches(e.target.value)}
+                    />
+                  </InputGroup>
+
+                  {/* in onchange, convert from ft & inches to just inches */}
+                  {/* could do drag bar for height/weight or let people put in number in ft & inches and we can calculate */}
+
+                  <InputGroup className='m-3' style={{ width: '30rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Weight (lb)
+                    </InputGroup.Text>
+                    <Form.Control
+                      aria-label='Dollar amount (with dot and two decimal places)'
+                      type='number'
+                      placeholder='Pounds'
+                      value={weight}
+                      onChange={(e) => setWeight(e.target.value)}
+                    />
+                  </InputGroup>
+                  <InputGroup className='m-3' style={{ width: '30rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Age
+                    </InputGroup.Text>
+                    <Form.Control
+                      aria-label='Dollar amount (with dot and two decimal places)'
+                      type='number'
+                      placeholder='Age'
+                      value={age}
+                      onChange={(e) => setAge(e.target.value)}
+                    />
+                  </InputGroup>
+                  <Button
+                  className='m-4'
+                    variant='dark'
+                    type='submit'
+                    style={{ maxWidth: '29rem' }}
+                    onClick={CalculateBMRAndActivityLevel(
+                      activityLevel,
+                      heightFeet,
+                      heightInches,
+                      weight,
+                      assignedSex,
+                      age
+                    )}
+                  >
+                    Submit
+                  </Button>
+                </Row>
+              </Form>
+            </Card>
+          </Col>
+          <Col></Col>
+        </Row>
+      
+      </Container>
+    </>
   );
 };
 

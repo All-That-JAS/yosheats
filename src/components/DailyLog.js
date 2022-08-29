@@ -3,6 +3,8 @@ import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 
+import { proteins, carbs, fats } from '../api/dummyData';
+
 const DailyLog = () => {
   function deficitOrSurplus(num, goal) {
     let unit;
@@ -64,31 +66,7 @@ const DailyLog = () => {
           },
         });
       }
-      // function refactoringFoodList(foodList) {
-      //   let consolidatedList = [];
-      //   let foodListKeys = [];
-      //   let foodListValues = [];
-      //   foodList.forEach((food) => {
-      //     foodListKeys.push(Object.keys(food)[0]);
-      //     foodListValues.push(Object.values(food)[0]);
-      //   });
-      //   // console.log('foodList', foodList);
-      //   // console.log('foodListKeys', foodListKeys);
-      //   // console.log('foodListValues', foodListValues);
-      //   for (let i = 0; i < foodListKeys.length; i++) {
-      //     if (Object.keys(consolidatedList).includes(foodListKeys[i])) {
-      //       consolidatedList[foodListKeys[i]] += foodListValues[i];
-      //     } else {
-      //       consolidatedList[foodListKeys[i]] = foodListValues[i];
-      //     }
-      //   }
-      //   // console.log('consolidatedList', consolidatedList);
-      //   return consolidatedList;
-      // }
-      // const consolidatedList = refactoringFoodList(
-      //   dayDocSnap.data()[`${currentUser.uid}`].listOfFoods
-      // );
-      // setTodaysFoods(dayDocSnap.data()[`${currentUser.uid}`].listOfFoods);
+
       setTodaysFoods(dayDocSnap.data()[`${currentUser.uid}`].listOfFoods);
       setTodaysCalories(dayDocSnap.data()[`${currentUser.uid}`].calories);
       setTodaysCarbs(dayDocSnap.data()[`${currentUser.uid}`].carb);
@@ -110,6 +88,18 @@ const DailyLog = () => {
     getUserGoals();
     //is the dependency here necessary? userDoc won't change except when the daily streak counter increases, and we're not displaying the streak counter on this page
   }, [currentUser.uid]);
+
+
+  //TODO: user recommendation tbd
+  const recommend = () => {
+    //PROTEIN
+    for (let i = 0; i < proteins.length; i++) {
+      let foodName = Object.keys(proteins[i])
+      let nutInfo = Object.values(proteins[i])[0].protein
+    }
+    
+  };
+  recommend();
 
   return (
     <div>

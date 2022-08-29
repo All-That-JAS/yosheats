@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from '@firebase/firestore';
+import { getAnalytics } from "firebase/analytics";
 
 //firebase sets tokens for you
 
@@ -17,7 +18,9 @@ const app = initializeApp({
 export const auth = getAuth(app);
 //auth is user currently authenticated to firebase
 
-//db = accessfirebase db
 export const db = getFirestore(app);
+const analytics = getAnalytics(app);
+/*google analytics - add gtag (google tag )
+*/
 
 export default app;

@@ -1,13 +1,22 @@
 import React, { useRef, useState } from 'react';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
+import {
+  Form,
+  Button,
+  Card,
+  Alert,
+  Container,
+  Col,
+  Row,
+  Badge,
+} from 'react-bootstrap';
+import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-
 
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const {login, signInWithGooglePopUp} = useAuth();
+  const { login, signInWithGooglePopUp } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
@@ -30,7 +39,7 @@ export default function Login() {
     setLoading(false);
   }
 
-  async function handleGoogleLogIn (e) {
+  async function handleGoogleLogIn(e) {
     e.preventDefault();
     try {
       setError('');
@@ -42,38 +51,56 @@ export default function Login() {
     }
     setLoading(false);
   }
-  
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <h2 className='text-center mb-4'>Log In</h2>
-          {error && <Alert variant='danger'>{error}</Alert>}
-          <Form onSubmit={handleLoginSubmit}>
-            <Form.Group id='email'>
-              <Form.Label>Email </Form.Label>
-              <Form.Control ref={emailRef} type='email' required />
-            </Form.Group>
-            <Form.Group id='password'>
-              <Form.Label>Password </Form.Label>
-              <Form.Control ref={passwordRef} type='password' required />
-            </Form.Group>
-            <Button disabled={loading} className='w-100' type='submit'>
-              Login
-            </Button>
-          </Form>
-          <div className = 'w-100 text-center mt-3'>
-<Link to = '/forgot-password'>Forgot Password?</Link>
-          </div>
-          <div className = 'w-100 text-center mt-3 login-with-google-btn" >'>
-<Button onClick = {handleGoogleLogIn}>Sign in With Google</Button>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className='w-100 text-center mt-2'>
-        Need an account? <Link to='/signup'>Sign Up</Link>
-      </div>
+      <Container className='mt-3'>
+        <Row>
+          <Col></Col>
+          <Col>
+            <Card style={{ maxWidth: '30rem' }}>
+              <CardHeader>
+                <Card.Text className='fw-bolder fs-4 text-center my-3'>
+                  Log In
+                </Card.Text>
+              </CardHeader>
+              <Card.Body>
+                {error && <Alert variant='danger'>{error}</Alert>}
+
+                <Form onSubmit={handleLoginSubmit}>
+                  <Form.Group id='email' className='my-2'>
+                    <Form.Label>Email </Form.Label>
+                    <Form.Control ref={emailRef} type='email' required />
+                  </Form.Group>
+                  <Form.Group id='password' className='my-2'>
+                    <Form.Label>Password </Form.Label>
+                    <Form.Control ref={passwordRef} type='password' required />
+                  </Form.Group>
+                  <Button
+                    disabled={loading}
+                    className='w-100 mt-3'
+                    type='submit'
+                  >
+                    Login
+                  </Button>
+                </Form>
+                <div className='mt-3'>
+                  <Link to='/forgot-password'>Forgot Password?</Link>{' '}
+                  <span className='ms-5'>
+                    <Link to='/signup'> Need an account? Sign Up</Link>
+                  </span>
+                </div>
+                <div className=' text-end mt-3'>
+                  <Button variant='info' onClick={handleGoogleLogIn}>
+                    Google
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col></Col>
+        </Row>
+      </Container>
     </>
   );
 }
