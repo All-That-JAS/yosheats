@@ -41,6 +41,43 @@ const DailyLog = () => {
   const [userCarbs, setUserCarbs] = useState(0);
   const [userFats, setUserFats] = useState(0);
   const [userProteins, setUserProteins] = useState(0);
+  const [carbStyle, setCarbStyle] = React.useState({});
+  const [calorieStyle, setCalorieStyle] = React.useState({});
+  const [fatStyle, setFatStyle] = React.useState({});
+  const [proteinStyle, setProteinStyle] = React.useState({});
+
+  setTimeout(() => {
+    const calorieStyle = {
+      opacity: 1,
+      width: `${calorieProgress}%`,
+    };
+
+    setCalorieStyle(calorieStyle);
+  }, 200);
+  setTimeout(() => {
+    const carbStyle = {
+      opacity: 1,
+      width: `${carbsProgress}%`,
+    };
+
+    setCarbStyle(carbStyle);
+  }, 200);
+  setTimeout(() => {
+    const fatStyle = {
+      opacity: 1,
+      width: `${fatsProgress}%`,
+    };
+
+    setFatStyle(fatStyle);
+  }, 200);
+  setTimeout(() => {
+    const proteinStyle = {
+      opacity: 1,
+      width: `${proteinsProgress}%`,
+    };
+
+    setProteinStyle(proteinStyle);
+  }, 200);
 
   const { currentUser } = useAuth();
 
@@ -109,6 +146,11 @@ const DailyLog = () => {
   };
   recommend();
 
+  let calorieProgress = Math.round((todaysCalories / userCalories) * 100);
+  let carbsProgress = Math.round((todaysCarbs / userCarbs) * 100);
+  let fatsProgress = Math.round((todaysFats / userFats) * 100);
+  let proteinsProgress = Math.round((todaysProteins / userProteins) * 100);
+
   return (
     <>
       <Container className='mt-3' style={{ width: '100rem' }}>
@@ -117,11 +159,15 @@ const DailyLog = () => {
             <Card>
               <CardHeader>
                 <Card.Text className='fw-bolder fs-4 text-center my-3'>
-                  Foods Consumed Today:
+                  Daily Log
                 </Card.Text>
               </CardHeader>
               <Card.Body>
                 <div>
+                  <Card.Text className='fw-bold fs-5 text-center my-3'>
+                    Foods Consumed Today:
+                  </Card.Text>
+                  <Card.Text className= 'fs-6 text-lowercase'>
                   <ul>
                     {todaysFoods.map((food) => {
                       //   TODO: find a way to consolidate food list so it doesn't list multiple of same item
@@ -147,17 +193,26 @@ const DailyLog = () => {
                       //   // console.log('consolidatedList', consolidatedList);
                       //   return consolidatedList;
                       // }
+
                       return (
-                        <li>
-                          {Object.keys(food)[0]}: {Object.values(food)[0]} grams
-                        </li>
-                      );
+                        <>
+                          <span >
+                          
+                            <strong>{Object.keys(food)[0]}: </strong>
+                            {Object.values(food)[0]} grams
+                            
+                          </span>
+                          <br></br>
+                        </>
+                      )
+                   
                     })}
 
                     {/* {todaysFoods.map((food) => {
         return <li>{food}</li>;
       })} */}
                   </ul>
+                  </Card.Text>
                   <Card.Text className='fw-bold fs-5 text-center my-3'>
                     Progress Toward Goals:
                   </Card.Text>
@@ -170,6 +225,12 @@ const DailyLog = () => {
                         'calorie'
                       )}{' '}
                     </span>
+                    <br></br>
+                    <div className='progress'>
+                      <div className='progress-done' style={calorieStyle}>
+                        {calorieProgress}%
+                      </div>
+                    </div>
                   </Card.Text>
                   <Card.Text className=' fs-5 my-3 mb-1'>
                     <strong>Carbs: </strong>
@@ -177,6 +238,12 @@ const DailyLog = () => {
                     <span className='text-lowercase'>
                       {deficitOrSurplus(userCarbs - todaysCarbs, 'carb')}{' '}
                     </span>
+                    <br></br>
+                    <div className='progress'>
+                      <div className='progress-done' style={carbStyle}>
+                        {carbsProgress}%
+                      </div>
+                    </div>
                   </Card.Text>
                   <Card.Text className=' fs-5 my-3'>
                     <strong>Fats: </strong>
@@ -184,6 +251,12 @@ const DailyLog = () => {
                     <span className='text-lowercase'>
                       {deficitOrSurplus(userFats - todaysFats, 'fat')}
                     </span>
+                    <br></br>
+                    <div className='progress'>
+                      <div className='progress-done' style={fatStyle}>
+                        {fatsProgress}%
+                      </div>
+                    </div>
                   </Card.Text>
                   <Card.Text className=' fs-5 my-3'>
                     <strong>Proteins: </strong> {todaysProteins} grams consumed.{' '}
@@ -194,6 +267,12 @@ const DailyLog = () => {
                         'protein'
                       )}
                     </span>
+                    <br></br>
+                    <div className='progress'>
+                      <div className='progress-done' style={proteinStyle}>
+                        {proteinsProgress}%
+                      </div>
+                    </div>
                   </Card.Text>
                 </div>
               </Card.Body>
