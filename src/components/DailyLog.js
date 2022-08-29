@@ -304,21 +304,18 @@ const DailyLog = () => {
                       {deficitOrSurplus(fatDeficit, 'fat')}
                     </span>
                     <div>
-                      {/* TODO: fix formatting for suggestion list */}
                       {fatRecs.length
                         ? `Recommended foods to meet fat goals for today. Pick one:
-                        
-                      ${fatRecs.map((foodItem) => 
-                        
-                        (<div>
-                          `${foodItem[Object.keys(foodItem)[0]].servingSize} $
-                          {Object.keys(foodItem)[0]} has $
-                          {foodItem[Object.keys(foodItem)[0]].fats} g`;
-                        </div>;
+                      ${fatRecs.map((foodItem) => {
+                        return `${
+                          foodItem[Object.keys(foodItem)[0]].servingSize
+                        } ${Object.keys(foodItem)[0]} has ${
+                          foodItem[Object.keys(foodItem)[0]].fats
+                        } g`;
                       })}`
-                        : 'hello')
-                      <br></br>
+                        : 'hello'}
                     </div>
+                    <br></br>
                     <div className="progress">
                       <div className="progress-done" style={fatStyle}>
                         {fatsProgress}%
