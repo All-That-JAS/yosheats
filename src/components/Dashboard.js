@@ -64,16 +64,7 @@ const Dashboard = () => {
               <div className='card text-center'>
                 <div className='card-header'>
                   <ul className='nav nav-tabs card-header-tabs'>
-                    <li className='nav-item  nav-link'>
-                      <Link
-                        style={{ textDecoration: 'none', color: '#818080' }}
-                        to='/'
-                      >
-                        Dashboard
-                      </Link>
-                    </li>
-
-                    <li className='nav-item nav-link'>
+                  <li className='nav-item nav-link'>
                       <Link
                         style={{ textDecoration: 'none', color: '#818080' }}
                         to='/dailylog'
@@ -81,6 +72,16 @@ const Dashboard = () => {
                         Daily Log
                       </Link>
                     </li>
+                    <li className='nav-item  nav-link'>
+                      <Link
+                        style={{ textDecoration: 'none', color: '#818080' }}
+                        to='/calendar'
+                      >
+                        Calendar
+                      </Link>
+                    </li>
+
+                
                   </ul>
                 </div>
                 <div className='card-body'>
@@ -112,7 +113,7 @@ const Dashboard = () => {
                     {dailyQuote[0]}
                     <br></br>
                   </p>
-                  <br></br>
+                
                   <footer className='blockquote-footer'>{dailyQuote[1]}</footer>
                 </blockquote>
               </div>
@@ -148,7 +149,7 @@ const Dashboard = () => {
                 {goals.streakCounter}
               </Card.Text>
 
-              <Button variant='dark' onClick={handleLogout}>
+              <Button variant='dark'>
                 <Link to='/update-profile' className='btn btn-dark w-40'>
                   Update Profile
                 </Link>

@@ -1,16 +1,20 @@
 export const quotes = {
   Hippocrates: 'Let food be thy medicine, thy medicine shall be thy food.',
   'Jim Rohn': `Take care of your body. It’s the only place you have to live.`,
-  'Unknown A': 'The greatest wealth is health.',
-  'Unknown B': `You don’t have to eat less, you just have to eat right.`,
+  'Anonymous I': 'The greatest wealth is health.',
+  'Anonymous II': `You don’t have to eat less, you just have to eat right.`,
+  'Anonymous III': `It's never too late or never too early to work towards being the healthiest you.`,
   'Ann Wigmore': `The food you eat can be either the safest and most powerful form of medicine or the slowest form of poison.`,
   'Robert Urich': `A healthy outside starts from the inside.`,
+  'Dalai Lama': 'Happiness is the highest form of health.',
+  'Roger Williams': 'Health requires healthy food.',
+  'Michael Greger': 'The foods we choose make a difference.',
+  'Arthur Agatston': `Healthy eating is a way of life, so it’s important to establish routines that are simple, realistically, and ultimately livable.`,
+  'Jillian Michaels': `It’s not about perfect. It’s about effort. And when you bring that effort every single day, that’s where transformation happens.`,
+  'Karen Salmansohn': `Focus on health, energy, vitality – not weight.`,
+  'Mahatma Gandhi': `It is health that is real wealth and not pieces of gold and silver.`,
+  'Robert Collier': `Success is the sum of small efforts—repeated day-in and day-out.`,
+  'Ralph Waldo Emerson': `The first wealth is health.`,
+  'Trudie Styler': `Our body is the only one we've been given, so we need to maintain it; we need to give it the best nutrition.`,
 };
 
-//https://www.stylecraze.com/articles/slogans-on-healthy-food/
-
-/* TODO:
-Add more quotes then randomize
-Will go on dashboard
-
-*/
