@@ -6,7 +6,6 @@ import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import PrivateRoute from './PrivateRoute';
-import UserDisplay from './components/UserDisplay';
 import UpdateUser from './components/UpdateUser';
 import ForgotPassword from './components/ForgotPassword';
 import DailyLog from './components/DailyLog';
@@ -49,7 +48,6 @@ function RouteList() {
             <Route path="/login" element={<Login />} />
             <Route path="/nutrition" element={<NutritionAPI />} />
             <Route path="/newuser" element={<NewUser />} />
-            <Route path="/userdisplay" element={<UserDisplay />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/dailylog" element={<DailyLog />} />
             <Route path="/calendar" element={<CalendarApp />} />

@@ -2,6 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
+import {
+  Form,
+  Button,
+  Card,
+  Alert,
+  Container,
+  Col,
+  Row,
+} from 'react-bootstrap';
+import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 import { proteins, carbs, fats } from '../api/dummyData';
 
@@ -89,75 +99,109 @@ const DailyLog = () => {
     //is the dependency here necessary? userDoc won't change except when the daily streak counter increases, and we're not displaying the streak counter on this page
   }, [currentUser.uid]);
 
-
   //TODO: user recommendation tbd
   const recommend = () => {
     //PROTEIN
     for (let i = 0; i < proteins.length; i++) {
-      let foodName = Object.keys(proteins[i])
-      let nutInfo = Object.values(proteins[i])[0].protein
+      let foodName = Object.keys(proteins[i]);
+      let nutInfo = Object.values(proteins[i])[0].protein;
     }
-    
   };
   recommend();
 
   return (
-    <div>
-      <h3>Foods Consumed Today:</h3>
-      <ul>
-        {todaysFoods.map((food) => {
-          //   TODO: find a way to consolidate food list so it doesn't list multiple of same item
+    <>
+      <Container className='mt-3' style={{ width: '100rem' }}>
+        <Row>
+          <Col>
+            <Card>
+              <CardHeader>
+                <Card.Text className='fw-bolder fs-4 text-center my-3'>
+                  Foods Consumed Today:
+                </Card.Text>
+              </CardHeader>
+              <Card.Body>
+                <div>
+                  <ul>
+                    {todaysFoods.map((food) => {
+                      //   TODO: find a way to consolidate food list so it doesn't list multiple of same item
 
-          //   function refactoringFoodList(foodList) {
-          //   let consolidatedList = [];
-          //   let foodListKeys = [];
-          //   let foodListValues = [];
-          //   foodList.forEach((food) => {
-          //     foodListKeys.push(Object.keys(food)[0]);
-          //     foodListValues.push(Object.values(food)[0]);
-          //   });
-          //   // console.log('foodList', foodList);
-          //   // console.log('foodListKeys', foodListKeys);
-          //   // console.log('foodListValues', foodListValues);
-          //   for (let i = 0; i < foodListKeys.length; i++) {
-          //     if (Object.keys(consolidatedList).includes(foodListKeys[i])) {
-          //       consolidatedList[foodListKeys[i]] += foodListValues[i];
-          //     } else {
-          //       consolidatedList[foodListKeys[i]] = foodListValues[i];
-          //     }
-          //   }
-          //   // console.log('consolidatedList', consolidatedList);
-          //   return consolidatedList;
-          // }
-          return (
-            <li>
-              {Object.keys(food)[0]}: {Object.values(food)[0]} grams
-            </li>
-          );
-        })}
+                      //   function refactoringFoodList(foodList) {
+                      //   let consolidatedList = [];
+                      //   let foodListKeys = [];
+                      //   let foodListValues = [];
+                      //   foodList.forEach((food) => {
+                      //     foodListKeys.push(Object.keys(food)[0]);
+                      //     foodListValues.push(Object.values(food)[0]);
+                      //   });
+                      //   // console.log('foodList', foodList);
+                      //   // console.log('foodListKeys', foodListKeys);
+                      //   // console.log('foodListValues', foodListValues);
+                      //   for (let i = 0; i < foodListKeys.length; i++) {
+                      //     if (Object.keys(consolidatedList).includes(foodListKeys[i])) {
+                      //       consolidatedList[foodListKeys[i]] += foodListValues[i];
+                      //     } else {
+                      //       consolidatedList[foodListKeys[i]] = foodListValues[i];
+                      //     }
+                      //   }
+                      //   // console.log('consolidatedList', consolidatedList);
+                      //   return consolidatedList;
+                      // }
+                      return (
+                        <li>
+                          {Object.keys(food)[0]}: {Object.values(food)[0]} grams
+                        </li>
+                      );
+                    })}
 
-        {/* {todaysFoods.map((food) => {
-          return <li>{food}</li>;
-        })} */}
-      </ul>
-      <h3>Progress Toward Goals:</h3>
-      <h5>
-        Calories: {todaysCalories} calories consumed.{' '}
-        {deficitOrSurplus(userCalories - todaysCalories, 'calorie')}
-      </h5>
-      <h5>
-        Carbs: {todaysCarbs} grams consumed.{' '}
-        {deficitOrSurplus(userCarbs - todaysCarbs, 'carb')}
-      </h5>
-      <h5>
-        Fats: {todaysFats} grams consumed.{' '}
-        {deficitOrSurplus(userFats - todaysFats, 'fat')}
-      </h5>
-      <h5>
-        Proteins: {todaysProteins} grams consumed.{' '}
-        {deficitOrSurplus(userProteins - todaysProteins, 'protein')}
-      </h5>
-    </div>
+                    {/* {todaysFoods.map((food) => {
+        return <li>{food}</li>;
+      })} */}
+                  </ul>
+                  <Card.Text className='fw-bold fs-5 text-center my-3'>
+                    Progress Toward Goals:
+                  </Card.Text>
+                  <Card.Text className=' fs-5 my-3'>
+                    <strong>Calories: </strong>
+                    {todaysCalories} calories consumed.<br></br>
+                    <span className='text-lowercase'>
+                      {deficitOrSurplus(
+                        userCalories - todaysCalories,
+                        'calorie'
+                      )}{' '}
+                    </span>
+                  </Card.Text>
+                  <Card.Text className=' fs-5 my-3 mb-1'>
+                    <strong>Carbs: </strong>
+                    {todaysCarbs} grams consumed. <br></br>{' '}
+                    <span className='text-lowercase'>
+                      {deficitOrSurplus(userCarbs - todaysCarbs, 'carb')}{' '}
+                    </span>
+                  </Card.Text>
+                  <Card.Text className=' fs-5 my-3'>
+                    <strong>Fats: </strong>
+                    {todaysFats} grams consumed. <br></br>{' '}
+                    <span className='text-lowercase'>
+                      {deficitOrSurplus(userFats - todaysFats, 'fat')}
+                    </span>
+                  </Card.Text>
+                  <Card.Text className=' fs-5 my-3'>
+                    <strong>Proteins: </strong> {todaysProteins} grams consumed.{' '}
+                    <br></br>
+                    <span className='text-lowercase'>
+                      {deficitOrSurplus(
+                        userProteins - todaysProteins,
+                        'protein'
+                      )}
+                    </span>
+                  </Card.Text>
+                </div>
+              </Card.Body>
+            </Card>{' '}
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 
