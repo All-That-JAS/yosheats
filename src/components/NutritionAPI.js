@@ -176,7 +176,7 @@ const Nutrition = () => {
             <input
               type='text'
               className='search'
-              placeholder='Search...'
+              placeholder="Search and press 'enter'"
               value={queryState}
               onChange={(e) => setQueryState(e.target.value)}
               onKeyPress={search}

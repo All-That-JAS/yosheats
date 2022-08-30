@@ -15,7 +15,9 @@ import UpdateUser from './components/UpdateUser';
 import ForgotPassword from './components/ForgotPassword';
 import DailyLog from './components/DailyLog';
 import Recommendation from './components/Recommendation';
+import NotFound from './components/NotFound';
 import { AnimatePresence } from 'framer-motion';
+
 
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/AuthContext';
@@ -60,7 +62,11 @@ function RouteList() {
               <Route path='/dailylog' element={<DailyLog />} />
               <Route path='/calendar' element={<CalendarApp />} />
               <Route path='/rec' element={<Recommendation />} />
+              {/* TODO: Not Found page */}
+              <Route element={<NotFound/>} />
             </Routes>
+          
+         
           </AnimatePresence>
         </AuthProvider>
       </div>

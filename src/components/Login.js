@@ -100,8 +100,8 @@ export default function Login() {
                     </Form.Label>
                     <Form.Control ref={passwordRef} type='password' required />
                   </Form.Group>
+
                   <div className=' text-center'>
-                    {' '}
                     <Button
                       disabled={loading}
                       className='mt-3  rounded-pill'
@@ -112,17 +112,19 @@ export default function Login() {
                     </Button>
                   </div>
                 </Form>
-                <div className='mt-3'>
-                  <Link to='/forgot-password'>Forgot Password?</Link>{' '}
-                  <span className='ms-5'>
-                    <span style={{ color: '#FFFFFF00' }}>
-                      {'-----------------------------------------'}
+                <Card.Text>
+                  <div className='mt-3 text-lowercase text-decoration-none'>
+                    <Link to='/forgot-password'  className='text-decoration-none'>Forgot Password?</Link>{' '}
+                    <span className='ms-5'>
+                      <span style={{ color: '#FFFFFF00' }}>
+                        {'-------------------------------------'}
+                      </span>
+                      <Link to='/signup' className='text-decoration-none'>Sign Up</Link>
                     </span>
-                    <Link to='/signup'>Sign Up</Link>
-                  </span>
-                  <br></br>
-                  <br></br>
-                </div>
+                    <br></br>
+                    <br></br>
+                  </div>
+                </Card.Text>
               </Card.Body>
             </Card>
           </Col>

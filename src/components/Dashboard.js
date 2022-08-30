@@ -3,7 +3,7 @@ import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
-import { getDoc, doc  } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import useSound from 'use-sound';
 
@@ -19,10 +19,12 @@ const Dashboard = () => {
   const [goals, setGoals] = useState({});
   const [showGoals, setShowGoals] = useState(false);
   const [playSound] = useSound(marioSound);
+
+  let navigate = useNavigate();
+
   function handleCoinAudio() {
     return playSound();
   }
-  let navigate = useNavigate();
 
   async function handleLogout() {
     setError('');
@@ -57,8 +59,8 @@ const Dashboard = () => {
     let quote = arr[Math.floor(Math.random() * arr.length)];
     return quote;
   }
-  let dailyQuote = createdailyQuote(quotes);
 
+  let dailyQuote = createdailyQuote(quotes);
   let marioQuote = createMarioQuote(marioQuotes);
 
   return (
@@ -73,7 +75,9 @@ const Dashboard = () => {
             <Card className=' my-5' style={{ minWidth: '70vh', marginTop: 15 }}>
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
-                  Daily Progress
+                  {goals.username
+                    ? `${goals.username}'s Daily Progress`
+                    : 'Daily Progress'}
                 </Card.Text>
               </Card.Header>
               <Card.Body>
@@ -161,13 +165,16 @@ const Dashboard = () => {
                   <strong>Email: </strong>
                   {currentUser.email}
                   <br></br>
-                  {/* .displayName is for google accounts */}
-                  {!currentUser.displayName ? null : (
+                  {/* .username = upon sign up || .displayName is for google accounts */}
+                  {goals.username ? (
+                    `Name: ${goals.username}`
+                  ) : !currentUser.displayName ? null : (
                     <div>
                       <strong>Name: </strong>
                       {currentUser.displayName}
                     </div>
                   )}
+
                   <br></br>
                   <strong>Streak: </strong>
                   {goals.streakCounter}
@@ -189,11 +196,6 @@ const Dashboard = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
-
-        {/* TODO: take out if unused */}
-        <Row>
-          <div className='w-100 text-center mt-2'></div>
         </Row>
       </Container>
     </motion.div>

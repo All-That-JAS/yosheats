@@ -99,7 +99,7 @@ const NewUser = () => {
     const { currentUser } = useAuth();
 
     const userDoc = doc(db, 'user-goals', currentUser.uid);
-    updateDoc(userDoc, { dailyCalories, dailyCarbs, dailyFat, dailyProtein });
+    updateDoc(userDoc, { dailyCalories, dailyCarbs, dailyFat, dailyProtein, username });
 
     //if person wants general well-being, daily calories should be same amount as TDEE
     //if they want to drop 1 pound per week, they need a daily calorie deficit of 500, so TDEE-500
@@ -112,13 +112,12 @@ const NewUser = () => {
   const [weight, setWeight] = useState(0);
   const [age, setAge] = useState(0);
   const [assignedSex, setAssignedSex] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
+  const [username, setUsername] = useState('');
   let navigate = useNavigate();
 
   function handleSubmit(evt) {
     evt.preventDefault();
     alert('Success! Check your dashboard for your daily nutritional goals.');
-    //TODO: remove - setShowAlert(true);
     navigate('/');
   }
 
@@ -139,21 +138,6 @@ const NewUser = () => {
         <Row>
           <Col></Col>
           <Col>
-            {/* TODO: remove not working */}
-            {showAlert && (
-              <Alert
-                className='mt-5'
-                variant='success'
-                onClose={() => setShowAlert(false)}
-                dismissible
-              >
-                <p className=' fw-bolder fs-5 text-center'>success</p>{' '}
-                <p className=' fw-bolder fs-6 text-center'>
-                  Success! Check your dashboard for your daily nutritional
-                  goals!
-                </p>{' '}
-              </Alert>
-            )}
             <Card style={{ width: '31rem' }}>
               <CardHeader>
                 <Card.Text className='fw-bolder fs-4 text-center my-3'>
@@ -163,16 +147,18 @@ const NewUser = () => {
               <Card.Text className=' fs-6 text-center text-lowercase mt-4 mb-1'>
                 Input information for personalized daily nutritional goals
               </Card.Text>
-
               <Form className='newUser-info' onSubmit={handleSubmit}>
-                {/* <Form.Group className='mb-3' controlId='formBasicEmail'>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type='email' placeholder='Enter email' />
-          <Form.Text className='text-muted'>
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group> */}
-
+              <InputGroup className='m-3' style={{ width: '30rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Username
+                    </InputGroup.Text>
+                    <Form.Control
+                      type='text'
+                      placeholder='Enter username'
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </InputGroup>
                 <FloatingLabel
                   controlId='floatingSelect'
                   label='Choose Your Goal:'
@@ -245,6 +231,7 @@ const NewUser = () => {
                       aria-label='Dollar amount (with dot and two decimal places)'
                       type='number'
                       placeholder='Feet'
+                      required
                       value={heightFeet}
                       onChange={(e) => setHeightFeet(e.target.value)}
                     />
@@ -256,6 +243,7 @@ const NewUser = () => {
                     <Form.Control
                       aria-label='Dollar amount (with dot and two decimal places)'
                       type='number'
+                      required
                       placeholder='Inches'
                       value={heightInches}
                       onChange={(e) => setHeightInches(e.target.value)}
@@ -272,6 +260,7 @@ const NewUser = () => {
                     <Form.Control
                       aria-label='Dollar amount (with dot and two decimal places)'
                       type='number'
+                      required
                       placeholder='Pounds'
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
@@ -284,6 +273,7 @@ const NewUser = () => {
                     <Form.Control
                       aria-label='Dollar amount (with dot and two decimal places)'
                       type='number'
+                      required
                       placeholder='Age'
                       value={age}
                       onChange={(e) => setAge(e.target.value)}

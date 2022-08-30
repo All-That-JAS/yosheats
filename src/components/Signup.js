@@ -51,8 +51,8 @@ export default function Signup() {
         <Row>
           <Col></Col>
 
-          <Col>
-            <Card>
+          <Col >
+            <Card style ={{width: '50vh'}}>
               <CardHeader>
                 <Card.Text className='fw-bolder fs-4 text-center my-3'>
                   Sign Up
@@ -86,13 +86,16 @@ export default function Signup() {
                   </Button>
                 </Form>
               </Card.Body>
-            </Card>
-            <div
-              className='w-100 text-center mt-4 fs-5'
-              style={{ color: '#cccccc' }}
+              <Card.Text>
+              <div
+              className='text-center  fs-6 mb-4 text-lowercase'
+              style={{ color: '#A08E8E' }}
             >
-              Already have an account? <Link to='/login'>Log in!</Link>
+              Already have an account? <Link to='/login'  className='text-decoration-none'>Log in!</Link>
             </div>
+              </Card.Text>
+            </Card>
+            
           </Col>
           <Col></Col>
         </Row>

@@ -128,15 +128,14 @@ const DailyLog = () => {
     //is the dependency here necessary? userDoc won't change except when the daily streak counter increases, and we're not displaying the streak counter on this page
   }, [currentUser.uid]);
 
-  //TODO: user recommendation tbd
-  const recommend = () => {
-    //PROTEIN
-    for (let i = 0; i < proteins.length; i++) {
-      let foodName = Object.keys(proteins[i]);
-      let nutInfo = Object.values(proteins[i])[0].protein;
-    }
-  };
-  recommend();
+  // const recommend = () => {
+  //   //PROTEIN
+  //   for (let i = 0; i < proteins.length; i++) {
+  //     let foodName = Object.keys(proteins[i]);
+  //     let nutInfo = Object.values(proteins[i])[0].protein;
+  //   }
+  // };
+  // recommend();
 
   let calorieProgress = Math.round((todaysCalories / userCalories) * 100);
   let carbsProgress = Math.round((todaysCarbs / userCarbs) * 100);
@@ -212,10 +211,11 @@ const DailyLog = () => {
                       {deficitOrSurplus(
                         userCalories - todaysCalories,
                         'calorie'
-                      )}{' '}
+                      )}
                     </span>
                     <br></br>
                     <div className='progress '>
+                 
                       {calorieProgress > 100 ? (
                         <div className='progress-over' style={calorieStyle}>
                           {calorieProgress}%
