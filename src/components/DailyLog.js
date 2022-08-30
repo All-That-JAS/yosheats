@@ -234,7 +234,6 @@ const DailyLog = () => {
                         );
                       })}
                     </ul>
-
                   </Card.Text>
                   <Card.Text className="fw-bold fs-5 text-center my-3">
                     Progress Toward Goals:
@@ -249,14 +248,13 @@ const DailyLog = () => {
                       )}
                     </span>
                     <br></br>
-                    <div className='progress '>
-                 
+                    <div className="progress ">
                       {calorieProgress > 100 ? (
-                        <div className='progress-over' style={calorieStyle}>
+                        <div className="progress-over" style={calorieStyle}>
                           {calorieProgress}%
                         </div>
                       ) : (
-                        <div className='progress-done' style={calorieStyle}>
+                        <div className="progress-done" style={calorieStyle}>
                           {calorieProgress}%
                         </div>
                       )}
@@ -268,30 +266,43 @@ const DailyLog = () => {
                     <span className="text-lowercase">
                       {deficitOrSurplus(userCarbs - todaysCarbs, 'carb')}{' '}
                     </span>
-                    <div>
+                    <div className="text-lowercase mt-3">
                       {carbRecs.length
-                        ? `Recommended foods to meet carb goals for today. Pick one:
-                      ${carbRecs.map((foodItem) => {
-                        return `${
-                          foodItem[Object.keys(foodItem)[0]].servingSize
-                        } ${Object.keys(foodItem)[0]} has ${
-                          foodItem[Object.keys(foodItem)[0]].carbs
-                        } g`;
-                      })}`
+                        ? 'Recommended foods to meet carb goals for today:'
                         : null}
                     </div>
+                    <div>
+                      {carbRecs.length ? (
+                        <ul>
+                          {carbRecs.map((foodItem) => {
+                            return (
+                              <>
+                                <span className="fs-6 text-lowercase">
+                                  {
+                                    foodItem[Object.keys(foodItem)[0]]
+                                      .servingSize
+                                  }{' '}
+                                  {Object.keys(foodItem)[0]} has{' '}
+                                  {foodItem[Object.keys(foodItem)[0]].carbs} g
+                                </span>
+                                <br></br>
+                              </>
+                            );
+                          })}
+                        </ul>
+                      ) : null}
+                    </div>
                     <br></br>
-                    <div className='progress'>
+                    <div className="progress">
                       {carbsProgress > 100 ? (
-                        <div className='progress-over' style={carbStyle}>
+                        <div className="progress-over" style={carbStyle}>
                           {carbsProgress}%
                         </div>
                       ) : (
-                        <div className='progress-done' style={carbStyle}>
+                        <div className="progress-done" style={carbStyle}>
                           {carbsProgress}%
                         </div>
                       )}
-
                     </div>
                   </Card.Text>
                   <Card.Text className=" fs-5 my-3">
@@ -300,26 +311,40 @@ const DailyLog = () => {
                     <span className="text-lowercase">
                       {deficitOrSurplus(userFats - todaysFats, 'fat')}
                     </span>
-                    <div>
+                    <div className="text-lowercase mt-3">
                       {fatRecs.length
-                        ? `Recommended foods to meet fat goals for today. Pick one:
-                      ${fatRecs.map((foodItem) => {
-                        return `${
-                          foodItem[Object.keys(foodItem)[0]].servingSize
-                        } ${Object.keys(foodItem)[0]} has ${
-                          foodItem[Object.keys(foodItem)[0]].fats
-                        } g`;
-                      })}`
+                        ? 'Recommended foods to meet fat goals for today:'
                         : null}
                     </div>
+                    <div>
+                      {fatRecs.length ? (
+                        <ul>
+                          {fatRecs.map((foodItem) => {
+                            return (
+                              <>
+                                <span className="fs-6 text-lowercase">
+                                  {
+                                    foodItem[Object.keys(foodItem)[0]]
+                                      .servingSize
+                                  }{' '}
+                                  {Object.keys(foodItem)[0]} has{' '}
+                                  {foodItem[Object.keys(foodItem)[0]].fats} g
+                                </span>
+                                <br></br>
+                              </>
+                            );
+                          })}
+                        </ul>
+                      ) : null}
+                    </div>
                     <br></br>
-                    <div className='progress'>
+                    <div className="progress">
                       {fatsProgress > 100 ? (
-                        <div className='progress-over' style={fatStyle}>
+                        <div className="progress-over" style={fatStyle}>
                           {fatsProgress}%
                         </div>
                       ) : (
-                        <div className='progress-done' style={fatStyle}>
+                        <div className="progress-done" style={fatStyle}>
                           {fatsProgress}%
                         </div>
                       )}
@@ -334,30 +359,43 @@ const DailyLog = () => {
                         'protein'
                       )}
                     </span>
-                    <div>
+                    <div className="text-lowercase mt-3">
                       {proteinRecs.length
-                        ? `Recommended foods to meet protein goals for today. Pick one:
-                      ${proteinRecs.map((foodItem) => {
-                        return `${
-                          foodItem[Object.keys(foodItem)[0]].servingSize
-                        } ${Object.keys(foodItem)[0]} has ${
-                          foodItem[Object.keys(foodItem)[0]].protein
-                        } g`;
-                      })}`
+                        ? 'Recommended foods to meet protein goals for today:'
                         : null}
                     </div>
+                    <div>
+                      {proteinRecs.length ? (
+                        <ul>
+                          {proteinRecs.map((foodItem) => {
+                            return (
+                              <>
+                                <span className="fs-6 text-lowercase">
+                                  {
+                                    foodItem[Object.keys(foodItem)[0]]
+                                      .servingSize
+                                  }{' '}
+                                  {Object.keys(foodItem)[0]} has{' '}
+                                  {foodItem[Object.keys(foodItem)[0]].protein} g
+                                </span>
+                                <br></br>
+                              </>
+                            );
+                          })}
+                        </ul>
+                      ) : null}
+                    </div>
                     <br></br>
-                    <div className='progress'>
+                    <div className="progress">
                       {proteinsProgress > 100 ? (
-                        <div className='progress-over' style={proteinStyle}>
+                        <div className="progress-over" style={proteinStyle}>
                           {proteinsProgress}%
                         </div>
                       ) : (
-                        <div className='progress-done' style={proteinStyle}>
+                        <div className="progress-done" style={proteinStyle}>
                           {proteinsProgress}%
                         </div>
                       )}
-
                     </div>
                   </Card.Text>
                 </div>
