@@ -18,7 +18,6 @@ import Recommendation from './components/Recommendation';
 import NotFound from './components/NotFound';
 import { AnimatePresence } from 'framer-motion';
 
-
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/AuthContext';
 import CalendarApp from './components/Calendar';
@@ -28,15 +27,15 @@ function RouteList() {
   return (
     <Container
       style={{ minHeight: '60vh' }}
-      className='d-flex align-items-center justify-content-center'
+      className="d-flex align-items-center justify-content-center"
     >
-      <div className='w-100'>
+      <div className="w-100">
         <AuthProvider>
           <AnimatePresence>
             <Routes location={location} key={location.pathname}>
               <Route
                 exact
-                path='/'
+                path="/"
                 element={
                   <PrivateRoute>
                     {' '}
@@ -46,7 +45,7 @@ function RouteList() {
               />
               <Route
                 exact
-                path='/update-profile'
+                path="/update-profile"
                 element={
                   <PrivateRoute>
                     {' '}
@@ -54,19 +53,17 @@ function RouteList() {
                   </PrivateRoute>
                 }
               />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/nutrition' element={<NutritionAPI />} />
-              <Route path='/newuser' element={<NewUser />} />
-              <Route path='/forgot-password' element={<ForgotPassword />} />
-              <Route path='/dailylog' element={<DailyLog />} />
-              <Route path='/calendar' element={<CalendarApp />} />
-              <Route path='/rec' element={<Recommendation />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/nutrition" element={<NutritionAPI />} />
+              <Route path="/update-user" element={<NewUser />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/dailylog" element={<DailyLog />} />
+              <Route path="/calendar" element={<CalendarApp />} />
+              <Route path="/rec" element={<Recommendation />} />
               {/* TODO: Not Found page */}
-              <Route element={<NotFound/>} />
+              <Route element={<NotFound />} />
             </Routes>
-          
-         
           </AnimatePresence>
         </AuthProvider>
       </div>
