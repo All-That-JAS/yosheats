@@ -1,7 +1,7 @@
 export const proteins = [
   {
-    "chicken breast": {
-      servingSize: "3 ounces",
+    'chicken breast': {
+      servingSize: '3 ounces',
       calories: 141.4,
       protein: 26.3,
       carbs: 0,
@@ -9,8 +9,8 @@ export const proteins = [
     },
   },
   {
-    "ground turkey": {
-      servingSize: "3 ounces",
+    'ground turkey': {
+      servingSize: '3 ounces',
       calories: 219.5,
       protein: 21.5,
       carbs: 0,
@@ -18,8 +18,8 @@ export const proteins = [
     },
   },
   {
-    "protein bar": {
-      servingSize: "1",
+    'protein bar': {
+      servingSize: '1',
       calories: 216.3,
       protein: 19.9,
       carbs: 20.8,
@@ -28,7 +28,7 @@ export const proteins = [
   },
   {
     "Siggi's whole milk plain yogurt": {
-      servingSize: "2/3 cup",
+      servingSize: '2/3 cup',
       calories: 170,
       protein: 18,
       carbs: 8,
@@ -36,8 +36,8 @@ export const proteins = [
     },
   },
   {
-    "boiled egg": {
-      servingSize: "1",
+    'boiled egg': {
+      servingSize: '1',
       calories: 75.2,
       protein: 6.3,
       carbs: 0.6,
@@ -46,7 +46,7 @@ export const proteins = [
   },
   {
     shrimp: {
-      servingSize: "3 ounces",
+      servingSize: '3 ounces',
       calories: 101.2,
       protein: 19.2,
       carbs: 1.3,
@@ -55,7 +55,7 @@ export const proteins = [
   },
   {
     salmon: {
-      servingSize: "3 ounces",
+      servingSize: '3 ounces',
       calories: 177.5,
       protein: 18.7,
       carbs: 0,
@@ -66,7 +66,7 @@ export const proteins = [
 export const fats = [
   {
     avocado: {
-      servingSize: "1",
+      servingSize: '1',
       calories: 227.3,
       protein: 2.7,
       carbs: 11.7,
@@ -75,7 +75,7 @@ export const fats = [
   },
   {
     cashews: {
-      servingSize: "1 ounce",
+      servingSize: '1 ounce',
       calories: 158.4,
       protein: 4.3,
       carbs: 9.1,
@@ -84,7 +84,7 @@ export const fats = [
   },
   {
     almonds: {
-      servingSize: "1 ounce",
+      servingSize: '1 ounce',
       calories: 171.1,
       protein: 5.9,
       carbs: 6,
@@ -92,8 +92,8 @@ export const fats = [
     },
   },
   {
-    "extra virgin olive oil": {
-      servingSize: "1 tablespoon",
+    'extra virgin olive oil': {
+      servingSize: '1 tablespoon',
       calories: 120.8,
       protein: 0,
       carbs: 0,
@@ -101,8 +101,8 @@ export const fats = [
     },
   },
   {
-    "sunflower seeds": {
-      servingSize: "1 ounce",
+    'sunflower seeds': {
+      servingSize: '1 ounce',
       calories: 157.3,
       protein: 5.5,
       carbs: 4.4,
@@ -110,8 +110,8 @@ export const fats = [
     },
   },
   {
-    "boiled egg": {
-      servingSize: "1",
+    'boiled egg': {
+      servingSize: '1',
       calories: 75.2,
       protein: 6.3,
       carbs: 0.6,
@@ -120,7 +120,7 @@ export const fats = [
   },
   {
     salmon: {
-      servingSize: "3 ounces",
+      servingSize: '3 ounces',
       calories: 177.5,
       protein: 18.7,
       carbs: 0,
@@ -131,7 +131,7 @@ export const fats = [
 export const carbs = [
   {
     date: {
-      servingSize: "1",
+      servingSize: '1',
       calories: 20.5,
       protein: 0.2,
       carbs: 5.4,
@@ -140,7 +140,7 @@ export const carbs = [
   },
   {
     banana: {
-      servingSize: "1",
+      servingSize: '1',
       calories: 105.5,
       protein: 1.3,
       carbs: 27.4,
@@ -149,7 +149,7 @@ export const carbs = [
   },
   {
     strawberry: {
-      servingSize: "2",
+      servingSize: '2',
       calories: 56.3,
       protein: 1.2,
       carbs: 13.7,
@@ -158,7 +158,7 @@ export const carbs = [
   },
   {
     oatmeal: {
-      servingSize: "2 cups",
+      servingSize: '2 cups',
       calories: 325.6,
       protein: 11.8,
       carbs: 55.1,
@@ -167,7 +167,7 @@ export const carbs = [
   },
   {
     quinoa: {
-      servingSize: "1 cup",
+      servingSize: '1 cup',
       calories: 112.7,
       protein: 4.1,
       carbs: 19.4,
@@ -176,7 +176,7 @@ export const carbs = [
   },
   {
     toast: {
-      servingSize: "1 slice",
+      servingSize: '1 slice',
       calories: 65.6,
       protein: 2,
       carbs: 11.9,
@@ -185,7 +185,7 @@ export const carbs = [
   },
   {
     rice: {
-      servingSize: "1 cup",
+      servingSize: '1 cup',
       calories: 201.3,
       protein: 4.2,
       carbs: 44.9,

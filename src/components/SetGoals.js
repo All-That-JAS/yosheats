@@ -26,7 +26,7 @@ export default function SetGoals() {
     <>
       {goals.dailyCalories ? (
         <div>
-          <Card.Text className=' fw-bolder fs-5 text-center text-decoration-underline'>
+          <Card.Text className=" fw-bolder fs-5 text-center text-decoration-underline">
             Your daily goals
           </Card.Text>
           <Card.Text>Daily Calories: {goals.dailyCalories}</Card.Text>
@@ -36,11 +36,11 @@ export default function SetGoals() {
         </div>
       ) : (
         <div>
-          <Card.Text >
-            Please fill out the new user sign up page, found{' '}
+          <Card.Text>
+            Please update goals{' '}
             <Link
               style={{ textDecoration: 'none', color: '#818080' }}
-              to='/newuser'
+              to="/update-user"
             >
               here
             </Link>
