@@ -1,12 +1,15 @@
 import React from 'react';
 import RouteList from './RouteList';
 import Navibar from './components/NaviBar';
+import { AuthProvider } from './contexts/AuthContext';
 
 const App = () => {
   return (
     <div>
-      <Navibar />
-      <RouteList />
+      <AuthProvider>
+        <Navibar />
+        <RouteList />
+      </AuthProvider>
     </div>
   );
 };
