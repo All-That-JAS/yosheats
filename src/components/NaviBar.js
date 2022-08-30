@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import {
-  Nav,
-  Navbar,
-  Container,
-  NavLink,
-  NavDropdown,
-  Button,
-} from 'react-bootstrap';
+import { Nav, Navbar, Container, NavLink, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../images/logo.png';
-import mush from '../images/toad.png'
 
 const Navibar = () => {
   const [error, setError] = useState('');
@@ -27,22 +19,20 @@ const Navibar = () => {
       navigate('/');
     } catch {
       setError('Failed to log out');
-      console.log('error');
     }
   }
   return (
     <>
-      <Navbar bg='light' variant='light' style={{ maxHeight: '55px' }}  className='container-fluid'>
+      <Navbar
+        bg='light'
+        variant='light'
+        style={{ maxHeight: '55px' }}
+        className='container-fluid'
+      >
         <Container className='container-fluid d-flex justify-content-center'>
           <Navbar.Brand>
             <Link style={{ textDecoration: 'none', color: '#818080' }} to='/'>
-              <img
-                src={logo}
-                width='50'
-                height='50'
-                // className='d-inline-block align-top'
-                alt='egg'
-              />
+              <img src={logo} width='50' height='50' alt='egg' />
             </Link>
           </Navbar.Brand>
           <Nav className='me-auto'>
@@ -69,6 +59,18 @@ const Navibar = () => {
             </NavLink>
 
             {/* dropdown / log out nonfunctional */}
+            <span style={{ color: '#FFFFFF00' }}>
+              {'------------------------------------------------'}
+            </span>
+
+            <span style={{ color: '#FFFFFF00' }}>
+              {'------------------------------------------------'}
+            </span>
+
+            <span style={{ color: '#FFFFFF00' }}>
+              {'------------------------------------------------'}
+            </span>
+
             <NavDropdown
               title='🍄'
               id='collasible-nav-dropdown'

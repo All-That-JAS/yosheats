@@ -26,6 +26,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import CardHeader from 'react-bootstrap/CardHeader';
 
+import { motion } from 'framer-motion';
+
 const NewUser = () => {
   function CalculateBMRAndActivityLevel(
     activityLevel,
@@ -120,17 +122,23 @@ const NewUser = () => {
   const [weight, setWeight] = useState(0);
   const [age, setAge] = useState(0);
   const [assignedSex, setAssignedSex] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
   let navigate = useNavigate();
 
   function handleSubmit(evt) {
     evt.preventDefault();
     alert('Success! Check your dashboard for your daily nutritional goals.');
-
+    //TODO: remove - setShowAlert(true);
     navigate('/');
   }
 
   return (
-    <>
+    <motion.div
+      className='main-container'
+      initial={{ width: 0 }}
+      animate={{ width: '100%' }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+    >
       {/* put a form with 4 categories:
             goal, activity level, sex/age/location,
             current height/weight, goal weight */}
@@ -141,6 +149,21 @@ const NewUser = () => {
         <Row>
           <Col></Col>
           <Col>
+          {/* TODO: remove not working */}
+            {showAlert && (
+              <Alert
+                className='mt-5'
+                variant='success'
+                onClose={() => setShowAlert(false)}
+                dismissible
+              >
+                <p className=' fw-bolder fs-5 text-center'>success</p>{' '}
+                <p className=' fw-bolder fs-6 text-center'>
+                  Success! Check your dashboard for your daily nutritional
+                  goals!
+                </p>{' '}
+              </Alert>
+            )}
             <Card style={{ width: '31rem' }}>
               <CardHeader>
                 <Card.Text className='fw-bolder fs-4 text-center my-3'>
@@ -277,7 +300,7 @@ const NewUser = () => {
                     />
                   </InputGroup>
                   <Button
-                  className='m-4'
+                    className='m-4'
                     variant='dark'
                     type='submit'
                     style={{ maxWidth: '29rem' }}
@@ -298,9 +321,8 @@ const NewUser = () => {
           </Col>
           <Col></Col>
         </Row>
-      
       </Container>
-    </>
+    </motion.div>
   );
 };
 

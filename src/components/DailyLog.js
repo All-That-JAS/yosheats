@@ -2,15 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
-import {
-  Form,
-  Button,
-  Card,
-  Alert,
-  Container,
-  Col,
-  Row,
-} from 'react-bootstrap';
+import { Card, Container, Col, Row } from 'react-bootstrap';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 import { proteins, carbs, fats } from '../api/dummyData';
@@ -167,51 +159,48 @@ const DailyLog = () => {
                   <Card.Text className='fw-bold fs-5 text-center my-3'>
                     Foods Consumed Today:
                   </Card.Text>
-                  <Card.Text className= 'fs-6 text-lowercase'>
-                  <ul>
-                    {todaysFoods.map((food) => {
-                      //   TODO: find a way to consolidate food list so it doesn't list multiple of same item
+                  <Card.Text className='fs-6 text-lowercase'>
+                    <div>
+                      {todaysFoods.map((food) => {
+                        //   TODO: find a way to consolidate food list so it doesn't list multiple of same item
 
-                      //   function refactoringFoodList(foodList) {
-                      //   let consolidatedList = [];
-                      //   let foodListKeys = [];
-                      //   let foodListValues = [];
-                      //   foodList.forEach((food) => {
-                      //     foodListKeys.push(Object.keys(food)[0]);
-                      //     foodListValues.push(Object.values(food)[0]);
-                      //   });
-                      //   // console.log('foodList', foodList);
-                      //   // console.log('foodListKeys', foodListKeys);
-                      //   // console.log('foodListValues', foodListValues);
-                      //   for (let i = 0; i < foodListKeys.length; i++) {
-                      //     if (Object.keys(consolidatedList).includes(foodListKeys[i])) {
-                      //       consolidatedList[foodListKeys[i]] += foodListValues[i];
-                      //     } else {
-                      //       consolidatedList[foodListKeys[i]] = foodListValues[i];
-                      //     }
-                      //   }
-                      //   // console.log('consolidatedList', consolidatedList);
-                      //   return consolidatedList;
-                      // }
+                        //   function refactoringFoodList(foodList) {
+                        //   let consolidatedList = [];
+                        //   let foodListKeys = [];
+                        //   let foodListValues = [];
+                        //   foodList.forEach((food) => {
+                        //     foodListKeys.push(Object.keys(food)[0]);
+                        //     foodListValues.push(Object.values(food)[0]);
+                        //   });
+                        //   // console.log('foodList', foodList);
+                        //   // console.log('foodListKeys', foodListKeys);
+                        //   // console.log('foodListValues', foodListValues);
+                        //   for (let i = 0; i < foodListKeys.length; i++) {
+                        //     if (Object.keys(consolidatedList).includes(foodListKeys[i])) {
+                        //       consolidatedList[foodListKeys[i]] += foodListValues[i];
+                        //     } else {
+                        //       consolidatedList[foodListKeys[i]] = foodListValues[i];
+                        //     }
+                        //   }
+                        //   // console.log('consolidatedList', consolidatedList);
+                        //   return consolidatedList;
+                        // }
 
-                      return (
-                        <>
-                          <span >
-                          
-                            <strong>{Object.keys(food)[0]}: </strong>
-                            {Object.values(food)[0]} grams
-                            
-                          </span>
-                          <br></br>
-                        </>
-                      )
-                   
-                    })}
+                        return (
+                          <>
+                            <span>
+                              <strong>{Object.keys(food)[0]}: </strong>
+                              {Object.values(food)[0]} grams
+                            </span>
+                            <br></br>
+                          </>
+                        );
+                      })}
 
-                    {/* {todaysFoods.map((food) => {
+                      {/* {todaysFoods.map((food) => {
         return <li>{food}</li>;
       })} */}
-                  </ul>
+                    </div>
                   </Card.Text>
                   <Card.Text className='fw-bold fs-5 text-center my-3'>
                     Progress Toward Goals:
@@ -226,10 +215,16 @@ const DailyLog = () => {
                       )}{' '}
                     </span>
                     <br></br>
-                    <div className='progress'>
-                      <div className='progress-done' style={calorieStyle}>
-                        {calorieProgress}%
-                      </div>
+                    <div className='progress '>
+                      {calorieProgress > 100 ? (
+                        <div className='progress-over' style={calorieStyle}>
+                          {calorieProgress}%
+                        </div>
+                      ) : (
+                        <div className='progress-done' style={calorieStyle}>
+                          {calorieProgress}%
+                        </div>
+                      )}
                     </div>
                   </Card.Text>
                   <Card.Text className=' fs-5 my-3 mb-1'>
@@ -240,9 +235,15 @@ const DailyLog = () => {
                     </span>
                     <br></br>
                     <div className='progress'>
-                      <div className='progress-done' style={carbStyle}>
-                        {carbsProgress}%
-                      </div>
+                      {carbsProgress > 100 ? (
+                        <div className='progress-over' style={carbStyle}>
+                          {carbsProgress}%
+                        </div>
+                      ) : (
+                        <div className='progress-done' style={carbStyle}>
+                          {carbsProgress}%
+                        </div>
+                      )}
                     </div>
                   </Card.Text>
                   <Card.Text className=' fs-5 my-3'>
@@ -253,9 +254,15 @@ const DailyLog = () => {
                     </span>
                     <br></br>
                     <div className='progress'>
-                      <div className='progress-done' style={fatStyle}>
-                        {fatsProgress}%
-                      </div>
+                      {fatsProgress > 100 ? (
+                        <div className='progress-over' style={fatStyle}>
+                          {fatsProgress}%
+                        </div>
+                      ) : (
+                        <div className='progress-done' style={fatStyle}>
+                          {fatsProgress}%
+                        </div>
+                      )}
                     </div>
                   </Card.Text>
                   <Card.Text className=' fs-5 my-3'>
@@ -269,9 +276,15 @@ const DailyLog = () => {
                     </span>
                     <br></br>
                     <div className='progress'>
-                      <div className='progress-done' style={proteinStyle}>
-                        {proteinsProgress}%
-                      </div>
+                      {proteinsProgress > 100 ? (
+                        <div className='progress-over' style={proteinStyle}>
+                          {proteinsProgress}%
+                        </div>
+                      ) : (
+                        <div className='progress-done' style={proteinStyle}>
+                          {proteinsProgress}%
+                        </div>
+                      )}
                     </div>
                   </Card.Text>
                 </div>

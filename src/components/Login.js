@@ -53,11 +53,11 @@ export default function Login() {
 
   return (
     <>
-      <Container className='mt-3'>
+      <Container className='mt-5'>
         <Row>
           <Col></Col>
           <Col>
-            <Card style={{ maxWidth: '30rem' }}>
+            <Card style={{ width: '30rem' }}>
               <CardHeader>
                 <Card.Text className='fw-bolder fs-4 text-center my-3'>
                   Log In
@@ -65,34 +65,63 @@ export default function Login() {
               </CardHeader>
               <Card.Body>
                 {error && <Alert variant='danger'>{error}</Alert>}
+                <Card.Text className='fw-bolder fs-6 text-center '>
+                  Sign In With Google
+                </Card.Text>
+                <div className=' text-center'>
+                  <Button
+                    className='rounded-pill'
+                    style={{ width: '10rem', color: '#FFFDFD' }}
+                    variant='info'
+                    onClick={handleGoogleLogIn}
+                  >
+                    Google
+                  </Button>
+                </div>
+                <Card.Text className='fs-6 fw-bolder mb-4 text-center  mt-4'>
+                  Sign In With Email And password{' '}
+                </Card.Text>
 
                 <Form onSubmit={handleLoginSubmit}>
                   <Form.Group id='email' className='my-2'>
-                    <Form.Label>Email </Form.Label>
+                    <Form.Label>
+                      <Card.Text className='fs-6 fw-light text-center  text-lowercase '>
+                        email
+                      </Card.Text>
+                    </Form.Label>
                     <Form.Control ref={emailRef} type='email' required />
                   </Form.Group>
                   <Form.Group id='password' className='my-2'>
-                    <Form.Label>Password </Form.Label>
+                    <Form.Label>
+                      {' '}
+                      <Card.Text className='fs-6 fw-light text-center  text-lowercase '>
+                        password
+                      </Card.Text>
+                    </Form.Label>
                     <Form.Control ref={passwordRef} type='password' required />
                   </Form.Group>
-                  <Button
-                    disabled={loading}
-                    className='w-100 mt-3'
-                    type='submit'
-                  >
-                    Login
-                  </Button>
+                  <div className=' text-center'>
+                    {' '}
+                    <Button
+                      disabled={loading}
+                      className='mt-3  rounded-pill'
+                      type='submit'
+                      style={{ width: '10rem', color: '#FFFDFD' }}
+                    >
+                      Login
+                    </Button>
+                  </div>
                 </Form>
                 <div className='mt-3'>
                   <Link to='/forgot-password'>Forgot Password?</Link>{' '}
                   <span className='ms-5'>
-                    <Link to='/signup'> Need an account? Sign Up</Link>
+                    <span style={{ color: '#FFFFFF00' }}>
+                      {'-----------------------------------------'}
+                    </span>
+                    <Link to='/signup'>Sign Up</Link>
                   </span>
-                </div>
-                <div className=' text-end mt-3'>
-                  <Button variant='info' onClick={handleGoogleLogIn}>
-                    Google
-                  </Button>
+                  <br></br>
+                  <br></br>
                 </div>
               </Card.Body>
             </Card>

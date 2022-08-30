@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import egg from './eggsoutline.png';
-import { fetchNutrition } from '../api/fetchNutrition';
+import useSound from 'use-sound';
+
 import { db } from '../firebase';
 import {
   // collection,
@@ -16,12 +16,22 @@ import {
 } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 
+import slurpSound from '../images/yoshi-slurp.mp3';
+import egg from './eggsoutline.png';
+import { fetchNutrition } from '../api/fetchNutrition';
 import './Nutrition.css';
 
 const Nutrition = () => {
   const [queryState, setQueryState] = useState('');
   const [nutrition, setNutrition] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
+
+  const [playSound] = useSound(slurpSound);
+  function handleSlurpAudio() {
+    return playSound();
+  }
 
   const search = async (e) => {
     if (e.key === 'Enter') {
@@ -114,16 +124,27 @@ const Nutrition = () => {
         listOfFoods: currentListOfFoods,
       },
     });
-
-    alert('Food item(s) added successfully, yum!');
+    setShowAlert(true);
+    handleSlurpAudio();
   }
 
   return (
-    <div className='main-container'>
+    <motion.div className='main-container' initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ x: window.innerWidth, transition: {duration: 0.1} }}>
       <Container>
         <Row>
           <Col></Col>
           <Col>
+            {showAlert && (
+              <Alert
+                className='mt-5'
+                variant='success'
+                onClose={() => setShowAlert(false)}
+                dismissible
+              >
+                <p className=' fw-bolder fs-5 text-center'>success</p>{' '}
+                <p className=' fw-bolder fs-6 text-center'>Food added!</p>{' '}
+              </Alert>
+            )}
             <Card className='m-5' style={{ width: '30rem' }}>
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
@@ -145,7 +166,7 @@ const Nutrition = () => {
         <Row>
           <Col></Col>
           <Col>
-          <input
+            <input
               type='text'
               className='search'
               placeholder='Search...'
@@ -187,13 +208,11 @@ allow user to toggle (-/+) size
                 </div>
               </div>
             )}
-            
           </Col>
           <Col></Col>
         </Row>
-
       </Container>
-    </div>
+    </motion.div>
   );
 };
 
