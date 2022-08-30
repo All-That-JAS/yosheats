@@ -4,7 +4,7 @@ export const marioQuotes = [
   "it's a me, luigi",
   'yoshi',
   "Mamma mia!",
-  "let's-a go!",
+  "let's-a-go!",
   'woohoo!'
 ]
 

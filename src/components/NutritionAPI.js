@@ -27,6 +27,7 @@ const Nutrition = () => {
   const [queryState, setQueryState] = useState('');
   const [nutrition, setNutrition] = useState({});
   const [showAlert, setShowAlert] = useState(false);
+  const { currentUser } = useAuth();
 
   const [playSound] = useSound(slurpSound);
   function handleSlurpAudio() {
@@ -40,7 +41,7 @@ const Nutrition = () => {
       setQueryState('');
     }
   };
-  const { currentUser } = useAuth();
+
 
   const date = new Date();
   const todayDate =
@@ -124,12 +125,18 @@ const Nutrition = () => {
         listOfFoods: currentListOfFoods,
       },
     });
+
     setShowAlert(true);
     handleSlurpAudio();
   }
 
   return (
-    <motion.div className='main-container' initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ x: window.innerWidth, transition: {duration: 0.1} }}>
+    <motion.div
+      className='main-container'
+      initial={{ width: 0 }}
+      animate={{ width: '100%' }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+    >
       <Container>
         <Row>
           <Col></Col>
@@ -178,33 +185,49 @@ const Nutrition = () => {
             {nutrition.items && (
               <div className='city'>
                 <div className='city-name'>
-                  <h3>
-                    Food:{' '}
+                  <Card.Text className=' fw-bolder fs-4 text-center'>
                     {nutrition.items[0].name[0].toUpperCase() +
                       nutrition.items[0].name.slice(1)}
-                  </h3>
+                  </Card.Text>
                   <h6>
                     {/* 1 serving size = 100g / do some math here
-allow user to toggle (-/+) size
- */}
-                    <p>Serving Size(g): {nutrition.items[0].serving_size_g}</p>
-                    <p>Calories: {nutrition.items[0].calories}</p>
-                    <p>Total Fat(g): {nutrition.items[0].fat_total_g}</p>
-                    <p>Sodium(mg): {nutrition.items[0].sodium_mg}</p>
+allow user to toggle (-/+) size*/}
                     <p>
-                      Total Carbohydrates(g):{' '}
+                      <strong>Serving Size(g): </strong>
+                      {Math.round(nutrition.items[0].serving_size_g)}
+                    </p>
+                    <p>
+                      <strong>Calories:</strong> {nutrition.items[0].calories}
+                    </p>
+                    <p>
+                      <strong>Total Fat(g): </strong>
+                      {nutrition.items[0].fat_total_g}
+                    </p>
+                    <p>
+                      <strong>Sodium(mg): </strong>
+                      {nutrition.items[0].sodium_mg}
+                    </p>
+                    <p>
+                      <strong> Total Carbohydrate(g): </strong>
+
                       {nutrition.items[0].carbohydrates_total_g}
                     </p>
-                    <p>Sugar(g): {nutrition.items[0].sugar_g}</p>
-                    <p>Protein(g): {nutrition.items[0].protein_g}</p>
+                    <p>
+                      <strong>Sugar(g): </strong>
+                      {nutrition.items[0].sugar_g}
+                    </p>
+                    <p>
+                      <strong>Protein(g):</strong>{' '}
+                      {nutrition.items[0].protein_g}
+                    </p>
                   </h6>
                 </div>
 
-                <button type='submit' onClick={handleClick}>
+                <Button className = 'my-2' type='submit' variant='dark' onClick={handleClick}>
                   Add to Log
-                </button>
+                </Button>
                 <div className='info'>
-                  <img className='egg-icon' src={egg} alt={'yoshi egg'} />
+                  <img className='egg-icon' src={egg} alt={'yoshi egg'} style ={{width:'40px', height: '40px'}} />
                 </div>
               </div>
             )}
