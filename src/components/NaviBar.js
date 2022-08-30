@@ -5,12 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../images/logo.png';
 
-const Navibar = () => {
+export default function Navibar () {
   const [error, setError] = useState('');
-  const logout = useAuth();
+  const {logout} = useAuth();
   let navigate = useNavigate();
-
-  //TODO: dev tool error, cannot destructure logout; therefore link broken
 
   async function handleLogout() {
     setError('');
@@ -58,7 +56,6 @@ const Navibar = () => {
               </Link>
             </NavLink>
 
-            {/* dropdown / log out nonfunctional */}
             <span style={{ color: '#FFFFFF00' }}>
               {'------------------------------------------------'}
             </span>
@@ -107,4 +104,3 @@ const Navibar = () => {
   );
 };
 
-export default Navibar;

@@ -3,12 +3,13 @@ import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import useSound from 'use-sound';
 
 import { quotes } from '../api/MotivationQuotes';
 import SetGoals from './SetGoals';
+
 import mush from '../images/toad.png';
 import { marioQuotes } from '../api/MarioQuotes';
 import marioSound from '../images/mario-coin.mp3';
@@ -34,6 +35,28 @@ const Dashboard = () => {
     } catch {
       setError('Failed to log out');
     }
+  }
+
+  async function handleCounter() {
+    let prevStreakCounter = goals.streakCounter;
+    const date = new Date();
+    const todayDate =
+      Date().split(' ')[3] +
+      '-' +
+      (date.getMonth() + 1) +
+      '-' +
+      Date().split(' ')[2];
+
+    const dayDoc = doc(db, 'user-days', todayDate);
+    const docSnap = await getDoc(dayDoc);
+
+    await updateDoc(dayDoc, {
+      [`${currentUser.uid}`]: {...dayDoc,
+        streakCounter: prevStreakCounter ++,
+      },
+    });
+    console.log('streak', goals.streakCounter);
+    console.log('prevStreakCounter', prevStreakCounter);
   }
 
   let userID = currentUser.uid;
@@ -112,7 +135,10 @@ const Dashboard = () => {
                         <Button
                           variant='dark'
                           style={{ color: '#cccccc' }}
-                          onClick={() => setShowGoals(!showGoals)}
+                          onClick={() => {
+                            handleCounter();
+                            setShowGoals(!showGoals);
+                          }}
                         >
                           Daily Goals
                         </Button>
