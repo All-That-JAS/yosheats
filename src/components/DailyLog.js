@@ -143,37 +143,35 @@ const DailyLog = () => {
   }, [currentUser.uid]);
 
   useEffect(() => {
+    let calorieDeficit = userCalories - todaysCalories;
+    console.log(calorieDeficit, userCalories, todaysCalories);
+    let carbDeficit = userCarbs - todaysCarbs;
+    let fatDeficit = userFats - todaysFats;
+    let proteinDeficit = userProteins - todaysProteins;
     const recommend = () => {
       const carbRecommendations = carbs.filter((foodItem) => {
+        // console.log('carbDeficit', carbDeficit);
+        // console.log('foodItem', foodItem);
+        // console.log('Object.keys(foodItem)[0]', Object.keys(foodItem)[0]);
         return (
-          Math.abs(foodItem[Object.keys(foodItem)[0]].carbs - carbDeficit) <=
-            5 &&
-          Math.abs(
-            foodItem[Object.keys(foodItem)[0]].calories / calorieDeficit
-          ) <= 0.05
+          foodItem[Object.keys(foodItem)[0].carbs] < carbDeficit * 1.05 &&
+          foodItem[Object.keys(foodItem)[0].calories] < calorieDeficit * 1.05
         );
       });
       setCarbRecs(carbRecommendations);
 
       const fatRecommendations = fats.filter((foodItem) => {
         return (
-          Math.abs(foodItem[Object.keys(foodItem)[0]].fats - fatDeficit) <=
-            15 &&
-          Math.abs(
-            foodItem[Object.keys(foodItem)[0]].calories - calorieDeficit
-          ) <= 150
+          foodItem[Object.keys(foodItem)[0].fats] < fatDeficit * 1.05 &&
+          foodItem[Object.keys(foodItem)[0].calories] < calorieDeficit * 1.05
         );
       });
       setFatRecs(fatRecommendations);
       //PROTEIN
       const proteinRecommendations = proteins.filter((foodItem) => {
         return (
-          Math.abs(
-            foodItem[Object.keys(foodItem)[0]].protein - proteinDeficit
-          ) <= 5 &&
-          Math.abs(
-            foodItem[Object.keys(foodItem)[0]].calories / calorieDeficit
-          ) <= 0.05
+          foodItem[Object.keys(foodItem)[0].proteins] < proteinDeficit * 1.05 &&
+          foodItem[Object.keys(foodItem)[0].calories] < calorieDeficit * 1.05
         );
       });
       setProteinRecs(proteinRecommendations);
