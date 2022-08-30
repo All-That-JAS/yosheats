@@ -28,11 +28,15 @@ export default function Signup() {
     if (passwordConfirmRef.current.value !== passwordRef.current.value) {
       return setError('Passwords do not match');
     }
+    if (passwordRef.current.value.length < 6 || passwordConfirmRef.current.value.length < 6) {
+      return setError('Password must be at least six characters long');
+    }
 
     try {
       setError('');
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
+      console.log(passwordRef.current.value.length);
     } catch {
       console.log(e);
       setError('Failed to create an account');
@@ -43,15 +47,15 @@ export default function Signup() {
 
   return (
     <>
-      <Container >
+      <Container>
         <Row>
-          <Col ></Col>
-        
-          <Col>
-            <Card>
-            <CardHeader>
+          <Col></Col>
+
+          <Col >
+            <Card style ={{width: '50vh'}}>
+              <CardHeader>
                 <Card.Text className='fw-bolder fs-4 text-center my-3'>
-                Sign Up
+                  Sign Up
                 </Card.Text>
               </CardHeader>
               <Card.Body>
@@ -82,10 +86,16 @@ export default function Signup() {
                   </Button>
                 </Form>
               </Card.Body>
-            </Card>
-            <div className='w-100 text-center mt-4 fs-5' style={{ color: '#cccccc' }}>
-              Already have an account? <Link to='/login'>Log in!</Link>
+              <Card.Text>
+              <div
+              className='text-center  fs-6 mb-4 text-lowercase'
+              style={{ color: '#A08E8E' }}
+            >
+              Already have an account? <Link to='/login'  className='text-decoration-none'>Log in!</Link>
             </div>
+              </Card.Text>
+            </Card>
+            
           </Col>
           <Col></Col>
         </Row>

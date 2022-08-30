@@ -2,15 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
-import {
-  Form,
-  Button,
-  Card,
-  Alert,
-  Container,
-  Col,
-  Row,
-} from 'react-bootstrap';
+import { Card, Container, Col, Row } from 'react-bootstrap';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 import { proteins, carbs, fats } from '../api/dummyData';
@@ -242,6 +234,7 @@ const DailyLog = () => {
                         );
                       })}
                     </ul>
+
                   </Card.Text>
                   <Card.Text className="fw-bold fs-5 text-center my-3">
                     Progress Toward Goals:
@@ -253,13 +246,20 @@ const DailyLog = () => {
                       {deficitOrSurplus(
                         userCalories - todaysCalories,
                         'calorie'
-                      )}{' '}
+                      )}
                     </span>
                     <br></br>
-                    <div className="progress">
-                      <div className="progress-done" style={calorieStyle}>
-                        {calorieProgress}%
-                      </div>
+                    <div className='progress '>
+                 
+                      {calorieProgress > 100 ? (
+                        <div className='progress-over' style={calorieStyle}>
+                          {calorieProgress}%
+                        </div>
+                      ) : (
+                        <div className='progress-done' style={calorieStyle}>
+                          {calorieProgress}%
+                        </div>
+                      )}
                     </div>
                   </Card.Text>
                   <Card.Text className=" fs-5 my-3 mb-1">
@@ -281,10 +281,17 @@ const DailyLog = () => {
                         : null}
                     </div>
                     <br></br>
-                    <div className="progress">
-                      <div className="progress-done" style={carbStyle}>
-                        {carbsProgress}%
-                      </div>
+                    <div className='progress'>
+                      {carbsProgress > 100 ? (
+                        <div className='progress-over' style={carbStyle}>
+                          {carbsProgress}%
+                        </div>
+                      ) : (
+                        <div className='progress-done' style={carbStyle}>
+                          {carbsProgress}%
+                        </div>
+                      )}
+
                     </div>
                   </Card.Text>
                   <Card.Text className=" fs-5 my-3">
@@ -306,10 +313,16 @@ const DailyLog = () => {
                         : null}
                     </div>
                     <br></br>
-                    <div className="progress">
-                      <div className="progress-done" style={fatStyle}>
-                        {fatsProgress}%
-                      </div>
+                    <div className='progress'>
+                      {fatsProgress > 100 ? (
+                        <div className='progress-over' style={fatStyle}>
+                          {fatsProgress}%
+                        </div>
+                      ) : (
+                        <div className='progress-done' style={fatStyle}>
+                          {fatsProgress}%
+                        </div>
+                      )}
                     </div>
                   </Card.Text>
                   <Card.Text className=" fs-5 my-3">
@@ -334,10 +347,17 @@ const DailyLog = () => {
                         : null}
                     </div>
                     <br></br>
-                    <div className="progress">
-                      <div className="progress-done" style={proteinStyle}>
-                        {proteinsProgress}%
-                      </div>
+                    <div className='progress'>
+                      {proteinsProgress > 100 ? (
+                        <div className='progress-over' style={proteinStyle}>
+                          {proteinsProgress}%
+                        </div>
+                      ) : (
+                        <div className='progress-done' style={proteinStyle}>
+                          {proteinsProgress}%
+                        </div>
+                      )}
+
                     </div>
                   </Card.Text>
                 </div>

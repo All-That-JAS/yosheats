@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import egg from './eggsoutline.png';
-import { fetchNutrition } from '../api/fetchNutrition';
+import useSound from 'use-sound';
+
 import { db } from '../firebase';
 import {
   // collection,
@@ -16,12 +16,23 @@ import {
 } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 
+import slurpSound from '../images/yoshi-slurp.mp3';
+import egg from './eggsoutline.png';
+import { fetchNutrition } from '../api/fetchNutrition';
 import './Nutrition.css';
 
 const Nutrition = () => {
   const [queryState, setQueryState] = useState('');
   const [nutrition, setNutrition] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
+  const { currentUser } = useAuth();
+
+  const [playSound] = useSound(slurpSound);
+  function handleSlurpAudio() {
+    return playSound();
+  }
 
   const search = async (e) => {
     if (e.key === 'Enter') {
@@ -30,7 +41,7 @@ const Nutrition = () => {
       setQueryState('');
     }
   };
-  const { currentUser } = useAuth();
+
 
   const date = new Date();
   const todayDate =
@@ -115,15 +126,32 @@ const Nutrition = () => {
       },
     });
 
-    alert('Food item(s) added successfully, yum!');
+    setShowAlert(true);
+    handleSlurpAudio();
   }
 
   return (
-    <div className='main-container'>
+    <motion.div
+      className='main-container'
+      initial={{ width: 0 }}
+      animate={{ width: '100%' }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+    >
       <Container>
         <Row>
           <Col></Col>
           <Col>
+            {showAlert && (
+              <Alert
+                className='mt-5'
+                variant='success'
+                onClose={() => setShowAlert(false)}
+                dismissible
+              >
+                <p className=' fw-bolder fs-5 text-center'>success</p>{' '}
+                <p className=' fw-bolder fs-6 text-center'>Food added!</p>{' '}
+              </Alert>
+            )}
             <Card className='m-5' style={{ width: '30rem' }}>
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
@@ -145,10 +173,10 @@ const Nutrition = () => {
         <Row>
           <Col></Col>
           <Col>
-          <input
+            <input
               type='text'
               className='search'
-              placeholder='Search...'
+              placeholder="Search and press 'enter'"
               value={queryState}
               onChange={(e) => setQueryState(e.target.value)}
               onKeyPress={search}
@@ -157,43 +185,57 @@ const Nutrition = () => {
             {nutrition.items && (
               <div className='city'>
                 <div className='city-name'>
-                  <h3>
-                    Food:{' '}
+                  <Card.Text className=' fw-bolder fs-4 text-center'>
                     {nutrition.items[0].name[0].toUpperCase() +
                       nutrition.items[0].name.slice(1)}
-                  </h3>
+                  </Card.Text>
                   <h6>
                     {/* 1 serving size = 100g / do some math here
-allow user to toggle (-/+) size
- */}
-                    <p>Serving Size(g): {nutrition.items[0].serving_size_g}</p>
-                    <p>Calories: {nutrition.items[0].calories}</p>
-                    <p>Total Fat(g): {nutrition.items[0].fat_total_g}</p>
-                    <p>Sodium(mg): {nutrition.items[0].sodium_mg}</p>
+allow user to toggle (-/+) size*/}
                     <p>
-                      Total Carbohydrates(g):{' '}
+                      <strong>Serving Size(g): </strong>
+                      {Math.round(nutrition.items[0].serving_size_g)}
+                    </p>
+                    <p>
+                      <strong>Calories:</strong> {nutrition.items[0].calories}
+                    </p>
+                    <p>
+                      <strong>Total Fat(g): </strong>
+                      {nutrition.items[0].fat_total_g}
+                    </p>
+                    <p>
+                      <strong>Sodium(mg): </strong>
+                      {nutrition.items[0].sodium_mg}
+                    </p>
+                    <p>
+                      <strong> Total Carbohydrate(g): </strong>
+
                       {nutrition.items[0].carbohydrates_total_g}
                     </p>
-                    <p>Sugar(g): {nutrition.items[0].sugar_g}</p>
-                    <p>Protein(g): {nutrition.items[0].protein_g}</p>
+                    <p>
+                      <strong>Sugar(g): </strong>
+                      {nutrition.items[0].sugar_g}
+                    </p>
+                    <p>
+                      <strong>Protein(g):</strong>{' '}
+                      {nutrition.items[0].protein_g}
+                    </p>
                   </h6>
                 </div>
 
-                <button type='submit' onClick={handleClick}>
+                <Button className = 'my-2' type='submit' variant='dark' onClick={handleClick}>
                   Add to Log
-                </button>
+                </Button>
                 <div className='info'>
-                  <img className='egg-icon' src={egg} alt={'yoshi egg'} />
+                  <img className='egg-icon' src={egg} alt={'yoshi egg'} style ={{width:'40px', height: '40px'}} />
                 </div>
               </div>
             )}
-            
           </Col>
           <Col></Col>
         </Row>
-
       </Container>
-    </div>
+    </motion.div>
   );
 };
 
