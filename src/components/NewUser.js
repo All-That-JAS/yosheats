@@ -1,15 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { db } from '../firebase';
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-  query,
-  where,
-} from 'firebase/firestore';
+import { updateDoc, doc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -20,7 +11,6 @@ import {
   Container,
   Col,
   Row,
-  Badge,
 } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -149,7 +139,7 @@ const NewUser = () => {
         <Row>
           <Col></Col>
           <Col>
-          {/* TODO: remove not working */}
+            {/* TODO: remove not working */}
             {showAlert && (
               <Alert
                 className='mt-5'

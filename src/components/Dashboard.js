@@ -3,7 +3,7 @@ import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
-import { getDoc, doc, collection } from 'firebase/firestore';
+import { getDoc, doc  } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import useSound from 'use-sound';
 
