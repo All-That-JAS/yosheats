@@ -29,14 +29,20 @@ const DailyLog = () => {
   const [todaysCarbs, setTodaysCarbs] = useState(0);
   const [todaysFats, setTodaysFats] = useState(0);
   const [todaysProteins, setTodaysProteins] = useState(0);
+
   const [userCalories, setUserCalories] = useState(0);
   const [userCarbs, setUserCarbs] = useState(0);
   const [userFats, setUserFats] = useState(0);
   const [userProteins, setUserProteins] = useState(0);
-  const [carbStyle, setCarbStyle] = React.useState({});
-  const [calorieStyle, setCalorieStyle] = React.useState({});
-  const [fatStyle, setFatStyle] = React.useState({});
-  const [proteinStyle, setProteinStyle] = React.useState({});
+
+  const [carbStyle, setCarbStyle] = useState({});
+  const [calorieStyle, setCalorieStyle] = useState({});
+  const [fatStyle, setFatStyle] = useState({});
+  const [proteinStyle, setProteinStyle] = useState({});
+
+  const [carbRecs, setCarbRecs] = useState([]);
+  const [fatRecs, setFatRecs] = useState([]);
+  const [proteinRecs, setProteinRecs] = useState([]);
 
   setTimeout(() => {
     const calorieStyle = {
@@ -87,13 +93,6 @@ const DailyLog = () => {
 
     const getTodaysInfo = async () => {
       const dayDocSnap = await getDoc(dayDoc);
-
-      // ideally we might want to put dayDocSnap in state
-
-      // separate useEffects for daily diet & user info?
-
-      // TODO: check to see if code below works if we delete today's day doc
-      // longer-term -- do we want to find some way to automatically make a day doc once it hits midnight? is that too tricky with time zones? otherwise we will probably have to add code like this in every component that requires us to check today's day doc
       if (!dayDocSnap.exists()) {
         setDoc(dayDoc, {
           [`${currentUser.uid}`]: {
@@ -125,17 +124,56 @@ const DailyLog = () => {
       setUserProteins(userDocSnap.data().dailyProtein);
     };
     getUserGoals();
-    //is the dependency here necessary? userDoc won't change except when the daily streak counter increases, and we're not displaying the streak counter on this page
   }, [currentUser.uid]);
 
-  // const recommend = () => {
-  //   //PROTEIN
-  //   for (let i = 0; i < proteins.length; i++) {
-  //     let foodName = Object.keys(proteins[i]);
-  //     let nutInfo = Object.values(proteins[i])[0].protein;
-  //   }
-  // };
-  // recommend();
+  let calorieDeficit = userCalories - todaysCalories;
+  let carbDeficit = userCarbs - todaysCarbs;
+  let fatDeficit = userFats - todaysFats;
+  let proteinDeficit = userProteins - todaysProteins;
+
+  useEffect(() => {
+    const recommend = () => {
+      const carbRecommendations = carbs.filter((foodItem) => {
+        return (
+          foodItem[Object.keys(foodItem)[0]].carbs < carbDeficit * 1.05 &&
+          foodItem[Object.keys(foodItem)[0]].calories < calorieDeficit * 1.05
+        );
+      });
+      setCarbRecs(carbRecommendations);
+
+      const fatRecommendations = fats.filter((foodItem) => {
+        return (
+          foodItem[Object.keys(foodItem)[0]].fats < fatDeficit * 1.05 &&
+          foodItem[Object.keys(foodItem)[0]].calories < calorieDeficit * 1.05
+        );
+      });
+      setFatRecs(fatRecommendations);
+      //PROTEIN
+      const proteinRecommendations = proteins.filter((foodItem) => {
+        return (
+          foodItem[Object.keys(foodItem)[0]].protein < proteinDeficit * 1.05 &&
+          foodItem[Object.keys(foodItem)[0]].calories < calorieDeficit * 1.05
+        );
+      });
+      setProteinRecs(proteinRecommendations);
+    };
+    recommend();
+  }, [
+    currentUser.uid,
+    todaysCalories,
+    todaysCarbs,
+    todaysFats,
+    todaysProteins,
+    userCalories,
+    userCarbs,
+    userFats,
+    userProteins,
+    calorieDeficit,
+    carbDeficit,
+    fatDeficit,
+    proteinDeficit,
+  ]);
+  //TODO: user recommendation tbd
 
   let calorieProgress = Math.round((todaysCalories / userCalories) * 100);
   let carbsProgress = Math.round((todaysCarbs / userCarbs) * 100);
@@ -144,22 +182,22 @@ const DailyLog = () => {
 
   return (
     <>
-      <Container className='mt-3' style={{ width: '100rem' }}>
+      <Container className="mt-3" style={{ width: '100rem' }}>
         <Row>
           <Col>
             <Card>
               <CardHeader>
-                <Card.Text className='fw-bolder fs-4 text-center my-3'>
+                <Card.Text className="fw-bolder fs-4 text-center my-3">
                   Daily Log
                 </Card.Text>
               </CardHeader>
               <Card.Body>
                 <div>
-                  <Card.Text className='fw-bold fs-5 text-center my-3'>
+                  <Card.Text className="fw-bold fs-5 text-center my-3">
                     Foods Consumed Today:
                   </Card.Text>
-                  <Card.Text className='fs-6 text-lowercase'>
-                    <div>
+                  <Card.Text className="fs-6 text-lowercase">
+                    <ul>
                       {todaysFoods.map((food) => {
                         //   TODO: find a way to consolidate food list so it doesn't list multiple of same item
 
@@ -195,19 +233,16 @@ const DailyLog = () => {
                           </>
                         );
                       })}
+                    </ul>
 
-                      {/* {todaysFoods.map((food) => {
-        return <li>{food}</li>;
-      })} */}
-                    </div>
                   </Card.Text>
-                  <Card.Text className='fw-bold fs-5 text-center my-3'>
+                  <Card.Text className="fw-bold fs-5 text-center my-3">
                     Progress Toward Goals:
                   </Card.Text>
-                  <Card.Text className=' fs-5 my-3'>
+                  <Card.Text className=" fs-5 my-3">
                     <strong>Calories: </strong>
                     {todaysCalories} calories consumed.<br></br>
-                    <span className='text-lowercase'>
+                    <span className="text-lowercase">
                       {deficitOrSurplus(
                         userCalories - todaysCalories,
                         'calorie'
@@ -227,12 +262,24 @@ const DailyLog = () => {
                       )}
                     </div>
                   </Card.Text>
-                  <Card.Text className=' fs-5 my-3 mb-1'>
+                  <Card.Text className=" fs-5 my-3 mb-1">
                     <strong>Carbs: </strong>
                     {todaysCarbs} grams consumed. <br></br>{' '}
-                    <span className='text-lowercase'>
+                    <span className="text-lowercase">
                       {deficitOrSurplus(userCarbs - todaysCarbs, 'carb')}{' '}
                     </span>
+                    <div>
+                      {carbRecs.length
+                        ? `Recommended foods to meet carb goals for today. Pick one:
+                      ${carbRecs.map((foodItem) => {
+                        return `${
+                          foodItem[Object.keys(foodItem)[0]].servingSize
+                        } ${Object.keys(foodItem)[0]} has ${
+                          foodItem[Object.keys(foodItem)[0]].carbs
+                        } g`;
+                      })}`
+                        : null}
+                    </div>
                     <br></br>
                     <div className='progress'>
                       {carbsProgress > 100 ? (
@@ -244,14 +291,27 @@ const DailyLog = () => {
                           {carbsProgress}%
                         </div>
                       )}
+
                     </div>
                   </Card.Text>
-                  <Card.Text className=' fs-5 my-3'>
+                  <Card.Text className=" fs-5 my-3">
                     <strong>Fats: </strong>
                     {todaysFats} grams consumed. <br></br>{' '}
-                    <span className='text-lowercase'>
+                    <span className="text-lowercase">
                       {deficitOrSurplus(userFats - todaysFats, 'fat')}
                     </span>
+                    <div>
+                      {fatRecs.length
+                        ? `Recommended foods to meet fat goals for today. Pick one:
+                      ${fatRecs.map((foodItem) => {
+                        return `${
+                          foodItem[Object.keys(foodItem)[0]].servingSize
+                        } ${Object.keys(foodItem)[0]} has ${
+                          foodItem[Object.keys(foodItem)[0]].fats
+                        } g`;
+                      })}`
+                        : null}
+                    </div>
                     <br></br>
                     <div className='progress'>
                       {fatsProgress > 100 ? (
@@ -265,15 +325,27 @@ const DailyLog = () => {
                       )}
                     </div>
                   </Card.Text>
-                  <Card.Text className=' fs-5 my-3'>
+                  <Card.Text className=" fs-5 my-3">
                     <strong>Proteins: </strong> {todaysProteins} grams consumed.{' '}
                     <br></br>
-                    <span className='text-lowercase'>
+                    <span className="text-lowercase">
                       {deficitOrSurplus(
                         userProteins - todaysProteins,
                         'protein'
                       )}
                     </span>
+                    <div>
+                      {proteinRecs.length
+                        ? `Recommended foods to meet protein goals for today. Pick one:
+                      ${proteinRecs.map((foodItem) => {
+                        return `${
+                          foodItem[Object.keys(foodItem)[0]].servingSize
+                        } ${Object.keys(foodItem)[0]} has ${
+                          foodItem[Object.keys(foodItem)[0]].protein
+                        } g`;
+                      })}`
+                        : null}
+                    </div>
                     <br></br>
                     <div className='progress'>
                       {proteinsProgress > 100 ? (
@@ -285,6 +357,7 @@ const DailyLog = () => {
                           {proteinsProgress}%
                         </div>
                       )}
+
                     </div>
                   </Card.Text>
                 </div>
