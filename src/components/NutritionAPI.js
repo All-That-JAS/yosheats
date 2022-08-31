@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useSound from 'use-sound';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { db } from '../firebase';
 import {
@@ -19,7 +20,7 @@ import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 
 import slurpSound from '../images/yoshi-slurp.mp3';
-import egg from '../images/eggsoutline.png'
+import egg from '../images/eggsoutline.png';
 import { fetchNutrition } from '../api/fetchNutrition';
 import './Nutrition.css';
 
@@ -37,11 +38,14 @@ const Nutrition = () => {
   const search = async (e) => {
     if (e.key === 'Enter') {
       const data = await fetchNutrition(queryState);
-      setNutrition(data);
-      setQueryState('');
+      if (!data.items.length) {
+        alert('Please check your spelling and try again.');
+      } else {
+        setNutrition(data);
+        setQueryState('');
+      }
     }
   };
-
 
   const date = new Date();
   const todayDate =
@@ -54,7 +58,11 @@ const Nutrition = () => {
   const dayDoc = doc(db, 'user-days', todayDate);
 
   function handleSubmit(e) {
-    e.preventDefault();
+    try {
+      e.preventDefault();
+    } catch (err) {
+      alert('Please check your spelling and try again.');
+    }
   }
 
   let currentCalories = 0;
@@ -132,7 +140,7 @@ const Nutrition = () => {
 
   return (
     <motion.div
-      className='main-container'
+      className="main-container"
       initial={{ width: 0 }}
       animate={{ width: '100%' }}
       exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
@@ -143,26 +151,26 @@ const Nutrition = () => {
           <Col>
             {showAlert && (
               <Alert
-                className='mt-5'
-                variant='success'
+                className="mt-5"
+                variant="success"
                 onClose={() => setShowAlert(false)}
                 dismissible
               >
-                <p className=' fw-bolder fs-5 text-center'>success</p>{' '}
-                <p className=' fw-bolder fs-6 text-center'>Food added!</p>{' '}
+                <p className=" fw-bolder fs-5 text-center">success</p>{' '}
+                <p className=" fw-bolder fs-6 text-center">Food added!</p>{' '}
               </Alert>
             )}
-            <Card className='m-5' style={{ width: '30rem' }}>
+            <Card className="m-5" style={{ width: '30rem' }}>
               <Card.Header>
-                <Card.Text className=' fw-bolder fs-4 text-center'>
+                <Card.Text className=" fw-bolder fs-4 text-center">
                   Food Search
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
+                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
                   Please quantify your item and do not pluralize it.
                 </Card.Text>
-                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
+                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
                   i.e. 1 apple
                 </Card.Text>
               </Card.Body>
@@ -174,18 +182,18 @@ const Nutrition = () => {
           <Col></Col>
           <Col>
             <input
-              type='text'
-              className='search'
+              type="text"
+              className="search"
               placeholder="Search and press 'enter'"
               value={queryState}
               onChange={(e) => setQueryState(e.target.value)}
               onKeyPress={search}
               style={{ minWidth: '50vh' }}
             />
-            {nutrition.items && (
-              <div className='city'>
-                <div className='city-name'>
-                  <Card.Text className=' fw-bolder fs-4 text-center'>
+            {nutrition.items ? (
+              <div className="city">
+                <div className="city-name">
+                  <Card.Text className=" fw-bolder fs-4 text-center">
                     {nutrition.items[0].name[0].toUpperCase() +
                       nutrition.items[0].name.slice(1)}
                   </Card.Text>
@@ -223,14 +231,24 @@ allow user to toggle (-/+) size*/}
                   </h6>
                 </div>
 
-                <Button className = 'my-2' type='submit' variant='dark' onClick={handleClick}>
+                <Button
+                  className="my-2"
+                  type="submit"
+                  variant="dark"
+                  onClick={handleClick}
+                >
                   Add to Log
                 </Button>
-                <div className='info'>
-                  <img className='egg-icon' src={egg} alt={'yoshi egg'} style ={{width:'40px', height: '40px'}} />
+                <div className="info">
+                  <img
+                    className="egg-icon"
+                    src={egg}
+                    alt={'yoshi egg'}
+                    style={{ width: '40px', height: '40px' }}
+                  />
                 </div>
               </div>
-            )}
+            ) : null}
           </Col>
           <Col></Col>
         </Row>
