@@ -13,7 +13,8 @@ import SetGoals from './SetGoals';
 import mush from '../images/toad.png';
 import { marioQuotes } from '../api/MarioQuotes';
 import marioSound from '../images/mario-coin.mp3';
-
+import videoBg from '../images/mario-crop.mov';
+import yoshiHello from '../images/yoshidance.gif';
 
 const Dashboard = () => {
   const [error, setError] = useState('');
@@ -94,17 +95,25 @@ const Dashboard = () => {
       exit={{ opacity: 0 }}
     >
       <Container>
-        {/* <video
+        <video
           src={videoBg}
           autoPlay
           loop
           muted
           className='mt-5'
-          style={{ objectFit: 'fill', height: '25vh', width: '100%' }}
-        /> */}
+          style={{ objectFit: 'fill', height: '30vh', width: '50%' }}
+        />
+        <video
+          src={videoBg}
+          autoPlay
+          loop
+          muted
+          className='mt-5'
+          style={{ objectFit: 'fill', height: '30vh', width: '50%' }}
+        />
         <Row classname='dash-content'>
           <Col>
-            <Card className=' my-5' style={{ minWidth: '70vh', marginTop: 15 }}>
+            <Card className=' my-5' style={{ minWidth: '60vh', marginTop: 15 }}>
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
                   {goals.username
@@ -183,15 +192,15 @@ const Dashboard = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={3}></Col>
+          <Col xs={4}></Col>
           <Col>
             <Card
               className='card text-white bg-secondary my-5'
-              style={{ maxWidth: '40vh', marginTop: 15 }}
+              style={{ width: '35vh', marginTop: 15, height: '40vh' }}
             >
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
-                  My Information
+                  My Info
                 </Card.Text>
               </Card.Header>
               <Card.Body>
@@ -214,17 +223,35 @@ const Dashboard = () => {
                   <strong>Streak: </strong>
                   {goals.streakCounter}
                 </Card.Text>
-
+                <div>
+                  <span style={{ color: '#FFFFFF00' }}>------------</span>
+                  <img
+                    src={yoshiHello}
+                    alt='yoshi'
+                    style={{ maxWidth: '10rem' }}
+                    onClick={() => {
+                      handleCoinAudio();
+                    }}
+                  ></img>
+                </div>
+                <br></br>
                 <Button variant='dark'>
-                  <Link to='/update-profile' className='btn btn-dark w-40'>
-                    Update Profile
+                  <Link
+                    to='/update-profile'
+                    className='btn btn-dark w-40'
+                    style={{ height: '4vh' }}
+                  >
+                    Update
                   </Link>
-                </Button>
+                </Button>{' '}
+              
+                  <span style={{ color: '#FFFFFF00' }}>-------------</span>
+              
                 <Button
                   variant='dark'
                   onClick={handleLogout}
                   className='ms-5'
-                  style={{ height: '6vh' }}
+                  style={{ height: '5vh' }}
                 >
                   Log Out
                 </Button>
