@@ -12,7 +12,7 @@ import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
-import { collection, query, where } from 'firebase/firestore';
+import { collection, query, where, doc, getDocs } from 'firebase/firestore';
 
 export default function Signup() {
   const emailRef = useRef();
@@ -32,6 +32,7 @@ export default function Signup() {
       usersRef,
       where('email', '==', emailRef.current.value)
     );
+    const docSnap = await getDocs(queryRef);
 
     if (passwordConfirmRef.current.value !== passwordRef.current.value) {
       return setError('Passwords do not match');
@@ -42,7 +43,7 @@ export default function Signup() {
     ) {
       return setError('Password must be at least six characters long');
     }
-    if (queryRef) {
+    if (docSnap.docs.length) {
       return setError(
         'This email has already been used; please use a different email.'
       );
