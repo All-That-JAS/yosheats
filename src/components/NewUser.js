@@ -378,6 +378,7 @@ const NewUser = () => {
                 </Row>
                 </Card.Text>
               </Form>
+           
             </Card>
           </Col>
           <Col></Col>

@@ -19,6 +19,7 @@ const Dashboard = () => {
   const { currentUser, logout } = useAuth();
   const [goals, setGoals] = useState({});
   const [showGoals, setShowGoals] = useState(false);
+  const [mushy, setMushy] = useState(false);
   const [playSound] = useSound(marioSound);
 
   let navigate = useNavigate();
@@ -37,27 +38,26 @@ const Dashboard = () => {
     }
   }
 
-  async function handleCounter() {
-    let prevStreakCounter = goals.streakCounter;
-    const date = new Date();
-    const todayDate =
-      Date().split(' ')[3] +
-      '-' +
-      (date.getMonth() + 1) +
-      '-' +
-      Date().split(' ')[2];
+  //TODO: streakcounter...
+  // async function handleCounter() {
+  //   let prevStreakCounter = goals.streakCounter;
+  //   const date = new Date();
+  //   const todayDate =
+  //     Date().split(' ')[3] +
+  //     '-' +
+  //     (date.getMonth() + 1) +
+  //     '-' +
+  //     Date().split(' ')[2];
 
-    const dayDoc = doc(db, 'user-days', todayDate);
-    const docSnap = await getDoc(dayDoc);
+  //   const dayDoc = doc(db, 'user-days', todayDate);
+  //   const docSnap = await getDoc(dayDoc);
 
-    await updateDoc(dayDoc, {
-      [`${currentUser.uid}`]: {...dayDoc,
-        streakCounter: prevStreakCounter ++,
-      },
-    });
-    console.log('streak', goals.streakCounter);
-    console.log('prevStreakCounter', prevStreakCounter);
-  }
+  //   await updateDoc(dayDoc, {
+  //     [`${currentUser.uid}`]: { ...dayDoc, streakCounter: prevStreakCounter++ },
+  //   });
+  //   console.log('streak', goals.streakCounter);
+  //   console.log('prevStreakCounter', prevStreakCounter);
+  // }
 
   let userID = currentUser.uid;
 
@@ -136,7 +136,7 @@ const Dashboard = () => {
                           variant='dark'
                           style={{ color: '#cccccc' }}
                           onClick={() => {
-                            handleCounter();
+                            // handleCounter();
                             setShowGoals(!showGoals);
                           }}
                         >
@@ -150,9 +150,9 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className='text-end me-3 ms-5'>
+                <div className=' me-3 ms-5'>
                   <br></br>
-                  <blockquote className='blockquote mb-1'>
+                  <blockquote className='blockquote mb-1 text-end '>
                     <p className='fs-5 '>
                       "{marioQuote}"<br></br>
                     </p>

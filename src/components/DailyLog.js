@@ -239,7 +239,7 @@ const DailyLog = () => {
         </Row>
         {/*  */}
         <Row className='mt-3 mb-5' style={{ height: '25rem' }}>
-          <Col >
+          <Col>
             <Card style={{ height: '26rem' }}>
               <CardHeader>
                 <Card.Text className='fw-bold fs-6 text-center my-2'>
@@ -247,7 +247,7 @@ const DailyLog = () => {
                 </Card.Text>
               </CardHeader>
               <Card.Body>
-                <Card.Text className=' fs-5 my-3'>
+                <Card.Text className=' fs-5 my-2'>
                   <strong>Consumed: </strong>
                   {todaysCalories} calories<br></br>
                   <div className='progress mx-auto'>
@@ -276,7 +276,7 @@ const DailyLog = () => {
                 </Card.Text>
               </CardHeader>
               <Card.Body>
-                <Card.Text className=' fs-5 my-3 mb-1'>
+                <Card.Text className=' fs-5 my-2 mb-1'>
                   <strong>Consumed: </strong>
                   {todaysCarbs} grams
                   <span>
@@ -333,7 +333,7 @@ const DailyLog = () => {
                 </Card.Text>
               </CardHeader>
               <Card.Body>
-                <Card.Text className=' fs-5 my-3'>
+                <Card.Text className=' fs-5 my-2'>
                   <strong>Consumed: </strong>
                   {todaysFats} grams
                   <div className='progress mx-auto'>
@@ -386,7 +386,7 @@ const DailyLog = () => {
                 </Card.Text>
               </CardHeader>
               <Card.Body>
-                <Card.Text className=' fs-5 my-3'>
+                <Card.Text className=' fs-5 my-2'>
                   <strong>Consumed:</strong> {todaysProteins} grams
                   <div className='progress mx-auto'>
                     {proteinsProgress > 100 ? (

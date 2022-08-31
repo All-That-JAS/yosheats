@@ -19,7 +19,7 @@ import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 
 import slurpSound from '../images/yoshi-slurp.mp3';
-import egg from './eggsoutline.png';
+import egg from '../images/eggsoutline.png'
 import { fetchNutrition } from '../api/fetchNutrition';
 import './Nutrition.css';
 

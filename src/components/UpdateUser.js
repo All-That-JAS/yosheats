@@ -4,7 +4,6 @@ import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
-import SetGoals from './SetGoals';
 
 export default function UpdateUser() {
   const emailRef = useRef();
