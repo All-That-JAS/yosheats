@@ -14,6 +14,7 @@ import mush from '../images/toad.png';
 import { marioQuotes } from '../api/MarioQuotes';
 import marioSound from '../images/mario-coin.mp3';
 
+
 const Dashboard = () => {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
@@ -93,7 +94,15 @@ const Dashboard = () => {
       exit={{ opacity: 0 }}
     >
       <Container>
-        <Row>
+        {/* <video
+          src={videoBg}
+          autoPlay
+          loop
+          muted
+          className='mt-5'
+          style={{ objectFit: 'fill', height: '25vh', width: '100%' }}
+        /> */}
+        <Row classname='dash-content'>
           <Col>
             <Card className=' my-5' style={{ minWidth: '70vh', marginTop: 15 }}>
               <Card.Header>

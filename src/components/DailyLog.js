@@ -175,10 +175,21 @@ const DailyLog = () => {
   ]);
   //TODO: user recommendation tbd
 
-  let calorieProgress = Math.round((todaysCalories / userCalories) * 100);
-  let carbsProgress = Math.round((todaysCarbs / userCarbs) * 100);
-  let fatsProgress = Math.round((todaysFats / userFats) * 100);
-  let proteinsProgress = Math.round((todaysProteins / userProteins) * 100);
+  let calorieProgress, carbsProgress, fatsProgress, proteinsProgress;
+
+  Math.round((todaysCalories / userCalories) * 100)
+    ? (calorieProgress = Math.round((todaysCalories / userCalories) * 100))
+    : (calorieProgress = 0);
+  Math.round((todaysCarbs / userCarbs) * 100)
+    ? (carbsProgress = Math.round((todaysCarbs / userCarbs) * 100))
+    : (carbsProgress = 0);
+    Math.round((todaysFats / userFats) * 100)
+    ? (fatsProgress =Math.round((todaysFats / userFats) * 100))
+    : (fatsProgress = 0);
+    Math.round((todaysProteins / userProteins) * 100)
+    ? (proteinsProgress = Math.round((todaysProteins / userProteins) * 100))
+    : (proteinsProgress = 0);
+
 
   return (
     <>
