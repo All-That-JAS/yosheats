@@ -14,7 +14,6 @@ import PrivateRoute from './PrivateRoute';
 import UpdateUser from './components/UpdateUser';
 import ForgotPassword from './components/ForgotPassword';
 import DailyLog from './components/DailyLog';
-import Recommendation from './components/Recommendation';
 import NotFound from './components/NotFound';
 import { AnimatePresence } from 'framer-motion';
 
@@ -60,7 +59,6 @@ function RouteList() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/dailylog" element={<DailyLog />} />
               <Route path="/calendar" element={<CalendarApp />} />
-              <Route path="/rec" element={<Recommendation />} />
               {/* TODO: Not Found page */}
               <Route element={<NotFound />} />
             </Routes>
