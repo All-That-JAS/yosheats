@@ -1,20 +1,8 @@
 import React, { useState } from 'react';
 import useSound from 'use-sound';
-import { Link, useNavigate } from 'react-router-dom';
 
 import { db } from '../firebase';
-import {
-  // collection,
-  // getDocs,
-  getDoc,
-  setDoc,
-  updateDoc,
-  doc,
-  // deleteDoc,
-  // query,
-  // where,
-  // getDocFromCache,
-} from 'firebase/firestore';
+import { getDoc, setDoc, updateDoc, doc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
 import { motion } from 'framer-motion';
@@ -28,6 +16,7 @@ const Nutrition = () => {
   const [queryState, setQueryState] = useState('');
   const [nutrition, setNutrition] = useState({});
   const [showAlert, setShowAlert] = useState(false);
+  const [foodNotFound, setFoodNotFound] = useState(false);
   const { currentUser } = useAuth();
 
   const [playSound] = useSound(slurpSound);
@@ -39,7 +28,7 @@ const Nutrition = () => {
     if (e.key === 'Enter') {
       const data = await fetchNutrition(queryState);
       if (!data.items.length) {
-        alert('Please check your spelling and try again.');
+        setFoodNotFound(true);
       } else {
         setNutrition(data);
         setQueryState('');
@@ -57,13 +46,13 @@ const Nutrition = () => {
 
   const dayDoc = doc(db, 'user-days', todayDate);
 
-  function handleSubmit(e) {
-    try {
-      e.preventDefault();
-    } catch (err) {
-      alert('Please check your spelling and try again.');
-    }
-  }
+  // function handleSubmit(e) {
+  //   try {
+  //     e.preventDefault();
+  //   } catch (err) {
+  //     alert('Please check your spelling and try again.');
+  //   }
+  // }
 
   let currentCalories = 0;
   let currentFat = 0;
@@ -160,6 +149,18 @@ const Nutrition = () => {
                 <p className=" fw-bolder fs-6 text-center">Food added!</p>{' '}
               </Alert>
             )}
+            {foodNotFound && (
+              <Alert
+                className="mt-5"
+                variant="danger"
+                onClose={() => setFoodNotFound(false)}
+                dismissible
+              >
+                <p className=" fw-bolder fs-6 text-center">
+                  Please check your spelling and try again.
+                </p>{' '}
+              </Alert>
+            )}
             <Card className="m-5" style={{ width: '30rem' }}>
               <Card.Header>
                 <Card.Text className=" fw-bolder fs-4 text-center">
@@ -198,7 +199,7 @@ const Nutrition = () => {
                       nutrition.items[0].name.slice(1)}
                   </Card.Text>
                   <h6>
-                    {/* 1 serving size = 100g / do some math here
+                    {/* TODO: 1 serving size = 100g / do some math here
 allow user to toggle (-/+) size*/}
                     <p>
                       <strong>Serving Size(g): </strong>
