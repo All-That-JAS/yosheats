@@ -5,9 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../images/logo.png';
 
-export default function Navibar () {
+export default function Navibar() {
   const [error, setError] = useState('');
-  const {logout} = useAuth();
+  const { logout } = useAuth();
   let navigate = useNavigate();
 
   async function handleLogout() {
@@ -50,6 +50,14 @@ export default function Navibar () {
             <NavLink>
               <Link
                 style={{ textDecoration: 'none', color: '#818080' }}
+                to='/dailylog'
+              >
+                Daily
+              </Link>
+            </NavLink>
+            <NavLink>
+              <Link
+                style={{ textDecoration: 'none', color: '#818080' }}
                 to='/calendar'
               >
                 Calendar
@@ -84,11 +92,12 @@ export default function Navibar () {
               <NavDropdown.Item>
                 <Link
                   style={{ textDecoration: 'none', color: '#818080' }}
-                  to='/dailylog'
+                  to='/update-user'
                 >
-                  Daily Log
+                  Goals
                 </Link>
               </NavDropdown.Item>
+
               <NavDropdown.Divider />
               <NavDropdown.Item
                 onClick={handleLogout}
@@ -102,5 +111,4 @@ export default function Navibar () {
       </Navbar>
     </>
   );
-};
-
+}

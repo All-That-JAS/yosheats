@@ -22,6 +22,7 @@ export default function Signup() {
   let navigate = useNavigate();
   //loading will only allow user to press sign up once
 
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -57,33 +58,33 @@ export default function Signup() {
           <Col>
             <Card style={{ width: '50vh' }}>
               <CardHeader>
-                <Card.Text className="fw-bolder fs-4 text-center my-3">
+                <Card.Text className='fw-bolder fs-4 text-center my-3'>
                   Sign Up
                 </Card.Text>
               </CardHeader>
               <Card.Body>
-                {error && <Alert variant="danger">{error}</Alert>}
+                {error && <Alert variant='danger'>{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group id="email" className="my-2">
+                  <Form.Group id='email' className='my-2'>
                     <Form.Label>Email </Form.Label>
-                    <Form.Control ref={emailRef} type="email" required />
+                    <Form.Control ref={emailRef} type='email' required />
                   </Form.Group>
-                  <Form.Group id="password" className="my-2">
+                  <Form.Group id='password' className='my-2'>
                     <Form.Label>Password </Form.Label>
-                    <Form.Control ref={passwordRef} type="password" required />
+                    <Form.Control ref={passwordRef} type='password' required />
                   </Form.Group>
-                  <Form.Group id="password-confirm" className="my-2">
+                  <Form.Group id='password-confirm' className='my-2'>
                     <Form.Label>Password Confirmation </Form.Label>
                     <Form.Control
                       ref={passwordConfirmRef}
-                      type="password"
+                      type='password'
                       required
                     />
                   </Form.Group>
                   <Button
                     disabled={loading}
-                    className="w-100 mt-4"
-                    type="submit"
+                    className='w-100 mt-4'
+                    type='submit'
                   >
                     Sign Up
                   </Button>
@@ -91,11 +92,11 @@ export default function Signup() {
               </Card.Body>
               <Card.Text>
                 <div
-                  className="text-center  fs-6 mb-4 text-lowercase"
+                  className='text-center  fs-6 mb-4 text-lowercase'
                   style={{ color: '#A08E8E' }}
                 >
                   Already have an account?{' '}
-                  <Link to="/login" className="text-decoration-none">
+                  <Link to='/login' className='text-decoration-none'>
                     Log in!
                   </Link>
                 </div>
