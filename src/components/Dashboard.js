@@ -3,7 +3,7 @@ import { Card, Button, Alert, Col, Container, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
-import { getDoc, doc, updateDoc } from 'firebase/firestore';
+import { getDoc, doc, updateDoc, increment } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import useSound from 'use-sound';
 
@@ -41,25 +41,19 @@ const Dashboard = () => {
   }
 
   //TODO: streakcounter...
-  // async function handleCounter() {
-  //   let prevStreakCounter = goals.streakCounter;
-  //   const date = new Date();
-  //   const todayDate =
-  //     Date().split(' ')[3] +
-  //     '-' +
-  //     (date.getMonth() + 1) +
-  //     '-' +
-  //     Date().split(' ')[2];
+  async function handleCounter() {
+    let prevStreakCounter = goals.streakCounter;
+    const goalDoc = doc(db, 'user-goals', currentUser.uid);
 
-  //   const dayDoc = doc(db, 'user-days', todayDate);
-  //   const docSnap = await getDoc(dayDoc);
-
-  //   await updateDoc(dayDoc, {
-  //     [`${currentUser.uid}`]: { ...dayDoc, streakCounter: prevStreakCounter++ },
-  //   });
-  //   console.log('streak', goals.streakCounter);
-  //   console.log('prevStreakCounter', prevStreakCounter);
-  // }
+    await updateDoc(goalDoc, { streakCounter: increment(1) });
+    console.log('streak', goals.streakCounter);
+    console.log('prevStreakCounter', prevStreakCounter);
+    // await updateDoc(goalDoc, {
+    //   [`${currentUser.uid}`]: { streakCounter: increment(5) },
+    // });
+    // console.log('streak', goals.streakCounter);
+    // console.log('prevStreakCounter', prevStreakCounter);
+  }
 
   let userID = currentUser.uid;
 
@@ -154,7 +148,7 @@ const Dashboard = () => {
                           variant='dark'
                           style={{ color: '#cccccc' }}
                           onClick={() => {
-                            // handleCounter();
+                            handleCounter();
                             setShowGoals(!showGoals);
                           }}
                         >
@@ -244,9 +238,7 @@ const Dashboard = () => {
                     Update
                   </Link>
                 </Button>{' '}
-              
-                  <span style={{ color: '#FFFFFF00' }}>-------------</span>
-              
+                <span style={{ color: '#FFFFFF00' }}>-------------</span>
                 <Button
                   variant='dark'
                   onClick={handleLogout}

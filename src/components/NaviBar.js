@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Nav, Navbar, Container, NavLink, NavDropdown } from 'react-bootstrap';
+import { Nav, Navbar, Container, NavLink, NavDropdown, Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../images/logo.png';
@@ -44,7 +44,7 @@ export default function Navibar() {
                 style={{ textDecoration: 'none', color: '#818080' }}
                 to='/nutrition'
               >
-                Nutrition
+                Search
               </Link>
             </NavLink>
             <NavLink>
