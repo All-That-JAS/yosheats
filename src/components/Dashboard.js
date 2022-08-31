@@ -16,6 +16,7 @@ import marioSound from '../images/mario-coin.mp3';
 import videoBg from '../images/mario-crop.mov';
 import yoshiHello from '../images/yoshidance.gif';
 
+
 const Dashboard = () => {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
@@ -115,43 +116,43 @@ const Dashboard = () => {
           <Col>
             <Card className=' my-5' style={{ minWidth: '60vh', marginTop: 15 }}>
               <Card.Header>
-                <Card.Text className=' fw-bolder fs-4 text-center'>
+                <Card.Text className=" fw-bolder fs-4 text-center">
                   {goals.username
                     ? `${goals.username}'s Daily Progress`
                     : 'Daily Progress'}
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <div className='card text-center'>
-                  <div className='card-header'>
-                    <ul className='nav nav-tabs card-header-tabs'>
-                      <li className='nav-item nav-link'>
+                <div className="card text-center">
+                  <div className="card-header">
+                    <ul className="nav nav-tabs card-header-tabs">
+                      <li className="nav-item nav-link">
                         <Link
                           style={{ textDecoration: 'none', color: '#818080' }}
-                          to='/dailylog'
+                          to="/dailylog"
                         >
                           Daily Log
                         </Link>
                       </li>
-                      <li className='nav-item  nav-link'>
+                      <li className="nav-item  nav-link">
                         <Link
                           style={{ textDecoration: 'none', color: '#818080' }}
-                          to='/calendar'
+                          to="/calendar"
                         >
                           Calendar
                         </Link>
                       </li>
                     </ul>
                   </div>
-                  <div className='card-body'>
+                  <div className="card-body">
                     <div>
-                      <Card.Text className=' fw-bolder fs-6 text-center mb-3'>
+                      <Card.Text className=" fw-bolder fs-6 text-center mb-3">
                         Streak: {goals.streakCounter}
                       </Card.Text>
 
                       <h6>
                         <Button
-                          variant='dark'
+                          variant="dark"
                           style={{ color: '#cccccc' }}
                           onClick={() => {
                             // handleCounter();
@@ -168,19 +169,19 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className=' me-3 ms-5'>
+                <div className=" me-3 ms-5">
                   <br></br>
-                  <blockquote className='blockquote mb-1 text-end '>
-                    <p className='fs-5 '>
+                  <blockquote className="blockquote mb-1 text-end ">
+                    <p className="fs-5 ">
                       "{marioQuote}"<br></br>
                     </p>
                     {/*     "{dailyQuote[0]}" */}
                     {/* {dailyQuote[1]} */}
 
-                    <footer className='blockquote-footer'>
+                    <footer className="blockquote-footer">
                       <img
                         src={mush}
-                        alt='mush'
+                        alt="mush"
                         style={{ maxWidth: '3rem', marginTop: 15 }}
                         onClick={() => {
                           handleCoinAudio();
@@ -195,6 +196,7 @@ const Dashboard = () => {
           <Col xs={4}></Col>
           <Col>
             <Card
+
               className='card text-white bg-secondary my-5'
               style={{ width: '35vh', marginTop: 15, height: '40vh' }}
             >
@@ -204,7 +206,7 @@ const Dashboard = () => {
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                {error && <Alert variant='danger'>{error}</Alert>}
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Card.Text>
                   <strong>Email: </strong>
                   {currentUser.email}
@@ -223,6 +225,7 @@ const Dashboard = () => {
                   <strong>Streak: </strong>
                   {goals.streakCounter}
                 </Card.Text>
+
                 <div>
                   <span style={{ color: '#FFFFFF00' }}>------------</span>
                   <img
@@ -248,8 +251,9 @@ const Dashboard = () => {
                   <span style={{ color: '#FFFFFF00' }}>-------------</span>
               
                 <Button
-                  variant='dark'
+                  variant="dark"
                   onClick={handleLogout}
+
                   className='ms-5'
                   style={{ height: '5vh' }}
                 >

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Confetti</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html{
+                font-size: 62.5%;
+            }
+            .main_header{
+                width: 100vw;
+                height: 100vh;
+                background-color: hsl(0,0,94%);
+            }
+            .center_div{
+                min-width: 50vw;
+                height: 40vh;
+                color: #000;
+                text-shadow: 0 0 2rem rgba(0,0,0,0);
+                font-size: 70rem;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main_header">
+            <div class="center_div">
+                <p>
+                Great job!
+                </br>
+                You met all your goals for today!
+                </p>
+            </div>
+        </div>
+        <script src="./confetti.js"></script>
+        <script>
+            //confetti.stop()
+
+            const startit = () => {
+                setTimeout(function() {
+                    confetti.start()
+                }, 1000)
+            }
+
+            const stopit = () => {
+                setTimeout(function() {
+                    confetti.stop()
+                }, 3000)
+            }
+
+            startit()
+            stopit()
+        </script>
+    </body>
+</html>

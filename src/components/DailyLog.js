@@ -4,7 +4,6 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { Card, Container, Col, Row } from 'react-bootstrap';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
-
 import { proteins, carbs, fats } from '../api/dummyData';
 
 const DailyLog = () => {

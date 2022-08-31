@@ -147,6 +147,7 @@ const Nutrition = () => {
               >
                 <p className=" fw-bolder fs-5 text-center">success</p>{' '}
                 <p className=" fw-bolder fs-6 text-center">Food added!</p>{' '}
+
               </Alert>
             )}
             {foodNotFound && (
@@ -159,6 +160,7 @@ const Nutrition = () => {
                 <p className=" fw-bolder fs-6 text-center">
                   Please check your spelling and try again.
                 </p>{' '}
+
               </Alert>
             )}
             <Card className="m-5" style={{ width: '30rem' }}>
@@ -168,6 +170,8 @@ const Nutrition = () => {
                 </Card.Text>
               </Card.Header>
               <Card.Body>
+                <script src="confetti.js"></script>
+
                 <Card.Text className=" fs-6 text-center text-lowercase mb-2">
                   Please quantify your item and do not pluralize it.
                 </Card.Text>
@@ -191,6 +195,7 @@ const Nutrition = () => {
               onKeyPress={search}
               style={{ minWidth: '50vh' }}
             />
+
             {nutrition.items ? (
               <div className="city">
                 <div className="city-name">
