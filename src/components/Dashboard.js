@@ -14,7 +14,6 @@ import mush from '../images/toad.png';
 import { marioQuotes } from '../api/MarioQuotes';
 import marioSound from '../images/mario-coin.mp3';
 
-
 const Dashboard = () => {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
@@ -102,47 +101,47 @@ const Dashboard = () => {
           className='mt-5'
           style={{ objectFit: 'fill', height: '25vh', width: '100%' }}
         /> */}
-        <Row classname='dash-content'>
+        <Row classname="dash-content">
           <Col>
-            <Card className=' my-5' style={{ minWidth: '70vh', marginTop: 15 }}>
+            <Card className=" my-5" style={{ minWidth: '70vh', marginTop: 15 }}>
               <Card.Header>
-                <Card.Text className=' fw-bolder fs-4 text-center'>
+                <Card.Text className=" fw-bolder fs-4 text-center">
                   {goals.username
                     ? `${goals.username}'s Daily Progress`
                     : 'Daily Progress'}
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <div className='card text-center'>
-                  <div className='card-header'>
-                    <ul className='nav nav-tabs card-header-tabs'>
-                      <li className='nav-item nav-link'>
+                <div className="card text-center">
+                  <div className="card-header">
+                    <ul className="nav nav-tabs card-header-tabs">
+                      <li className="nav-item nav-link">
                         <Link
                           style={{ textDecoration: 'none', color: '#818080' }}
-                          to='/dailylog'
+                          to="/dailylog"
                         >
                           Daily Log
                         </Link>
                       </li>
-                      <li className='nav-item  nav-link'>
+                      <li className="nav-item  nav-link">
                         <Link
                           style={{ textDecoration: 'none', color: '#818080' }}
-                          to='/calendar'
+                          to="/calendar"
                         >
                           Calendar
                         </Link>
                       </li>
                     </ul>
                   </div>
-                  <div className='card-body'>
+                  <div className="card-body">
                     <div>
-                      <Card.Text className=' fw-bolder fs-6 text-center mb-3'>
+                      <Card.Text className=" fw-bolder fs-6 text-center mb-3">
                         Streak: {goals.streakCounter}
                       </Card.Text>
 
                       <h6>
                         <Button
-                          variant='dark'
+                          variant="dark"
                           style={{ color: '#cccccc' }}
                           onClick={() => {
                             // handleCounter();
@@ -159,19 +158,19 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className=' me-3 ms-5'>
+                <div className=" me-3 ms-5">
                   <br></br>
-                  <blockquote className='blockquote mb-1 text-end '>
-                    <p className='fs-5 '>
+                  <blockquote className="blockquote mb-1 text-end ">
+                    <p className="fs-5 ">
                       "{marioQuote}"<br></br>
                     </p>
                     {/*     "{dailyQuote[0]}" */}
                     {/* {dailyQuote[1]} */}
 
-                    <footer className='blockquote-footer'>
+                    <footer className="blockquote-footer">
                       <img
                         src={mush}
-                        alt='mush'
+                        alt="mush"
                         style={{ maxWidth: '3rem', marginTop: 15 }}
                         onClick={() => {
                           handleCoinAudio();
@@ -186,16 +185,16 @@ const Dashboard = () => {
           <Col xs={3}></Col>
           <Col>
             <Card
-              className='card text-white bg-secondary my-5'
+              className="card text-white bg-secondary my-5"
               style={{ maxWidth: '40vh', marginTop: 15 }}
             >
               <Card.Header>
-                <Card.Text className=' fw-bolder fs-4 text-center'>
+                <Card.Text className=" fw-bolder fs-4 text-center">
                   My Information
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                {error && <Alert variant='danger'>{error}</Alert>}
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Card.Text>
                   <strong>Email: </strong>
                   {currentUser.email}
@@ -215,15 +214,15 @@ const Dashboard = () => {
                   {goals.streakCounter}
                 </Card.Text>
 
-                <Button variant='dark'>
-                  <Link to='/update-profile' className='btn btn-dark w-40'>
+                <Button variant="dark">
+                  <Link to="/update-profile" className="btn btn-dark w-40">
                     Update Profile
                   </Link>
                 </Button>
                 <Button
-                  variant='dark'
+                  variant="dark"
                   onClick={handleLogout}
-                  className='ms-5'
+                  className="ms-5"
                   style={{ height: '6vh' }}
                 >
                   Log Out
