@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Card, Container, Col, Row } from 'react-bootstrap';
@@ -12,9 +12,12 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { db } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 function CalendarApp() {
   const [date, setDate] = useState(new Date());
+  const [foodList, setFoodList] = useState([]);
+  const { currentUser } = useAuth();
 
   let month = date.toDateString().split(' ')[1];
   switch (month) {
@@ -55,6 +58,10 @@ function CalendarApp() {
       month = '12';
   }
 
+  // useEffect(() => {
+
+  // }, [currentUser.uid])
+
   const selectedDate =
     date.toDateString().split(' ')[3] +
     '-' +
@@ -65,8 +72,15 @@ function CalendarApp() {
   const userSelectedDate = doc(db, 'user-days', selectedDate);
   const getUserSelectedDate = async () => {
     const selectedDateDocSnap = await getDoc(userSelectedDate);
-    console.log(selectedDateDocSnap.data());
-    // return selectedDateDocSnap.data();
+    let foodArray = [];
+    selectedDateDocSnap
+      .data()
+      [`${currentUser.uid}`].listOfFoods.forEach((eachFood) =>
+        foodArray.push(Object.keys(eachFood)[0])
+      );
+    foodArray.map((food) => {
+      console.log(food);
+    });
   };
 
   return (
@@ -100,6 +114,25 @@ function CalendarApp() {
             </button>
           </Col>
           <Col></Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <Col>
+            <Card className="my-4 " style={{ width: '24rem' }}>
+              <Card.Header>
+                <Card.Text className=" fw-bolder fs-4 text-center">
+                  Foods on {month}/{date.toDateString().split(' ')[2]}/
+                  {date.toDateString().split(' ')[3]}:
+                </Card.Text>
+              </Card.Header>
+              <Card.Body>
+                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
+                  {/* {foodArray} */}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
         </Row>
       </Container>
     </div>
