@@ -220,7 +220,7 @@ const Nutrition = () => {
 allow user to toggle (-/+) size*/}
                     <p>
                       <strong>Serving Size(g): </strong>
-                      {Math.round(nutrition.items[0].serving_size_g)}
+                      {nutrition.items[0].serving_size_g}
                     </p>
                     <p>
                       <strong>Calories:</strong> {nutrition.items[0].calories}
