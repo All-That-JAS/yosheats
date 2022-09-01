@@ -1,22 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Card, Container, Col, Row } from 'react-bootstrap';
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  where,
-  getDoc,
-  setDoc,
-} from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
 function CalendarApp() {
   const [date, setDate] = useState(new Date());
   const [foodList, setFoodList] = useState([]);
+  // const [gramsList, setGramsList] = useState([]);
+
   const { currentUser } = useAuth();
 
   let month = date.toDateString().split(' ')[1];
@@ -58,30 +52,34 @@ function CalendarApp() {
       month = '12';
   }
 
-  // useEffect(() => {
+  async function handleClick() {
+    const selectedDate =
+      date.toDateString().split(' ')[3] +
+      '-' +
+      month +
+      '-' +
+      date.toDateString().split(' ')[2];
 
-  // }, [currentUser.uid])
+    const userSelectedDate = doc(db, 'user-days', selectedDate);
+    const getUserSelectedDate = async () => {
+      const selectedDateDocSnap = await getDoc(userSelectedDate);
+      let foodArray = [];
+      let gramsArray = [];
+      selectedDateDocSnap
+        .data()
+        [`${currentUser.uid}`].listOfFoods.forEach((eachFood) =>
+          foodArray.push(Object.keys(eachFood)[0])
+        );
+      selectedDateDocSnap
+        .data()
+        [`${currentUser.uid}`].listOfFoods.forEach((eachFood) =>
+          gramsArray.push(Object.values(eachFood)[0])
+        );
 
-  const selectedDate =
-    date.toDateString().split(' ')[3] +
-    '-' +
-    month +
-    '-' +
-    date.toDateString().split(' ')[2];
-
-  const userSelectedDate = doc(db, 'user-days', selectedDate);
-  const getUserSelectedDate = async () => {
-    const selectedDateDocSnap = await getDoc(userSelectedDate);
-    let foodArray = [];
-    selectedDateDocSnap
-      .data()
-      [`${currentUser.uid}`].listOfFoods.forEach((eachFood) =>
-        foodArray.push(Object.keys(eachFood)[0])
-      );
-    foodArray.map((food) => {
-      console.log(food);
-    });
-  };
+      setFoodList(selectedDateDocSnap.data()[`${currentUser.uid}`].listOfFoods);
+    };
+    getUserSelectedDate();
+  }
 
   return (
     <div className="app">
@@ -109,9 +107,7 @@ function CalendarApp() {
               {/* <span className="bold">Selected Date:</span> {date.toDateString()} */}
             </p>
 
-            <button onClick={async () => await getUserSelectedDate()}>
-              Submit
-            </button>
+            <button onClick={() => handleClick()}>Submit</button>
           </Col>
           <Col></Col>
         </Row>
@@ -128,7 +124,18 @@ function CalendarApp() {
               </Card.Header>
               <Card.Body>
                 <Card.Text className=" fs-6 text-center text-lowercase mb-2">
-                  {/* {foodArray} */}
+                  {foodList.map((food) => {
+                    return (
+                      <>
+                        <span>
+                          <strong>{Object.keys(food)[0]}: </strong>
+                          {Object.values(food)[0]} grams
+                        </span>
+                        <br></br>
+                      </>
+                    );
+                  })}
+                  {console.log(foodList)}
                 </Card.Text>
               </Card.Body>
             </Card>

@@ -205,30 +205,6 @@ const DailyLog = () => {
                 <Card.Text className="fs-6 text-lowercase text-center">
                   <ul>
                     {todaysFoods.map((food) => {
-                      //   TODO: find a way to consolidate food list so it doesn't list multiple of same item
-
-                      //   function refactoringFoodList(foodList) {
-                      //   let consolidatedList = [];
-                      //   let foodListKeys = [];
-                      //   let foodListValues = [];
-                      //   foodList.forEach((food) => {
-                      //     foodListKeys.push(Object.keys(food)[0]);
-                      //     foodListValues.push(Object.values(food)[0]);
-                      //   });
-                      //   // console.log('foodList', foodList);
-                      //   // console.log('foodListKeys', foodListKeys);
-                      //   // console.log('foodListValues', foodListValues);
-                      //   for (let i = 0; i < foodListKeys.length; i++) {
-                      //     if (Object.keys(consolidatedList).includes(foodListKeys[i])) {
-                      //       consolidatedList[foodListKeys[i]] += foodListValues[i];
-                      //     } else {
-                      //       consolidatedList[foodListKeys[i]] = foodListValues[i];
-                      //     }
-                      //   }
-                      //   // console.log('consolidatedList', consolidatedList);
-                      //   return consolidatedList;
-                      // }
-
                       return (
                         <>
                           <span>

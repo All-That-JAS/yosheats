@@ -147,7 +147,6 @@ const Nutrition = () => {
               >
                 <p className=" fw-bolder fs-5 text-center">success</p>{' '}
                 <p className=" fw-bolder fs-6 text-center">Food added!</p>{' '}
-
               </Alert>
             )}
             {foodNotFound && (
@@ -160,7 +159,6 @@ const Nutrition = () => {
                 <p className=" fw-bolder fs-6 text-center">
                   Please check your spelling and try again.
                 </p>{' '}
-
               </Alert>
             )}
             <Card className="m-5" style={{ width: '30rem' }}>
@@ -208,7 +206,7 @@ const Nutrition = () => {
 allow user to toggle (-/+) size*/}
                     <p>
                       <strong>Serving Size(g): </strong>
-                      {Math.round(nutrition.items[0].serving_size_g)}
+                      {nutrition.items[0].serving_size_g}
                     </p>
                     <p>
                       <strong>Calories:</strong> {nutrition.items[0].calories}
