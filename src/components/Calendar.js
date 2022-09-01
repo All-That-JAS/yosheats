@@ -129,7 +129,7 @@ function CalendarApp() {
                       <>
                         <span>
                           <strong>{Object.keys(food)[0]}: </strong>
-                          {Object.values(food)[0]} grams
+                          {Math.round(Object.values(food)[0])} grams
                         </span>
                         <br></br>
                       </>

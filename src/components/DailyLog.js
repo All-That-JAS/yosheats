@@ -200,15 +200,15 @@ const DailyLog = () => {
             <Card>
               <CardHeader>
                 <Card.Text className="fw-bolder fs-4 text-center my-1">
-                <img
+                  <img
                     src={yoshiEat}
-                    alt='yoshi'
+                    alt="yoshi"
                     style={{ maxWidth: '5rem' }}
                   ></img>
                   Daily Log
                   <img
                     src={yoshiEat}
-                    alt='yoshi'
+                    alt="yoshi"
                     style={{ maxWidth: '5rem', transform: 'scaleX(-1)' }}
                   ></img>
                 </Card.Text>
