@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Nav, Navbar, Container, NavLink, NavDropdown } from 'react-bootstrap';
+import {
+  Nav,
+  Navbar,
+  Container,
+  NavLink,
+  NavDropdown,
+  Card,
+} from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import party from 'party-js';
 import logo from '../images/logo.png';
 
 export default function Navibar() {
   const [error, setError] = useState('');
-  const { logout } = useAuth();
+  const { logout, currentUser } = useAuth();
   let navigate = useNavigate();
 
   async function handleLogout() {
@@ -38,75 +45,80 @@ export default function Navibar() {
               <img src={logo} width='50' height='50' alt='egg' />
             </Link>
           </Navbar.Brand>
-          <div className='container-fluid d-flex justify-content-between'>
-            <div></div>
-            <Nav>
-              <NavLink>
-                <Link
-                  style={{ textDecoration: 'none', color: '#818080' }}
-                  to='/'
-                >
-                  Home
-                </Link>
-              </NavLink>
-              <NavLink>
-                <Link
-                  style={{ textDecoration: 'none', color: '#818080' }}
-                  to='/nutrition'
-                >
-                  Nutrition
-                </Link>
-              </NavLink>
-              <NavLink>
-                <Link
-                  style={{ textDecoration: 'none', color: '#818080' }}
-                  to='/dailylog'
-                >
-                  Daily
-                </Link>
-              </NavLink>
-              <NavLink>
-                <Link
-                  style={{ textDecoration: 'none', color: '#818080' }}
-                  to='/calendar'
-                >
-                  Calendar
-                </Link>
-              </NavLink>
-            </Nav>
-            <div>
-              {' '}
-              <NavDropdown
-                title='🍄'
-                id='collasible-nav-dropdown'
-                className='mt-2 text-center'
-              >
-                <NavDropdown.Item>
-                  <Link
-                    style={{ textDecoration: 'none', color: '#818080' }}
-                    to='/update-profile'
+          <div
+            className='container-fluid d-flex justify-content-between'
+            style={{ fontWeight: 'bolder' }}
+          >
+            {!currentUser ? null : (
+              <>
+                <Nav>
+                  <NavLink>
+                    <Link
+                      style={{ textDecoration: 'none', color: '#818080' }}
+                      to='/'
+                    >
+                      Home
+                    </Link>
+                  </NavLink>
+                  <NavLink>
+                    <Link
+                      style={{ textDecoration: 'none', color: '#818080' }}
+                      to='/nutrition'
+                    >
+                      Nutrition
+                    </Link>
+                  </NavLink>
+                  <NavLink>
+                    <Link
+                      style={{ textDecoration: 'none', color: '#818080' }}
+                      to='/dailylog'
+                    >
+                      Daily
+                    </Link>
+                  </NavLink>
+                  <NavLink>
+                    <Link
+                      style={{ textDecoration: 'none', color: '#818080' }}
+                      to='/calendar'
+                    >
+                      Calendar
+                    </Link>
+                  </NavLink>
+                </Nav>
+                <div>
+                  <NavDropdown
+                    title='🍄'
+                    id='collasible-nav-dropdown'
+                    className='mt-2 text-center'
                   >
-                    Profile
-                  </Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link
-                    style={{ textDecoration: 'none', color: '#818080' }}
-                    to='/update-user'
-                  >
-                    Goals
-                  </Link>
-                </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <Link
+                        style={{ textDecoration: 'none', color: '#818080' }}
+                        to='/update-profile'
+                      >
+                        Profile
+                      </Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <Link
+                        style={{ textDecoration: 'none', color: '#818080' }}
+                        to='/update-user'
+                      >
+                        Goals
+                      </Link>
+                    </NavDropdown.Item>
 
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  onClick={handleLogout}
-                  style={{ textDecoration: 'none', color: '#818080' }}
-                >
-                  Log Out
-                </NavDropdown.Item>
-              </NavDropdown>
-            </div>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item
+                      onClick={handleLogout}
+                      style={{ textDecoration: 'none', color: '#818080' }}
+                    >
+                      Log Out
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+              </>
+            )}
           </div>
         </Container>
       </Navbar>

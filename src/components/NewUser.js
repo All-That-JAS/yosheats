@@ -365,7 +365,7 @@ const NewUser = () => {
                   </Row>
                   <Button
                     className='m-4'
-                    variant='dark'
+                    variant='danger'
                     style={{ width: '3rem' }}
                   >
                     {' '}

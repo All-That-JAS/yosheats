@@ -6,6 +6,8 @@ import { Card, Container, Col, Row } from 'react-bootstrap';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { proteins, carbs, fats } from '../api/dummyData';
 
+import yoshiEat from '../images/yoshi-eat.gif';
+
 const DailyLog = () => {
   function deficitOrSurplus(num, goalQty, goalName) {
     let unit;
@@ -198,7 +200,17 @@ const DailyLog = () => {
             <Card>
               <CardHeader>
                 <Card.Text className="fw-bolder fs-4 text-center my-1">
+                <img
+                    src={yoshiEat}
+                    alt='yoshi'
+                    style={{ maxWidth: '5rem' }}
+                  ></img>
                   Daily Log
+                  <img
+                    src={yoshiEat}
+                    alt='yoshi'
+                    style={{ maxWidth: '5rem', transform: 'scaleX(-1)' }}
+                  ></img>
                 </Card.Text>
               </CardHeader>
               <Card.Body>
