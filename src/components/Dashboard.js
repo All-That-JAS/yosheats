@@ -15,6 +15,16 @@ import { marioQuotes } from '../api/MarioQuotes';
 import marioSound from '../images/mario-coin.mp3';
 import videoBg from '../images/mario-crop.mov';
 import yoshiHello from '../images/yoshidance.gif';
+/*
+ <img
+                    src={yoshiHello}
+                    alt='yoshi'
+                    style={{ maxWidth: '10rem' }}
+                    onClick={() => {
+                      handleCoinAudio();
+                    }}
+                  ></img>
+*/
 
 
 const Dashboard = () => {
@@ -198,7 +208,7 @@ const Dashboard = () => {
             <Card
 
               className='card text-white bg-secondary my-5'
-              style={{ width: '35vh', marginTop: 15, height: '40vh' }}
+              style={{ width: '35vh', marginTop: 15 }}
             >
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
@@ -225,37 +235,16 @@ const Dashboard = () => {
                   <strong>Streak: </strong>
                   {goals.streakCounter}
                 </Card.Text>
-
-                <div>
-                  <span style={{ color: '#FFFFFF00' }}>------------</span>
-                  <img
-                    src={yoshiHello}
-                    alt='yoshi'
-                    style={{ maxWidth: '10rem' }}
-                    onClick={() => {
-                      handleCoinAudio();
-                    }}
-                  ></img>
-                </div>
-                <br></br>
                 <Button variant='dark'>
-                  <Link
-                    to='/update-profile'
-                    className='btn btn-dark w-40'
-                    style={{ height: '4vh' }}
-                  >
-                    Update
+                  <Link to='/update-profile' className='btn btn-dark w-40'>
+                    Update Profile
                   </Link>
-                </Button>{' '}
-              
-                  <span style={{ color: '#FFFFFF00' }}>-------------</span>
-              
+                </Button>
                 <Button
-                  variant="dark"
+                  variant='dark'
                   onClick={handleLogout}
-
                   className='ms-5'
-                  style={{ height: '5vh' }}
+                  style={{ height: '6vh' }}
                 >
                   Log Out
                 </Button>

@@ -2,7 +2,15 @@
 // very similar to Login Page
 
 import React, { useRef, useState } from 'react';
-import { Form, Button, Card, Alert, Col, Container, Row  } from 'react-bootstrap';
+import {
+  Form,
+  Button,
+  Card,
+  Alert,
+  Col,
+  Container,
+  Row,
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 
@@ -32,38 +40,54 @@ export default function ForgotPassword() {
 
   return (
     <>
-    <Container>
+      <Container>
         <Row>
           <Col></Col>
-          <Col><Card>
-          <CardHeader>
+          <Col>
+            <Card style={{ maxWidth: '25rem' }}>
+              <CardHeader>
                 <Card.Text className='fw-bolder fs-4 text-center my-3'>
-                Reset Password
+                  Reset Password
                 </Card.Text>
               </CardHeader>
-        <Card.Body>
-          {error && <Alert variant='danger'>{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id='email'>
-              <Form.Label>Email </Form.Label>
-              <Form.Control ref={emailRef} type='email' required />
-            </Form.Group>
-            <Button disabled={loading} className='w-100 mt-3' type='submit'>
-              Reset Password
-            </Button>
-          </Form>
-          <div className='w-100 text-center mt-3'>
-            <Link to='/login'>Login</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className='w-100 text-center mt-2'>
-        Need an account? <Link to='/signup'>Sign Up</Link>
-      </div></Col>
+              <Card.Body>
+                {error && <Alert variant='danger'>{error}</Alert>}
+                <Card.Text className='fw-light text-lowercase'>
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group id='email'>
+                      <Form.Label>Email </Form.Label>
+                      <Form.Control ref={emailRef} type='email' required />
+                    </Form.Group>
+                    <Button
+                      disabled={loading}
+                      className='w-100 mt-3 rounded-pill'
+                      type='submit'
+                    >
+                      Reset Password
+                    </Button>
+                  </Form>
+
+                  <div className='mt-3'>
+                    <div className='d-flex justify-content-between'>
+                       <Link to='/login' className='text-decoration-none'>
+                      Login
+                    </Link>
+                  
+                    <span>
+                      <Link to='/signup' className='text-decoration-none'>
+                        Sign Up
+                      </Link>
+                    </span>
+                    </div>
+                   
+                  </div>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
           <Col></Col>
-          </Row>
-          </Container>
-      
+        </Row>
+      </Container>
     </>
   );
 }

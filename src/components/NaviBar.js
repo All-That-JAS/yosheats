@@ -22,96 +22,92 @@ export default function Navibar() {
   return (
     <>
       <Navbar
-        bg="light"
-        variant="light"
+        bg='light'
+        variant='light'
         style={{ maxHeight: '55px' }}
-        className="container-fluid"
+        className='container-fluid'
       >
-        <Container className="container-fluid d-flex justify-content-center">
+        <Container>
           <Navbar.Brand>
             <Link
               style={{ textDecoration: 'none', color: '#818080' }}
-              to="/"
-              id="button"
+              to='/'
+              id='button'
               onClick={(ev) => party.confetti(ev.target)}
             >
-              <img src={logo} width="50" height="50" alt="egg" />
+              <img src={logo} width='50' height='50' alt='egg' />
             </Link>
           </Navbar.Brand>
-          <Nav className="me-auto">
-            <NavLink>
-              <Link style={{ textDecoration: 'none', color: '#818080' }} to="/">
-                Home
-              </Link>
-            </NavLink>
-            <NavLink>
-              <Link
-                style={{ textDecoration: 'none', color: '#818080' }}
-                to="/nutrition"
-              >
-                Nutrition
-              </Link>
-            </NavLink>
-            <NavLink>
-              <Link
-                style={{ textDecoration: 'none', color: '#818080' }}
-                to="/dailylog"
-              >
-                Daily
-              </Link>
-            </NavLink>
-            <NavLink>
-              <Link
-                style={{ textDecoration: 'none', color: '#818080' }}
-                to="/calendar"
-              >
-                Calendar
-              </Link>
-            </NavLink>
-
-            <span style={{ color: '#FFFFFF00' }}>
-              {'------------------------------------------------'}
-            </span>
-
-            <span style={{ color: '#FFFFFF00' }}>
-              {'------------------------------------------------'}
-            </span>
-
-            <span style={{ color: '#FFFFFF00' }}>
-              {'------------------------------------------------'}
-            </span>
-
-            <NavDropdown
-              title="🍄"
-              id="collasible-nav-dropdown"
-              className="ms-5 text-center"
-            >
-              <NavDropdown.Item>
+          <div className='container-fluid d-flex justify-content-between'>
+            <div></div>
+            <Nav>
+              <NavLink>
                 <Link
                   style={{ textDecoration: 'none', color: '#818080' }}
-                  to="/update-profile"
+                  to='/'
                 >
-                  Profile
+                  Home
                 </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
+              </NavLink>
+              <NavLink>
                 <Link
                   style={{ textDecoration: 'none', color: '#818080' }}
-                  to="/update-user"
+                  to='/nutrition'
                 >
-                  Goals
+                  Nutrition
                 </Link>
-              </NavDropdown.Item>
-
-              <NavDropdown.Divider />
-              <NavDropdown.Item
-                onClick={handleLogout}
-                style={{ textDecoration: 'none', color: '#818080' }}
+              </NavLink>
+              <NavLink>
+                <Link
+                  style={{ textDecoration: 'none', color: '#818080' }}
+                  to='/dailylog'
+                >
+                  Daily
+                </Link>
+              </NavLink>
+              <NavLink>
+                <Link
+                  style={{ textDecoration: 'none', color: '#818080' }}
+                  to='/calendar'
+                >
+                  Calendar
+                </Link>
+              </NavLink>
+            </Nav>
+            <div>
+              {' '}
+              <NavDropdown
+                title='🍄'
+                id='collasible-nav-dropdown'
+                className='mt-2 text-center'
               >
-                Log Out
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+                <NavDropdown.Item>
+                  <Link
+                    style={{ textDecoration: 'none', color: '#818080' }}
+                    to='/update-profile'
+                  >
+                    Profile
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link
+                    style={{ textDecoration: 'none', color: '#818080' }}
+                    to='/update-user'
+                  >
+                    Goals
+                  </Link>
+                </NavDropdown.Item>
+
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  onClick={handleLogout}
+                  style={{ textDecoration: 'none', color: '#818080' }}
+                >
+                  Log Out
+                </NavDropdown.Item>
+              </NavDropdown>
+            </div>
+          </div>
         </Container>
       </Navbar>
     </>

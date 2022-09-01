@@ -47,62 +47,66 @@ export default function UpdateUser() {
 
   return (
     <>
-      <Container className="mt-5" style={{ width: '24rem' }}>
+      <Container className='mt-5' style={{ width: '24rem' }}>
         <Card>
           <CardHeader>
-            <Card.Text className="fw-bolder fs-4 text-center my-3">
+            <Card.Text className='fw-bolder fs-4 text-center my-3'>
               Update Profile{' '}
             </Card.Text>
           </CardHeader>
           <Card.Body>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group id="email" className="m-2">
-                <Form.Label>Email </Form.Label>
-                <Form.Control
-                  ref={emailRef}
-                  type="email"
-                  required
-                  defaultValue={currentUser.email}
-                />
-              </Form.Group>
-              <Form.Group id="password" className="m-2">
-                <Form.Label>Password </Form.Label>
-                <Form.Control
-                  ref={passwordRef}
-                  type="password"
-                  placeholder="Leave blank to keep the same"
-                />
-              </Form.Group>
-              <Form.Group id="password-confirm" className="m-2">
-                <Form.Label>Password Confirmation </Form.Label>
-                <Form.Control
-                  ref={passwordConfirmRef}
-                  type="password"
-                  placeholder="Leave blank to keep the same"
-                />
-              </Form.Group>
-              <Button disabled={loading} className="w-100 my-3" type="submit">
-                Update
-              </Button>
-            </Form>
+            {error && <Alert variant='danger'>{error}</Alert>}
+            <Card.Text className='fw-light text-lowercase'>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group id='email' className='m-2'>
+                  <Form.Label>Email </Form.Label>
+                  <Form.Control
+                    ref={emailRef}
+                    type='email'
+                    required
+                    defaultValue={currentUser.email}
+                  />
+                </Form.Group>
+                <Form.Group id='password' className='m-2'>
+                  <Form.Label>Password </Form.Label>
+                  <Form.Control
+                    ref={passwordRef}
+                    type='password'
+                    placeholder='Leave blank to keep the same'
+                  />
+                </Form.Group>
+                <Form.Group id='password-confirm' className='m-2'>
+                  <Form.Label>Password Confirmation </Form.Label>
+                  <Form.Control
+                    ref={passwordConfirmRef}
+                    type='password'
+                    placeholder='Leave blank to keep the same'
+                  />
+                </Form.Group>
+                <Button disabled={loading} className='w-100 my-3 rounded-pill' type='submit'>
+                  Update
+                </Button>
+              </Form>
+            </Card.Text>
           </Card.Body>
         </Card>
-        <div className="w-100 text-center mt-4">
-          <Button variant="secondary">
-            <Link
-              style={{ textDecoration: 'none', color: '#cccccc' }}
-              to="/update-user"
-            >
-              Update Goals
-            </Link>
-          </Button>
-          <span style={{ color: '#FFFFFF00' }}>{'----'}</span>
-          <Button variant="secondary">
-            <Link style={{ textDecoration: 'none', color: '#cccccc' }} to="/">
-              Cancel
-            </Link>
-          </Button>
+        <div className='w-100 text-center mt-4'>
+          <div className='d-flex justify-content-between'>
+            <Button variant='secondary'>
+              <Link
+                style={{ textDecoration: 'none', color: '#cccccc' }}
+                to='/update-user'
+              >
+                Update Goals
+              </Link>
+            </Button>
+       
+            <Button variant='secondary'>
+              <Link style={{ textDecoration: 'none', color: '#cccccc' }} to='/'>
+                Cancel
+              </Link>
+            </Button>
+          </div>
         </div>
       </Container>
     </>
