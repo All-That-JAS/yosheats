@@ -112,17 +112,22 @@ export default function Login() {
                     </Button>
                   </div>
                 </Form>
-                <Card.Text>
-                  <div className='mt-3 text-lowercase text-decoration-none'>
-                    <Link to='/forgot-password'  className='text-decoration-none'>Forgot Password?</Link>{' '}
-                    <span className='ms-5'>
-                      <span style={{ color: '#FFFFFF00' }}>
-                        {'-------------------------------------'}
+                <Card.Text className='mt-3 text-lowercase'>
+                  <div>
+                    <div className='d-flex justify-content-between'>
+                      <Link
+                        to='/forgot-password'
+                        className='text-decoration-none'
+                      >
+                        Forgot Password?
+                      </Link>{' '}
+                      <span className='ms-5'>
+                    
+                        <Link to='/signup' className='text-decoration-none'>
+                          Sign Up
+                        </Link>
                       </span>
-                      <Link to='/signup' className='text-decoration-none'>Sign Up</Link>
-                    </span>
-                    <br></br>
-                    <br></br>
+                    </div>
                   </div>
                 </Card.Text>
               </Card.Body>

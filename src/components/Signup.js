@@ -77,6 +77,7 @@ export default function Signup() {
               </CardHeader>
               <Card.Body>
                 {error && <Alert variant="danger">{error}</Alert>}
+                <Card.Text className="fw-light text-lowercase">
                 <Form onSubmit={handleSubmit}>
                   <Form.Group id="email" className="my-2">
                     <Form.Label>Email </Form.Label>
@@ -96,12 +97,13 @@ export default function Signup() {
                   </Form.Group>
                   <Button
                     disabled={loading}
-                    className="w-100 mt-4"
+                    className="w-100 mt-4 rounded-pill"
                     type="submit"
                   >
                     Sign Up
                   </Button>
                 </Form>
+                </Card.Text>
               </Card.Body>
               <Card.Text>
                 <div
