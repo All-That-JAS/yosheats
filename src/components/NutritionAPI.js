@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 
 import slurpSound from '../images/yoshi-slurp.mp3';
 import egg from '../images/eggsoutline.png';
+import qq from '../images/qq.png';
 import { fetchNutrition } from '../api/fetchNutrition';
 import './Nutrition.css';
 
@@ -129,7 +130,7 @@ const Nutrition = () => {
 
   return (
     <motion.div
-      className="main-container"
+      className='main-container'
       initial={{ width: 0 }}
       animate={{ width: '100%' }}
       exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
@@ -140,40 +141,53 @@ const Nutrition = () => {
           <Col>
             {showAlert && (
               <Alert
-                className="mt-5"
-                variant="success"
+                className='mt-5'
+                variant='success'
                 onClose={() => setShowAlert(false)}
                 dismissible
               >
-                <p className=" fw-bolder fs-5 text-center">success</p>{' '}
-                <p className=" fw-bolder fs-6 text-center">Food added!</p>{' '}
+                <p className=' fw-bolder fs-5 text-center'>success</p>{' '}
+                <p className=' fw-bolder fs-6 text-center'>Food added!</p>{' '}
               </Alert>
             )}
             {foodNotFound && (
               <Alert
-                className="mt-5"
-                variant="danger"
+                className='mt-5'
+                variant='danger'
                 onClose={() => setFoodNotFound(false)}
                 dismissible
               >
-                <p className=" fw-bolder fs-6 text-center">
+                <p className=' fw-bolder fs-6 text-center'>
                   Please check your spelling and try again.
                 </p>{' '}
               </Alert>
             )}
-            <Card className="m-5" style={{ width: '30rem' }}>
+            <Card className='m-5' style={{ width: '30rem' }}>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-4 text-center">
+              
+                <Card.Text className=' fw-bolder fs-4 text-center'>
+                <img
+                  className='me-4'
+                  src={qq}
+                  alt='nintendo party'
+                  style={{ maxWidth: '2rem' }}
+                ></img>
                   Food Search
+                  <img
+                    className='ms-4'
+                    src={qq}
+                    alt='nintendo party'
+                    style={{ maxWidth: '2rem' }}
+                  ></img>
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <script src="confetti.js"></script>
+                <script src='confetti.js'></script>
 
-                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
+                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
                   Please quantify your item and do not pluralize it.
                 </Card.Text>
-                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
+                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
                   i.e. 1 apple
                 </Card.Text>
               </Card.Body>
@@ -185,8 +199,8 @@ const Nutrition = () => {
           <Col></Col>
           <Col>
             <input
-              type="text"
-              className="search"
+              type='text'
+              className='search'
               placeholder="Search and press 'enter'"
               value={queryState}
               onChange={(e) => setQueryState(e.target.value)}
@@ -195,9 +209,9 @@ const Nutrition = () => {
             />
 
             {nutrition.items ? (
-              <div className="city">
-                <div className="city-name">
-                  <Card.Text className=" fw-bolder fs-4 text-center">
+              <div className='city'>
+                <div className='city-name'>
+                  <Card.Text className=' fw-bolder fs-4 text-center'>
                     {nutrition.items[0].name[0].toUpperCase() +
                       nutrition.items[0].name.slice(1)}
                   </Card.Text>
@@ -236,16 +250,16 @@ allow user to toggle (-/+) size*/}
                 </div>
 
                 <Button
-                  className="my-2"
-                  type="submit"
-                  variant="dark"
+                  className='my-2'
+                  type='submit'
+                  variant='dark'
                   onClick={handleClick}
                 >
                   Add to Log
                 </Button>
-                <div className="info">
+                <div className='info'>
                   <img
-                    className="egg-icon"
+                    className='egg-icon'
                     src={egg}
                     alt={'yoshi egg'}
                     style={{ width: '40px', height: '40px' }}
