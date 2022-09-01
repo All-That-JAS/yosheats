@@ -12,6 +12,9 @@ import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
+import helloNintendo from '../images/hello-nintendo.webp';
+import party from 'party-js';
+
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -31,6 +34,7 @@ export default function Login() {
       setError('');
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
+      party.confetti(e.target);
       navigate('/');
     } catch {
       setError('Failed to sign in to account');
@@ -60,7 +64,19 @@ export default function Login() {
             <Card style={{ width: '30rem' }}>
               <CardHeader>
                 <Card.Text className='fw-bolder fs-4 text-center my-3'>
+                  <img
+                    className='me-5'
+                    src={helloNintendo}
+                    alt='nintendo party'
+                    style={{ maxWidth: '7rem' }}
+                  ></img>
                   Log In
+                  <img
+                    className='ms-5'
+                    src={helloNintendo}
+                    alt='nintendo party'
+                    style={{ maxWidth: '7rem', transform: 'scaleX(-1)' }}
+                  ></img>
                 </Card.Text>
               </CardHeader>
               <Card.Body>
@@ -122,7 +138,6 @@ export default function Login() {
                         Forgot Password?
                       </Link>{' '}
                       <span className='ms-5'>
-                    
                         <Link to='/signup' className='text-decoration-none'>
                           Sign Up
                         </Link>

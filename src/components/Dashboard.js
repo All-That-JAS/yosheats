@@ -9,30 +9,20 @@ import useSound from 'use-sound';
 
 import { quotes } from '../api/MotivationQuotes';
 import SetGoals from './SetGoals';
+import DailyLog from './DailyLog';
 
 import mush from '../images/toad.png';
 import { marioQuotes } from '../api/MarioQuotes';
 import marioSound from '../images/mario-coin.mp3';
 import videoBg from '../images/mario-crop.mov';
-import yoshiHello from '../images/yoshidance.gif';
-/*
- <img
-                    src={yoshiHello}
-                    alt='yoshi'
-                    style={{ maxWidth: '10rem' }}
-                    onClick={() => {
-                      handleCoinAudio();
-                    }}
-                  ></img>
-*/
-
+import yoshiPixel from '../images/pixelyoshi.png';
 
 const Dashboard = () => {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
   const [goals, setGoals] = useState({});
   const [showGoals, setShowGoals] = useState(false);
-  const [mushy, setMushy] = useState(false);
+  const [showDaily, setShowDaily] = useState(false);
   const [playSound] = useSound(marioSound);
 
   let navigate = useNavigate();
@@ -126,72 +116,86 @@ const Dashboard = () => {
           <Col>
             <Card className=' my-5' style={{ minWidth: '60vh', marginTop: 15 }}>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-4 text-center">
+                <Card.Text className=' fw-bolder fs-4 text-center'>
                   {goals.username
                     ? `${goals.username}'s Daily Progress`
                     : 'Daily Progress'}
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <div className="card text-center">
-                  <div className="card-header">
-                    <ul className="nav nav-tabs card-header-tabs">
-                      <li className="nav-item nav-link">
-                        <Link
-                          style={{ textDecoration: 'none', color: '#818080' }}
-                          to="/dailylog"
-                        >
-                          Daily Log
-                        </Link>
-                      </li>
-                      <li className="nav-item  nav-link">
-                        <Link
-                          style={{ textDecoration: 'none', color: '#818080' }}
-                          to="/calendar"
-                        >
-                          Calendar
-                        </Link>
-                      </li>
-                    </ul>
+                <div className='card text-center'>
+                  <div className='card-header' >
+                    <Card.Text className='mb-3' >
+                      {' '}
+                      <ul className='nav nav-tabs card-header-tabs'  style={{  height:'1rem' }}>
+                        <li className='nav-item nav-link'>
+                          <Link
+                            style={{ textDecoration: 'none', color: '#818080', height:'2rem' }}
+                            to='/dailylog'
+                          >
+                            Daily Log
+                          </Link>
+                        </li>
+                        <li className='nav-item  nav-link'>
+                          <Link
+                            style={{ textDecoration: 'none', color: '#818080' }}
+                            to='/calendar'
+                          >
+                            Calendar
+                          </Link>
+                        </li>
+                      </ul>
+                    </Card.Text>
                   </div>
-                  <div className="card-body">
-                    <div>
-                      <Card.Text className=" fw-bolder fs-6 text-center mb-3">
-                        Streak: {goals.streakCounter}
-                      </Card.Text>
-
+                  <div className='card-body'>
+                    <div className='d-flex justify-content-around mt-4 mb-3'>
+                  
                       <h6>
+                
                         <Button
-                          variant="dark"
+                          variant='dark'
                           style={{ color: '#cccccc' }}
                           onClick={() => {
-                            // handleCounter();
                             setShowGoals(!showGoals);
                           }}
                         >
                           Daily Goals
                         </Button>
-                        <br></br>
-                        <br></br>
+
                         {showGoals && <SetGoals>show/hide typography</SetGoals>}
                       </h6>
+                      {/* TODO: somehow had daily dog */}
+                      {/* <h6>
+                        <Button
+                          variant='dark'
+                          style={{ color: '#cccccc' }}
+                          onClick={() => {
+                            setShowDaily(!showDaily);
+                          }}
+                        >
+                          Daily Log
+                        </Button>
+                        <br></br>
+                        <br></br>
+                        {showDaily && <DailyLog>show/hide typography</DailyLog>}
+                      </h6> */}
                     </div>
                   </div>
                 </div>
 
-                <div className=" me-3 ms-5">
+                <div className=' me-3 ms-5'>
                   <br></br>
-                  <blockquote className="blockquote mb-1 text-end ">
-                    <p className="fs-5 ">
+                  <blockquote className='blockquote mb-1 text-end '>
+                    <p className='fs-5 '>
                       "{marioQuote}"<br></br>
                     </p>
                     {/*     "{dailyQuote[0]}" */}
                     {/* {dailyQuote[1]} */}
 
-                    <footer className="blockquote-footer">
+                    <footer className='blockquote-footer'>
                       <img
                         src={mush}
-                        alt="mush"
+                        alt='mush'
                         style={{ maxWidth: '3rem', marginTop: 15 }}
                         onClick={() => {
                           handleCoinAudio();
@@ -206,17 +210,28 @@ const Dashboard = () => {
           <Col xs={4}></Col>
           <Col>
             <Card
-
               className='card text-white bg-secondary my-5'
               style={{ width: '35vh', marginTop: 15 }}
             >
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
+                  <img
+                    src={yoshiPixel}
+                    alt='yoshi'
+                    className='me-3'
+                    style={{ maxWidth: '3rem' }}
+                  ></img>
                   My Info
+                  <img
+                    src={yoshiPixel}
+                    alt='yoshi'
+                    className='ms-3'
+                    style={{ maxWidth: '3rem', transform: 'scaleX(-1)' }}
+                  ></img>
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                {error && <Alert variant="danger">{error}</Alert>}
+                {error && <Alert variant='danger'>{error}</Alert>}
                 <Card.Text>
                   <strong>Email: </strong>
                   {currentUser.email}
