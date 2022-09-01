@@ -64,8 +64,9 @@ function CalendarApp() {
 
   const userSelectedDate = doc(db, 'user-days', selectedDate);
   const getUserSelectedDate = async () => {
-    await getDoc(userSelectedDate);
-    return userSelectedDate;
+    const selectedDateDocSnap = await getDoc(userSelectedDate);
+    console.log(selectedDateDocSnap.data());
+    // return selectedDateDocSnap.data();
   };
 
   return (
@@ -94,8 +95,8 @@ function CalendarApp() {
               {/* <span className="bold">Selected Date:</span> {date.toDateString()} */}
             </p>
 
-            <button onClick={() => console.log(getUserSelectedDate())}>
-              date
+            <button onClick={async () => await getUserSelectedDate()}>
+              Submit
             </button>
           </Col>
           <Col></Col>
