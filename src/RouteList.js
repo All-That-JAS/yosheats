@@ -21,6 +21,8 @@ import DailyLog from './components/DailyLog';
 import NotFound from './components/NotFound';
 import CalendarApp from './components/Calendar';
 
+import DailyLogCarousel from './components/DailyLogCarousel'
+
 function RouteList() {
   const location = useLocation();
   return (
@@ -89,6 +91,7 @@ function RouteList() {
               />
 
               <Route path='/signup' element={<Signup />} />
+              <Route path='/daily' element={<DailyLogCarousel />} />
               <Route path='/login' element={<Login />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
               {/* TODO: Not Found page & check difference between updateUser & newUser */}
