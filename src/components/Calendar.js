@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { Card, Container, Col, Row } from 'react-bootstrap';
+import { Card, Container, Col, Row, Button } from 'react-bootstrap';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
@@ -81,26 +81,37 @@ function CalendarApp() {
   }
 
   return (
-    <div className="app">
+    <div className='app'>
       <Container>
         <Row>
-          <Col></Col>
           <Col>
-            <Card className="my-4 " style={{ width: '24rem' }}>
+            {' '}
+            <Card className='my-4 ' style={{ width: '24rem', height: '8rem' }}>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-4 text-center">
+                <Card.Text className=' fw-bolder fs-4 text-center'>
                   User History
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
+                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
                   Choose a date & click submit to preview past food logs
                 </Card.Text>
               </Card.Body>
             </Card>
-
-            <div className="calendar-container ">
-              <Calendar onChange={setDate} value={date} />
+          </Col>
+          <Col className='my-4 '>
+            <div className='calendar-container '>
+              <div>
+                <Calendar onChange={setDate} value={date} />
+              </div>
+              <p className='my-3' style={{ color: '#cccccc' }}>
+                {/* <span className="bold">Selected Date:</span> {date.toDateString()} */}
+              </p>
+              <div className='text-center me-5'>
+                <Button variant='dark' onClick={() => handleClick()}>
+                  Submit
+                </Button>
+              </div>
             </div>
             <p className="my-3" style={{ color: '#cccccc' }}></p>
 
@@ -110,9 +121,10 @@ function CalendarApp() {
         </Row>
         <Row>
           <Col>
-            <Card className="my-4 " style={{ width: '24rem' }}>
+            {' '}
+            <Card className='my-4 ' style={{ width: '24rem' }}>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-4 text-center">
+                <Card.Text className=' fw-bolder fs-4 text-center'>
                   Foods on {pickedDate}:
                 </Card.Text>
               </Card.Header>
@@ -135,6 +147,11 @@ function CalendarApp() {
               </Card.Body>
             </Card>
           </Col>
+        </Row>
+        <Row>
+          <Col></Col>
+          <Col></Col>
+          <Col></Col>
         </Row>
       </Container>
     </div>

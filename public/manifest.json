@@ -1,11 +1,17 @@
 {
-    "short_name": "Weather App",
-    "name": "Weather App PWA",
+    "short_name": "Yosheats",
+    "name": "Yosheats App",
     "icons": [
         {
-            "src": "/images/logo.png",
+            "src": "/images/smallLogo.png",
             "type": "image/png",
-            "sizes": "1024x1024",
+            "sizes": "190x190",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/images/largeLogo.png",
+            "type": "image/png",
+            "sizes": "600x600",
             "purpose": "maskable"
         }
     ],
@@ -14,3 +20,4 @@
     "theme_color": "#000000",
     "background_color": "#ffffff"
 }
+

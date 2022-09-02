@@ -9,20 +9,21 @@ import useSound from 'use-sound';
 
 import { quotes } from '../api/MotivationQuotes';
 import SetGoals from './SetGoals';
-import DailyLog from './DailyLog';
+import Calendar from './Calendar';
 
 import mush from '../images/toad.png';
 import { marioQuotes } from '../api/MarioQuotes';
 import marioSound from '../images/mario-coin.mp3';
 import videoBg from '../images/mario-crop.mov';
 import yoshiPixel from '../images/pixelyoshi.png';
+import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 const Dashboard = () => {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
   const [goals, setGoals] = useState({});
   const [showGoals, setShowGoals] = useState(false);
-  const [showDaily, setShowDaily] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [playSound] = useSound(marioSound);
 
   let navigate = useNavigate();
@@ -113,24 +114,31 @@ const Dashboard = () => {
           style={{ objectFit: 'fill', height: '30vh', width: '50%' }}
         />
         <Row classname='dash-content'>
-          <Col>
-            <Card className=' my-5' style={{ minWidth: '60vh', marginTop: 15 }}>
+          <Col xs={5}>
+            <Card className=' my-5' style={{ marginTop: 15 }}>
               <Card.Header>
-                <Card.Text className=' fw-bolder fs-4 text-center'>
+                <Card.Text className=' fw-bolder fs-5 text-center'>
                   {goals.username
-                    ? `${goals.username}'s Daily Progress`
-                    : 'Daily Progress'}
+                    ? `${goals.username}'s Progress`
+                    : 'My Progress'}
                 </Card.Text>
               </Card.Header>
               <Card.Body>
                 <div className='card text-center'>
-                  <div className='card-header' >
-                    <Card.Text className='mb-3' >
+                  <div className='card-header'>
+                    <Card.Text className='mb-3'>
                       {' '}
-                      <ul className='nav nav-tabs card-header-tabs'  style={{  height:'1rem' }}>
+                      <ul
+                        className='nav nav-tabs card-header-tabs'
+                        style={{ height: '1rem' }}
+                      >
                         <li className='nav-item nav-link'>
                           <Link
-                            style={{ textDecoration: 'none', color: '#818080', height:'2rem' }}
+                            style={{
+                              textDecoration: 'none',
+                              color: '#818080',
+                              height: '2rem',
+                            }}
                             to='/dailylog'
                           >
                             Daily Log
@@ -149,9 +157,7 @@ const Dashboard = () => {
                   </div>
                   <div className='card-body'>
                     <div className='d-flex justify-content-around mt-4 mb-3'>
-                  
                       <h6>
-                
                         <Button
                           variant='dark'
                           style={{ color: '#cccccc' }}
@@ -170,14 +176,14 @@ const Dashboard = () => {
                           variant='dark'
                           style={{ color: '#cccccc' }}
                           onClick={() => {
-                            setShowDaily(!showDaily);
+                            setShowDaily(!showCalendar);
                           }}
                         >
                           Daily Log
                         </Button>
                         <br></br>
                         <br></br>
-                        {showDaily && <DailyLog>show/hide typography</DailyLog>}
+                        {showCalendar && <DailyLog>show/hide typography</DailyLog>}
                       </h6> */}
                     </div>
                   </div>
@@ -207,11 +213,10 @@ const Dashboard = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={4}></Col>
-          <Col>
-            <Card
+          <Col xs={3}>
+          <Card
               className='card text-white bg-secondary my-5'
-              style={{ width: '35vh', marginTop: 15 }}
+              style={{ marginTop: 15 }}
             >
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
@@ -219,24 +224,25 @@ const Dashboard = () => {
                     src={yoshiPixel}
                     alt='yoshi'
                     className='me-3'
-                    style={{ maxWidth: '3rem' }}
+                    style={{ maxWidth: '2rem' }}
                   ></img>
                   My Info
                   <img
                     src={yoshiPixel}
                     alt='yoshi'
                     className='ms-3'
-                    style={{ maxWidth: '3rem', transform: 'scaleX(-1)' }}
+                    style={{ maxWidth: '2rem', transform: 'scaleX(-1)' }}
                   ></img>
                 </Card.Text>
               </Card.Header>
               <Card.Body>
                 {error && <Alert variant='danger'>{error}</Alert>}
-                <Card.Text>
+                <Card.Text >
                   <strong>Email: </strong>
                   {currentUser.email}
                   <br></br>
                   {/* .username = upon sign up || .displayName is for google accounts */}
+
                   {goals.username ? (
                     `Name: ${goals.username}`
                   ) : !currentUser.displayName ? null : (
@@ -250,20 +256,49 @@ const Dashboard = () => {
                   <strong>Streak: </strong>
                   {goals.streakCounter}
                 </Card.Text>
-                <Button variant='dark'>
+                <div className = 'text-center'>
+                     <Button variant='dark' >
                   <Link to='/update-profile' className='btn btn-dark w-40'>
                     Update Profile
                   </Link>
                 </Button>
-                <Button
+                </div>
+             
+                {/* <Button
                   variant='dark'
                   onClick={handleLogout}
                   className='ms-5'
                   style={{ height: '6vh' }}
                 >
                   Log Out
-                </Button>
+                </Button> */}
               </Card.Body>
+            </Card>
+          </Col>
+          <Col md={4}>
+            <Card className='mt-5 text-center'>
+              <CardHeader className=' fw-bolder fs-5 text-center'>
+                <Card.Text >
+                     My Log History
+                </Card.Text>
+             </CardHeader>
+              <Card.Body>
+                <Card.Text >
+                  <Button
+                  variant='dark'
+                  style={{ color: '#cccccc' }}
+                  onClick={() => {
+                    setShowCalendar(!showCalendar);
+                  }}
+                >
+                  Calendar
+                </Button>
+                <br></br>
+                <br></br>
+                {showCalendar && <Calendar>show/hide typography</Calendar>}
+                </Card.Text>
+              </Card.Body>
+             
             </Card>
           </Col>
         </Row>
