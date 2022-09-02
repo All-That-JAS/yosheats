@@ -86,14 +86,14 @@ function CalendarApp() {
         <Row>
           <Col>
             {' '}
-            <Card className="my-4 " style={{ width: '24rem', height: '8rem' }}>
+            <Card className="my-4 " style={{ width: '24rem', height: '9rem' }}>
               <Card.Header>
                 <Card.Text className=" fw-bolder fs-4 text-center">
                   User History
                 </Card.Text>
               </Card.Header>
-              <Card.Body>
-                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
+              <Card.Body >
+                <Card.Text className=" fs-6 text-center text-lowercase ">
                   Choose a date & click submit to preview past food logs
                 </Card.Text>
               </Card.Body>
@@ -115,11 +115,8 @@ function CalendarApp() {
             </div>
             <p className="my-3" style={{ color: '#cccccc' }}></p>
           </Col>
-          <Col></Col>
-        </Row>
-        <Row>
           <Col>
-            {' '}
+          {' '}
             <Card className="my-4 " style={{ width: '24rem' }}>
               <Card.Header>
                 <Card.Text className=" fw-bolder fs-4 text-center">
@@ -144,6 +141,11 @@ function CalendarApp() {
                 </Card.Text>
               </Card.Body>
             </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            
           </Col>
         </Row>
         <Row>
