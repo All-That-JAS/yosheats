@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Route,
-  Routes,
-  BrowserRouter as Router,
-  useLocation,
-} from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Container } from 'react-bootstrap';
 
@@ -20,22 +15,22 @@ import ForgotPassword from './components/ForgotPassword';
 import NotFound from './components/NotFound';
 import CalendarApp from './components/Calendar';
 
-import DailyLogCarousel from './components/DailyLogCarousel'
+import DailyLogCarousel from './components/DailyLogCarousel';
 
 function RouteList() {
   const location = useLocation();
   return (
     <Container
       style={{ minHeight: '60vh' }}
-      className='d-flex align-items-center justify-content-center'
+      className="d-flex align-items-center justify-content-center"
     >
-      <div className='w-100'>
+      <div className="w-100">
         <AuthProvider>
           <AnimatePresence>
             <Routes location={location} key={location.pathname}>
               <Route
                 exact
-                path='/'
+                path="/"
                 element={
                   <PrivateRoute>
                     <Dashboard />
@@ -45,7 +40,7 @@ function RouteList() {
 
               <Route
                 exact
-                path='/calendar'
+                path="/calendar"
                 element={
                   <PrivateRoute>
                     <CalendarApp />
@@ -54,7 +49,7 @@ function RouteList() {
               />
               <Route
                 exact
-                path='/dailylog'
+                path="/dailylog"
                 element={
                   <PrivateRoute>
                     <DailyLogCarousel />
@@ -63,7 +58,7 @@ function RouteList() {
               />
               <Route
                 exact
-                path='/nutrition'
+                path="/nutrition"
                 element={
                   <PrivateRoute>
                     <NutritionAPI />
@@ -72,7 +67,7 @@ function RouteList() {
               />
               <Route
                 exact
-                path='/update-user'
+                path="/update-user"
                 element={
                   <PrivateRoute>
                     <NewUser />
@@ -81,7 +76,7 @@ function RouteList() {
               />
               <Route
                 exact
-                path='/update-profile'
+                path="/update-profile"
                 element={
                   <PrivateRoute>
                     <UpdateUser />
@@ -89,11 +84,11 @@ function RouteList() {
                 }
               />
 
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/forgot-password' element={<ForgotPassword />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
               {/* TODO: Not Found page & check difference between updateUser & newUser */}
-              <Route path = "*" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
         </AuthProvider>
