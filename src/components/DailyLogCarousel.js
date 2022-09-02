@@ -194,10 +194,10 @@ const DailyLogCarousel = () => {
     <Container>
       <Row>
         <Col></Col>
-        <Col md='auto'>
-          <div className='text-center mb-2'>
+        <Col md="auto">
+          <div className="text-center mb-2">
             <Card.Text
-              className='fs-2 my-4 fw-bolder text-center '
+              className="fs-2 my-4 fw-bolder text-center "
               style={{ color: '#ffffff' }}
             >
               Daily Log
@@ -210,20 +210,20 @@ const DailyLogCarousel = () => {
         <Carousel fade>
           <Carousel.Item>
             <img
-              className='d-block w-100'
+              className="d-block w-100"
               src={qq}
-              alt='First slide'
+              alt="First slide"
               style={{ height: '25rem' }}
             />
             <div>
-              <Carousel.Caption className='mb-5'>
+              <Carousel.Caption className="mb-5">
                 <Card.Text
-                  className='fs-5 text-center'
+                  className="fs-5 text-center"
                   style={{ color: '#797280' }}
                 >
                   <h3>Today's Foods</h3>
 
-                  <Card.Text className='fs-6 text-lowercase text-center'>
+                  <Card.Text className="fs-6 text-lowercase text-center">
                     <ul>
                       {todaysFoods.map((food) => {
                         return (
@@ -245,36 +245,36 @@ const DailyLogCarousel = () => {
           {/* calories */}
           <Carousel.Item>
             <img
-              className='d-block w-100'
+              className="d-block w-100"
               src={qq}
-              alt='First slide'
+              alt="First slide"
               style={{ height: '25rem' }}
             />
             <div>
-              <Carousel.Caption className='mb-5'>
+              <Carousel.Caption className="mb-5">
                 <Card.Text style={{ color: '#797280' }}>
-                  <div className='h-100'>
+                  <div className="h-100">
                     {' '}
                     <h3> Calories</h3>
-                    <Card.Text className=' fs-5 my-2'>
+                    <Card.Text className=" fs-5 my-2">
                       <strong>Consumed: </strong>
                       {todaysCalories} calories<br></br>
-                      <div className='progress mx-auto'>
+                      <div className="progress mx-auto">
                         {calorieProgress === 0 ? (
-                          <div className='progress-zero' style={calorieStyle}>
-                            <div className='ms-5'>{calorieProgress}%</div>
+                          <div className="progress-zero" style={calorieStyle}>
+                            <div className="ms-5">{calorieProgress}%</div>
                           </div>
                         ) : calorieProgress > 100 ? (
-                          <div className='progress-over' style={calorieStyle}>
+                          <div className="progress-over" style={calorieStyle}>
                             {calorieProgress}%
                           </div>
                         ) : (
-                          <div className='progress-done' style={calorieStyle}>
+                          <div className="progress-done" style={calorieStyle}>
                             {calorieProgress}%
                           </div>
                         )}
                       </div>
-                      <span className='text-lowercase fs-6'>
+                      <span className="text-lowercase fs-6">
                         {deficitOrSurplus(
                           userCalories - todaysCalories,
                           userCalories,
@@ -289,34 +289,34 @@ const DailyLogCarousel = () => {
             </div>
           </Carousel.Item>
 
-          <Carousel.Item className='d-flex'>
-            <img className=' w-100' src={qq} alt='Second slide' />
-            <Carousel.Caption className='mb-5 mt-5'>
+          <Carousel.Item className="d-flex">
+            <img className=" w-100" src={qq} alt="Second slide" />
+            <Carousel.Caption className="mb-5 mt-5">
               <Card.Text style={{ color: '#797280' }}>
                 <div>
                   <div>
                     <h3> Carbohydrates</h3>
-                    <Card.Text className=' fs-5 my-2 mb-1'>
+                    <Card.Text className=" fs-5 my-2 mb-1">
                       <strong>Consumed: </strong>
                       {todaysCarbs} grams
                       <span>
-                        <div className='progress mx-auto'>
+                        <div className="progress mx-auto">
                           {carbsProgress === 0 ? (
-                            <div className='progress-zero' style={carbStyle}>
-                              <div className='ms-5'>{carbsProgress}%</div>
+                            <div className="progress-zero" style={carbStyle}>
+                              <div className="ms-5">{carbsProgress}%</div>
                             </div>
                           ) : carbsProgress > 100 ? (
-                            <div className='progress-over' style={carbStyle}>
+                            <div className="progress-over" style={carbStyle}>
                               {carbsProgress}%
                             </div>
                           ) : (
-                            <div className='progress-done' style={carbStyle}>
+                            <div className="progress-done" style={carbStyle}>
                               {carbsProgress}%
                             </div>
                           )}
                         </div>
                       </span>
-                      <span className='text-lowercase fs-6'>
+                      <span className="text-lowercase fs-6">
                         {deficitOrSurplus(
                           userCarbs - todaysCarbs,
                           userCarbs,
@@ -324,7 +324,7 @@ const DailyLogCarousel = () => {
                         )}{' '}
                       </span>
                       <br></br>
-                      <div className='text-lowercase mt-1 fw-bold fs-6'>
+                      <div className="text-lowercase mt-1 fw-bold fs-6">
                         {carbRecs.length
                           ? 'Recommended foods to meet daily carb goals:'
                           : null}
@@ -335,11 +335,11 @@ const DailyLogCarousel = () => {
                             {carbRecs.map((foodItem) => {
                               return (
                                 <>
-                                  <span className='fs-6 text-lowercase'>
+                                  <span className="fs-6 text-lowercase">
                                     {
                                       foodItem[Object.keys(foodItem)[0]]
                                         .servingSize
-                                    }
+                                    }{' '}
                                     {Object.keys(foodItem)[0]} has{' '}
                                     {foodItem[Object.keys(foodItem)[0]].carbs} g
                                   </span>
@@ -369,32 +369,32 @@ const DailyLogCarousel = () => {
           </Carousel.Item>
 
           <Carousel.Item>
-            <img className='d-block w-100' src={qq} alt='Third slide' />
-            <Carousel.Caption className='mb-5'>
+            <img className="d-block w-100" src={qq} alt="Third slide" />
+            <Carousel.Caption className="mb-5">
               <Card.Text style={{ color: '#797280' }}>
                 <h3> Fats</h3>
-                <Card.Text className=' fs-5 my-2'>
+                <Card.Text className=" fs-5 my-2">
                   <strong>Consumed: </strong>
                   {todaysFats} grams
-                  <div className='progress mx-auto'>
+                  <div className="progress mx-auto">
                     {fatsProgress === 0 ? (
-                      <div className='progress-zero' style={fatStyle}>
-                        <div className='ms-5'>{fatsProgress}%</div>
+                      <div className="progress-zero" style={fatStyle}>
+                        <div className="ms-5">{fatsProgress}%</div>
                       </div>
                     ) : fatsProgress > 100 ? (
-                      <div className='progress-over' style={fatStyle}>
+                      <div className="progress-over" style={fatStyle}>
                         {fatsProgress}%
                       </div>
                     ) : (
-                      <div className='progress-done' style={fatStyle}>
+                      <div className="progress-done" style={fatStyle}>
                         {fatsProgress}%
                       </div>
                     )}
                   </div>
-                  <span className='text-lowercase fs-6'>
+                  <span className="text-lowercase fs-6">
                     {deficitOrSurplus(userFats - todaysFats, userFats, 'fat')}
                   </span>
-                  <div className='text-lowercase mt-1 fw-bold fs-6'>
+                  <div className="text-lowercase mt-1 fw-bold fs-6">
                     {fatRecs.length
                       ? 'Recommended foods to meet daily fat goals:'
                       : null}
@@ -405,7 +405,7 @@ const DailyLogCarousel = () => {
                         {fatRecs.map((foodItem) => {
                           return (
                             <>
-                              <span className='fs-6 text-lowercase'>
+                              <span className="fs-6 text-lowercase">
                                 {foodItem[Object.keys(foodItem)[0]].servingSize}{' '}
                                 {Object.keys(foodItem)[0]} has{' '}
                                 {foodItem[Object.keys(foodItem)[0]].fats} g
@@ -432,35 +432,35 @@ const DailyLogCarousel = () => {
           </Carousel.Item>
 
           <Carousel.Item>
-            <img className='d-block w-100' src={qq} alt='Fourth slide' />
-            <Carousel.Caption className='mb-5'>
+            <img className="d-block w-100" src={qq} alt="Fourth slide" />
+            <Carousel.Caption className="mb-5">
               <Card.Text style={{ color: '#797280' }}>
                 <h3> Proteins</h3>
-                <Card.Text className=' fs-5 my-2'>
+                <Card.Text className=" fs-5 my-2">
                   <strong>Consumed:</strong> {todaysProteins} grams
-                  <div className='progress mx-auto'>
+                  <div className="progress mx-auto">
                     {proteinsProgress === 0 ? (
-                      <div className='progress-zero' style={proteinStyle}>
-                        <div className='ms-5'>{proteinsProgress}%</div>
+                      <div className="progress-zero" style={proteinStyle}>
+                        <div className="ms-5">{proteinsProgress}%</div>
                       </div>
                     ) : proteinsProgress > 100 ? (
-                      <div className='progress-over' style={proteinStyle}>
+                      <div className="progress-over" style={proteinStyle}>
                         {proteinsProgress}%
                       </div>
                     ) : (
-                      <div className='progress-done' style={proteinStyle}>
+                      <div className="progress-done" style={proteinStyle}>
                         {proteinsProgress}%
                       </div>
                     )}
                   </div>
-                  <span className='text-lowercase fs-6'>
+                  <span className="text-lowercase fs-6">
                     {deficitOrSurplus(
                       userProteins - todaysProteins,
                       userProteins,
                       'protein'
                     )}
                   </span>
-                  <div className=' text-lowercase mt-1 fw-bold fs-6'>
+                  <div className=" text-lowercase mt-1 fw-bold fs-6">
                     {proteinRecs.length
                       ? 'Recommended foods to meet daily protein goals:'
                       : null}
@@ -471,7 +471,7 @@ const DailyLogCarousel = () => {
                         {proteinRecs.map((foodItem) => {
                           return (
                             <>
-                              <span className='fs-6 text-lowercase'>
+                              <span className="fs-6 text-lowercase">
                                 {foodItem[Object.keys(foodItem)[0]].servingSize}{' '}
                                 {Object.keys(foodItem)[0]} has{' '}
                                 {foodItem[Object.keys(foodItem)[0]].protein} g
