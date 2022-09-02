@@ -92,7 +92,7 @@ function RouteList() {
               <Route path='/login' element={<Login />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
               {/* TODO: Not Found page & check difference between updateUser & newUser */}
-              <Route element={<NotFound />} />
+              <Route path = "*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
         </AuthProvider>
