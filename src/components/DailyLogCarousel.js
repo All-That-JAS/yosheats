@@ -9,7 +9,6 @@ import { proteins, carbs, fats } from '../api/dummyData';
 
 import qq from '../images/mariocarousel.jpeg';
 
-
 const DailyLogCarousel = () => {
   function deficitOrSurplus(num, goalQty, goalName) {
     let unit;
@@ -177,7 +176,6 @@ const DailyLogCarousel = () => {
     proteinDeficit,
   ]);
 
-
   let calorieProgress, carbsProgress, fatsProgress, proteinsProgress;
 
   Math.round((todaysCalories / userCalories) * 100)
@@ -210,8 +208,6 @@ const DailyLogCarousel = () => {
       </Row>
       <Row>
         <Carousel fade>
-        
-
           <Carousel.Item>
             <img
               className='d-block w-100'
@@ -221,13 +217,13 @@ const DailyLogCarousel = () => {
             />
             <div>
               <Carousel.Caption className='mb-5'>
-                <Card.Text  className='fs-5 text-center'   style={{ color: '#797280' }}>
+                <Card.Text
+                  className='fs-5 text-center'
+                  style={{ color: '#797280' }}
+                >
                   <h3>Today's Foods</h3>
 
-                  <Card.Text
-                    className='fs-6 text-lowercase text-center'
-                  
-                  >
+                  <Card.Text className='fs-6 text-lowercase text-center'>
                     <ul>
                       {todaysFoods.map((food) => {
                         return (
@@ -264,7 +260,11 @@ const DailyLogCarousel = () => {
                       <strong>Consumed: </strong>
                       {todaysCalories} calories<br></br>
                       <div className='progress mx-auto'>
-                        {calorieProgress > 100 ? (
+                        {calorieProgress === 0 ? (
+                          <div className='progress-zero' style={calorieStyle}>
+                            <div className='ms-5'>{calorieProgress}%</div>
+                          </div>
+                        ) : calorieProgress > 100 ? (
                           <div className='progress-over' style={calorieStyle}>
                             {calorieProgress}%
                           </div>
@@ -301,7 +301,11 @@ const DailyLogCarousel = () => {
                       {todaysCarbs} grams
                       <span>
                         <div className='progress mx-auto'>
-                          {carbsProgress > 100 ? (
+                          {carbsProgress === 0 ? (
+                            <div className='progress-zero' style={carbStyle}>
+                              <div className='ms-5'>{carbsProgress}%</div>
+                            </div>
+                          ) : carbsProgress > 100 ? (
                             <div className='progress-over' style={carbStyle}>
                               {carbsProgress}%
                             </div>
@@ -335,7 +339,7 @@ const DailyLogCarousel = () => {
                                     {
                                       foodItem[Object.keys(foodItem)[0]]
                                         .servingSize
-                                    }{' '}
+                                    }
                                     {Object.keys(foodItem)[0]} has{' '}
                                     {foodItem[Object.keys(foodItem)[0]].carbs} g
                                   </span>
@@ -373,7 +377,11 @@ const DailyLogCarousel = () => {
                   <strong>Consumed: </strong>
                   {todaysFats} grams
                   <div className='progress mx-auto'>
-                    {fatsProgress > 100 ? (
+                    {fatsProgress === 0 ? (
+                      <div className='progress-zero' style={fatStyle}>
+                        <div className='ms-5'>{fatsProgress}%</div>
+                      </div>
+                    ) : fatsProgress > 100 ? (
                       <div className='progress-over' style={fatStyle}>
                         {fatsProgress}%
                       </div>
@@ -431,7 +439,11 @@ const DailyLogCarousel = () => {
                 <Card.Text className=' fs-5 my-2'>
                   <strong>Consumed:</strong> {todaysProteins} grams
                   <div className='progress mx-auto'>
-                    {proteinsProgress > 100 ? (
+                    {proteinsProgress === 0 ? (
+                      <div className='progress-zero' style={proteinStyle}>
+                        <div className='ms-5'>{proteinsProgress}%</div>
+                      </div>
+                    ) : proteinsProgress > 100 ? (
                       <div className='progress-over' style={proteinStyle}>
                         {proteinsProgress}%
                       </div>

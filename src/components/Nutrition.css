@@ -119,6 +119,19 @@ p {
   transition: 1s ease 0.3s;
   font-weight: bolder;
 }
+.progress-zero {
+  background:  #a1562a;
+  box-shadow: 0 3px 3px -5px #f9bc7f, 0 2px 5px #9fe3c1;
+  border-radius: 20px;
+  color: rgb(37, 101, 37);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 0;
+  opacity: 0;
+  font-weight: bolder;
+}
 .progress-over {
   background: linear-gradient(to left, #e6316d, #f6b7a4);
   box-shadow: 0 3px 3px -5px #f2709c, 0 2px 5px #e6abbe;
