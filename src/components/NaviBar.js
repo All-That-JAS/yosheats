@@ -10,7 +10,10 @@ import {
 } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import party from 'party-js';
+import { motion } from 'framer-motion';
+
 import logo from '../images/logo.png';
+
 
 export default function Navibar() {
   const [error, setError] = useState('');

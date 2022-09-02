@@ -94,13 +94,25 @@ const Dashboard = () => {
               </Card.Header>
               <Card.Body>
                 <div className='card text-center'>
-                  <div className='card-header'>
+                  <div className='card-header d-flex justify-content-center' >
                     <Card.Text className='mb-3'>
-                      {' '}
+                     
                       <ul
                         className='nav nav-tabs card-header-tabs'
                         style={{ height: '1rem' }}
                       >
+                        <li className='nav-item nav-link'>
+                          <Link
+                            style={{
+                              textDecoration: 'none',
+                              color: '#818080',
+                              height: '2rem',
+                            }}
+                            to='/nutrition'
+                          >
+                            Nutrition
+                          </Link>
+                        </li>
                         <li className='nav-item nav-link'>
                           <Link
                             style={{
@@ -125,7 +137,7 @@ const Dashboard = () => {
                     </Card.Text>
                   </div>
                   <div className='card-body'>
-                    <div className='d-flex justify-content-around mt-4 mb-3'>
+                    <div className='d-flex justify-content-around my-2'>
                       <h6>
                         <Button
                           variant='dark'

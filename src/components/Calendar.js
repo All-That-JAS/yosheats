@@ -6,6 +6,8 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
+import { motion } from 'framer-motion';
+
 function CalendarApp() {
   const [date, setDate] = useState(new Date());
   const [foodList, setFoodList] = useState([]);
@@ -60,9 +62,9 @@ function CalendarApp() {
       '-' +
       date.toDateString().split(' ')[2];
 
-    const formattedDate = `${month} /
-      ${date.toDateString().split(' ')[2]} /
-      ${date.toDateString().split(' ')[3]}`;
+    const formattedDate = `${month}/${date.toDateString().split(' ')[2]}/${
+      date.toDateString().split(' ')[3]
+    }`;
 
     setPickedDate(formattedDate);
 
@@ -81,50 +83,55 @@ function CalendarApp() {
   }
 
   return (
-    <div className="app">
+    <motion.div
+      className='app'
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Container>
         <Row>
           <Col>
-            {' '}
-            <Card className="my-4 " style={{ width: '24rem', height: '9rem' }}>
+            <Card className='my-2' style={{ width: '24rem', height: '9rem' }}>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-4 text-center">
+                <Card.Text className=' fw-bolder fs-4 text-center'>
                   User History
                 </Card.Text>
               </Card.Header>
-              <Card.Body >
-                <Card.Text className=" fs-6 text-center text-lowercase ">
-                  Choose a date & click submit to preview past food logs
+              <Card.Body>
+                <Card.Text className=' fs-6 text-center text-lowercase '>
+                  Please select and submit a date to preview past food logs
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
-          <Col className="my-4 ">
-            <div className="calendar-container ">
+          <Col className='my-2 '>
+            <div className='calendar-container '>
               <div>
                 <Calendar onChange={setDate} value={date} />
               </div>
-              <p className="my-3" style={{ color: '#cccccc' }}>
+              <p className='my-3' style={{ color: '#cccccc' }}>
                 {/* <span className="bold">Selected Date:</span> {date.toDateString()} */}
               </p>
-              <div className="text-center me-5">
-                <Button variant="dark" onClick={() => handleClick()}>
+              <div className='text-center me-5'>
+                <Button variant='dark' onClick={() => handleClick()}>
                   Submit
                 </Button>
               </div>
             </div>
-            <p className="my-3" style={{ color: '#cccccc' }}></p>
+            <p className='my-3' style={{ color: '#cccccc' }}></p>
           </Col>
           <Col>
-          {' '}
-            <Card className="my-4 " style={{ width: '24rem' }}>
+            <Card className='' style={{ width: '24rem' }}>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-4 text-center">
-                  Foods on {pickedDate}:
+                <Card.Text className=' fw-bolder fs-4 text-center'>
+                  {pickedDate
+                    ? `Food(s) on ${pickedDate}`
+                    : `Please submit a date`}
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
+                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
                   {foodList.length > 0
                     ? foodList.map((food) => {
                         return (
@@ -144,9 +151,7 @@ function CalendarApp() {
           </Col>
         </Row>
         <Row>
-          <Col>
-            
-          </Col>
+          <Col></Col>
         </Row>
         <Row>
           <Col></Col>
@@ -154,7 +159,7 @@ function CalendarApp() {
           <Col></Col>
         </Row>
       </Container>
-    </div>
+    </motion.div>
   );
 }
 
