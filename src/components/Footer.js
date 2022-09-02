@@ -7,7 +7,7 @@ export default function Footer() {
       <footer>
         <Container>
           <Row>
-            <Col className='text-center fw-bolder my-3' style = {{color: '#cccccc'}}>
+            <Col className='text-center fw-bolder my-3' style = {{color: '#ffffff',letterSpacing: '3px'}}>
               Copyright &copy; Yosheats
               <br></br>
               *Not affiliated with Nintendo
