@@ -9,6 +9,7 @@ import { useAuth } from '../contexts/AuthContext';
 function CalendarApp() {
   const [date, setDate] = useState(new Date());
   const [foodList, setFoodList] = useState([]);
+  const [pickedDate, setPickedDate] = useState();
 
   const { currentUser } = useAuth();
 
@@ -59,10 +60,17 @@ function CalendarApp() {
       '-' +
       date.toDateString().split(' ')[2];
 
+    const formattedDate = `${month} /
+      ${date.toDateString().split(' ')[2]} /
+      ${date.toDateString().split(' ')[3]}`;
+
+    setPickedDate(formattedDate);
+
     const userSelectedDate = doc(db, 'user-days', selectedDate);
     const getUserSelectedDate = async () => {
       const selectedDateDocSnap = await getDoc(userSelectedDate);
 
+      selectedDateDocSnap.exists() &&
       selectedDateDocSnap.data()[`${currentUser.uid}`]
         ? setFoodList(
             selectedDateDocSnap.data()[`${currentUser.uid}`].listOfFoods
@@ -72,7 +80,6 @@ function CalendarApp() {
     getUserSelectedDate();
   }
 
-  console.log(foodList);
   return (
     <div className="app">
       <Container>
@@ -87,7 +94,7 @@ function CalendarApp() {
               </Card.Header>
               <Card.Body>
                 <Card.Text className=" fs-6 text-center text-lowercase mb-2">
-                  Choose a date to preview past food logs
+                  Choose a date & click submit to preview past food logs
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -106,8 +113,7 @@ function CalendarApp() {
             <Card className="my-4 " style={{ width: '24rem' }}>
               <Card.Header>
                 <Card.Text className=" fw-bolder fs-4 text-center">
-                  Foods on {month}/{date.toDateString().split(' ')[2]}/
-                  {date.toDateString().split(' ')[3]}:
+                  Foods on {pickedDate}:
                 </Card.Text>
               </Card.Header>
               <Card.Body>
