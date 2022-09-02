@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { Card, Container, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import { proteins, carbs, fats } from '../api/dummyData';
 
@@ -225,17 +226,21 @@ const DailyLogCarousel = () => {
 
                   <Card.Text className='fs-6 text-lowercase text-center'>
                     <ul>
-                      {todaysFoods.map((food) => {
-                        return (
-                          <>
-                            <span>
-                              <strong>{Object.keys(food)[0]}: </strong>
-                              {Object.values(food)[0]} grams
-                            </span>
-                            <br></br>
-                          </>
-                        );
-                      })}
+                      {todaysFoods.length ? (
+                        todaysFoods.map((food) => {
+                          return (
+                            <>
+                              <span>
+                                <strong>{Object.keys(food)[0]}: </strong>
+                                {Object.values(food)[0]} grams
+                              </span>
+                              <br></br>
+                            </>
+                          );
+                        })
+                      ) : (
+                        <div>no daily log found for today <br></br>please add foods <Link to ='/nutrition' style ={{textDecoration: 'none'}}>here</Link>!</div>
+                      )}
                     </ul>
                   </Card.Text>
                 </Card.Text>
