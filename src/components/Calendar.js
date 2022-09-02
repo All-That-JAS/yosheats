@@ -9,7 +9,7 @@ import { useAuth } from '../contexts/AuthContext';
 function CalendarApp() {
   const [date, setDate] = useState(new Date());
   const [foodList, setFoodList] = useState([]);
-  // const [gramsList, setGramsList] = useState([]);
+  const [pickedDate, setPickedDate] = useState();
 
   const { currentUser } = useAuth();
 
@@ -60,23 +60,22 @@ function CalendarApp() {
       '-' +
       date.toDateString().split(' ')[2];
 
+    const formattedDate = `${month} /
+      ${date.toDateString().split(' ')[2]} /
+      ${date.toDateString().split(' ')[3]}`;
+
+    setPickedDate(formattedDate);
+
     const userSelectedDate = doc(db, 'user-days', selectedDate);
     const getUserSelectedDate = async () => {
       const selectedDateDocSnap = await getDoc(userSelectedDate);
-      let foodArray = [];
-      let gramsArray = [];
-      selectedDateDocSnap
-        .data()
-        [`${currentUser.uid}`].listOfFoods.forEach((eachFood) =>
-          foodArray.push(Object.keys(eachFood)[0])
-        );
-      selectedDateDocSnap
-        .data()
-        [`${currentUser.uid}`].listOfFoods.forEach((eachFood) =>
-          gramsArray.push(Object.values(eachFood)[0])
-        );
 
-      setFoodList(selectedDateDocSnap.data()[`${currentUser.uid}`].listOfFoods);
+      selectedDateDocSnap.exists() &&
+      selectedDateDocSnap.data()[`${currentUser.uid}`]
+        ? setFoodList(
+            selectedDateDocSnap.data()[`${currentUser.uid}`].listOfFoods
+          )
+        : setFoodList([]);
     };
     getUserSelectedDate();
   }
@@ -94,8 +93,8 @@ function CalendarApp() {
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <Card.Text className=' fs-6 text-center text-lowercase'>
-                  Choose a date to preview past food logs
+                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
+                  Choose a date & click submit to preview past food logs
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -114,30 +113,36 @@ function CalendarApp() {
                 </Button>
               </div>
             </div>
+            <p className="my-3" style={{ color: '#cccccc' }}></p>
+
+            <button onClick={() => handleClick()}>Submit</button>
           </Col>
+          <Col></Col>
+        </Row>
+        <Row>
           <Col>
             {' '}
             <Card className='my-4 ' style={{ width: '24rem' }}>
               <Card.Header>
                 <Card.Text className=' fw-bolder fs-4 text-center'>
-                  Foods on {month}/{date.toDateString().split(' ')[2]}/
-                  {date.toDateString().split(' ')[3]}:
+                  Foods on {pickedDate}:
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
-                  {foodList.map((food) => {
-                    return (
-                      <>
-                        <span>
-                          <strong>{Object.keys(food)[0]}: </strong>
-                          {Math.round(Object.values(food)[0])} grams
-                        </span>
-                        <br></br>
-                      </>
-                    );
-                  })}
-                  {console.log(foodList)}
+                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
+                  {foodList.length > 0
+                    ? foodList.map((food) => {
+                        return (
+                          <>
+                            <span>
+                              <strong>{Object.keys(food)[0]}: </strong>
+                              {Math.round(Object.values(food)[0])} grams
+                            </span>
+                            <br></br>
+                          </>
+                        );
+                      })
+                    : "You don't have any entries for this date."}
                 </Card.Text>
               </Card.Body>
             </Card>
