@@ -209,8 +209,6 @@ const Nutrition = () => {
                       nutrition.items[0].name.slice(1)}
                   </Card.Text>
                   <h6>
-                    {/* TODO: 1 serving size = 100g / do some math here
-allow user to toggle (-/+) size*/}
                     <p>
                       <strong>Serving Size(g): </strong>
                       {nutrition.items[0].serving_size_g}

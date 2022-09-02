@@ -110,9 +110,7 @@ function CalendarApp() {
               <div>
                 <Calendar onChange={setDate} value={date} />
               </div>
-              <p className="my-3" style={{ color: '#cccccc' }}>
-                {/* <span className="bold">Selected Date:</span> {date.toDateString()} */}
-              </p>
+              <p className="my-3" style={{ color: '#cccccc' }}></p>
               <div className="text-center me-5">
                 <Button variant="dark" onClick={() => handleClick()}>
                   Submit

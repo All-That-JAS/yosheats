@@ -9,10 +9,7 @@ export default function PrivateRoute({ children }) {
     children
   ) : (
     <div>
-      <Navigate to='/login' />
-      
+      <Navigate to="/login" />
     </div>
   );
-  //if user exists, then render out component passed into class then pass in props
-  //ELSE redirect bc user doesnt exist
 }

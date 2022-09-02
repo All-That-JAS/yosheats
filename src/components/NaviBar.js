@@ -1,19 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import {
-  Nav,
-  Navbar,
-  Container,
-  NavLink,
-  NavDropdown,
-  Card,
-} from 'react-bootstrap';
+import { Nav, Navbar, Container, NavLink, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import party from 'party-js';
-import { motion } from 'framer-motion';
 
 import logo from '../images/logo.png';
-
 
 export default function Navibar() {
   const [error, setError] = useState('');
@@ -32,24 +23,24 @@ export default function Navibar() {
   return (
     <>
       <Navbar
-        bg='light'
-        variant='light'
+        bg="light"
+        variant="light"
         style={{ maxHeight: '55px' }}
-        className='container-fluid'
+        className="container-fluid"
       >
         <Container>
           <Navbar.Brand>
             <Link
               style={{ textDecoration: 'none', color: '#818080' }}
-              to='/'
-              id='button'
+              to="/"
+              id="button"
               onClick={(ev) => party.confetti(ev.target)}
             >
-              <img src={logo} width='50' height='50' alt='egg' />
+              <img src={logo} width="50" height="50" alt="egg" />
             </Link>
           </Navbar.Brand>
           <div
-            className='container-fluid d-flex justify-content-between'
+            className="container-fluid d-flex justify-content-between"
             style={{ fontWeight: 'bolder' }}
           >
             {!currentUser ? null : (
@@ -58,7 +49,7 @@ export default function Navibar() {
                   <NavLink>
                     <Link
                       style={{ textDecoration: 'none', color: '#818080' }}
-                      to='/'
+                      to="/"
                     >
                       Home
                     </Link>
@@ -66,7 +57,7 @@ export default function Navibar() {
                   <NavLink>
                     <Link
                       style={{ textDecoration: 'none', color: '#818080' }}
-                      to='/nutrition'
+                      to="/nutrition"
                     >
                       Nutrition
                     </Link>
@@ -74,7 +65,7 @@ export default function Navibar() {
                   <NavLink>
                     <Link
                       style={{ textDecoration: 'none', color: '#818080' }}
-                      to='/dailylog'
+                      to="/dailylog"
                     >
                       Daily
                     </Link>
@@ -82,7 +73,7 @@ export default function Navibar() {
                   <NavLink>
                     <Link
                       style={{ textDecoration: 'none', color: '#818080' }}
-                      to='/calendar'
+                      to="/calendar"
                     >
                       Calendar
                     </Link>
@@ -90,14 +81,14 @@ export default function Navibar() {
                 </Nav>
                 <div>
                   <NavDropdown
-                    title='🍄'
-                    id='collasible-nav-dropdown'
-                    className='mt-2 text-center'
+                    title="🍄"
+                    id="collasible-nav-dropdown"
+                    className="mt-2 text-center"
                   >
                     <NavDropdown.Item>
                       <Link
                         style={{ textDecoration: 'none', color: '#818080' }}
-                        to='/update-profile'
+                        to="/update-profile"
                       >
                         Profile
                       </Link>
@@ -105,7 +96,7 @@ export default function Navibar() {
                     <NavDropdown.Item>
                       <Link
                         style={{ textDecoration: 'none', color: '#818080' }}
-                        to='/update-user'
+                        to="/update-user"
                       >
                         Goals
                       </Link>
