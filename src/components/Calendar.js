@@ -9,7 +9,6 @@ import { useAuth } from '../contexts/AuthContext';
 function CalendarApp() {
   const [date, setDate] = useState(new Date());
   const [foodList, setFoodList] = useState([]);
-  // const [gramsList, setGramsList] = useState([]);
 
   const { currentUser } = useAuth();
 
@@ -63,24 +62,17 @@ function CalendarApp() {
     const userSelectedDate = doc(db, 'user-days', selectedDate);
     const getUserSelectedDate = async () => {
       const selectedDateDocSnap = await getDoc(userSelectedDate);
-      let foodArray = [];
-      let gramsArray = [];
-      selectedDateDocSnap
-        .data()
-        [`${currentUser.uid}`].listOfFoods.forEach((eachFood) =>
-          foodArray.push(Object.keys(eachFood)[0])
-        );
-      selectedDateDocSnap
-        .data()
-        [`${currentUser.uid}`].listOfFoods.forEach((eachFood) =>
-          gramsArray.push(Object.values(eachFood)[0])
-        );
 
-      setFoodList(selectedDateDocSnap.data()[`${currentUser.uid}`].listOfFoods);
+      selectedDateDocSnap.data()[`${currentUser.uid}`]
+        ? setFoodList(
+            selectedDateDocSnap.data()[`${currentUser.uid}`].listOfFoods
+          )
+        : setFoodList([]);
     };
     getUserSelectedDate();
   }
 
+  console.log(foodList);
   return (
     <div className="app">
       <Container>
@@ -103,16 +95,12 @@ function CalendarApp() {
             <div className="calendar-container ">
               <Calendar onChange={setDate} value={date} />
             </div>
-            <p className="my-3" style={{ color: '#cccccc' }}>
-              {/* <span className="bold">Selected Date:</span> {date.toDateString()} */}
-            </p>
+            <p className="my-3" style={{ color: '#cccccc' }}></p>
 
             <button onClick={() => handleClick()}>Submit</button>
           </Col>
           <Col></Col>
         </Row>
-      </Container>
-      <Container>
         <Row>
           <Col>
             <Card className="my-4 " style={{ width: '24rem' }}>
@@ -124,18 +112,19 @@ function CalendarApp() {
               </Card.Header>
               <Card.Body>
                 <Card.Text className=" fs-6 text-center text-lowercase mb-2">
-                  {foodList.map((food) => {
-                    return (
-                      <>
-                        <span>
-                          <strong>{Object.keys(food)[0]}: </strong>
-                          {Math.round(Object.values(food)[0])} grams
-                        </span>
-                        <br></br>
-                      </>
-                    );
-                  })}
-                  {console.log(foodList)}
+                  {foodList.length > 0
+                    ? foodList.map((food) => {
+                        return (
+                          <>
+                            <span>
+                              <strong>{Object.keys(food)[0]}: </strong>
+                              {Math.round(Object.values(food)[0])} grams
+                            </span>
+                            <br></br>
+                          </>
+                        );
+                      })
+                    : "You don't have any entries for this date."}
                 </Card.Text>
               </Card.Body>
             </Card>
