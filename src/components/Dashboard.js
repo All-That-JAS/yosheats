@@ -20,7 +20,7 @@ import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 const Dashboard = () => {
   const [error, setError] = useState('');
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   const [goals, setGoals] = useState({});
   const [showGoals, setShowGoals] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -31,37 +31,6 @@ const Dashboard = () => {
   function handleCoinAudio() {
     return playSound();
   }
-
-  async function handleLogout() {
-    setError('');
-    try {
-      await logout();
-      navigate('/');
-    } catch {
-      setError('Failed to log out');
-    }
-  }
-
-  //TODO: streakcounter...
-  // async function handleCounter() {
-  //   let prevStreakCounter = goals.streakCounter;
-  //   const date = new Date();
-  //   const todayDate =
-  //     Date().split(' ')[3] +
-  //     '-' +
-  //     (date.getMonth() + 1) +
-  //     '-' +
-  //     Date().split(' ')[2];
-
-  //   const dayDoc = doc(db, 'user-days', todayDate);
-  //   const docSnap = await getDoc(dayDoc);
-
-  //   await updateDoc(dayDoc, {
-  //     [`${currentUser.uid}`]: { ...dayDoc, streakCounter: prevStreakCounter++ },
-  //   });
-  //   console.log('streak', goals.streakCounter);
-  //   console.log('prevStreakCounter', prevStreakCounter);
-  // }
 
   let userID = currentUser.uid;
 
@@ -195,8 +164,7 @@ const Dashboard = () => {
                     <p className='fs-5 '>
                       "{marioQuote}"<br></br>
                     </p>
-                    {/*     "{dailyQuote[0]}" */}
-                    {/* {dailyQuote[1]} */}
+            
 
                     <footer className='blockquote-footer'>
                       <img
@@ -251,10 +219,6 @@ const Dashboard = () => {
                       {currentUser.displayName}
                     </div>
                   )}
-
-                  <br></br>
-                  <strong>Streak: </strong>
-                  {goals.streakCounter}
                 </Card.Text>
                 <div className = 'text-center'>
                      <Button variant='dark' >
@@ -264,14 +228,7 @@ const Dashboard = () => {
                 </Button>
                 </div>
              
-                {/* <Button
-                  variant='dark'
-                  onClick={handleLogout}
-                  className='ms-5'
-                  style={{ height: '6vh' }}
-                >
-                  Log Out
-                </Button> */}
+            
               </Card.Body>
             </Card>
           </Col>

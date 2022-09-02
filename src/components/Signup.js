@@ -25,6 +25,7 @@ export default function Signup() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
+  
   //loading will only allow user to press sign up once
 
   async function handleGoogleLogIn(e) {

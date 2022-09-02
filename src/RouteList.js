@@ -17,7 +17,6 @@ import Login from './components/Login';
 import PrivateRoute from './PrivateRoute';
 import UpdateUser from './components/UpdateUser';
 import ForgotPassword from './components/ForgotPassword';
-import DailyLog from './components/DailyLog';
 import NotFound from './components/NotFound';
 import CalendarApp from './components/Calendar';
 
@@ -58,7 +57,7 @@ function RouteList() {
                 path='/dailylog'
                 element={
                   <PrivateRoute>
-                    <DailyLog />
+                    <DailyLogCarousel />
                   </PrivateRoute>
                 }
               />
@@ -91,7 +90,6 @@ function RouteList() {
               />
 
               <Route path='/signup' element={<Signup />} />
-              <Route path='/daily' element={<DailyLogCarousel />} />
               <Route path='/login' element={<Login />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
               {/* TODO: Not Found page & check difference between updateUser & newUser */}

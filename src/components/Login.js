@@ -22,6 +22,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
+  
   //loading will only allow user to press sign up once
   /* useRef vs useState
   Basically, it's very similar to useState. But when the value store in useRef, the component will not re-render if the value has changed. And it's popular to use it to reference a HTML element.

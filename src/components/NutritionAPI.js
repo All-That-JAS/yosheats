@@ -47,14 +47,6 @@ const Nutrition = () => {
 
   const dayDoc = doc(db, 'user-days', todayDate);
 
-  // function handleSubmit(e) {
-  //   try {
-  //     e.preventDefault();
-  //   } catch (err) {
-  //     alert('Please check your spelling and try again.');
-  //   }
-  // }
-
   let currentCalories = 0;
   let currentFat = 0;
   let currentCarb = 0;

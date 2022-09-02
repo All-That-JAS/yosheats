@@ -1,5 +1,4 @@
 import Carousel from 'react-bootstrap/Carousel';
-
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -8,7 +7,8 @@ import { Card, Container, Col, Row } from 'react-bootstrap';
 
 import { proteins, carbs, fats } from '../api/dummyData';
 
-import qq from '../images/carousel.png';
+import qq from '../images/mariocarousel.jpeg';
+
 
 const DailyLogCarousel = () => {
   function deficitOrSurplus(num, goalQty, goalName) {
@@ -176,7 +176,7 @@ const DailyLogCarousel = () => {
     fatDeficit,
     proteinDeficit,
   ]);
-  //TODO: user recommendation tbd
+
 
   let calorieProgress, carbsProgress, fatsProgress, proteinsProgress;
 
@@ -197,8 +197,11 @@ const DailyLogCarousel = () => {
       <Row>
         <Col></Col>
         <Col md='auto'>
-          <div className='badge  text-bg-dark text-center mb-2' style ={{height: '4rem'}}>
-            <Card.Text className='fs-6 my-4 fw-bolder text-center '>
+          <div className='text-center mb-2'>
+            <Card.Text
+              className='fs-2 my-4 fw-bolder text-center '
+              style={{ color: '#ffffff' }}
+            >
               Daily Log
             </Card.Text>
           </div>
@@ -207,115 +210,164 @@ const DailyLogCarousel = () => {
       </Row>
       <Row>
         <Carousel fade>
-          <Carousel.Item style={{ height: '25rem' }}>
+        
+
+          <Carousel.Item>
             <img
               className='d-block w-100'
               src={qq}
               alt='First slide'
               style={{ height: '25rem' }}
             />
-            <div style={{ verticalAlign: 'text-top' }}>
-              <Carousel.Caption style={{ verticalAlign: 'text-top;' }}>
-                <Card.Text style={{ color: '#ffffff' }}>
-                  <h3> Calories</h3>
-                  <Card.Text className=' fs-5 my-2'>
-                    <strong>Consumed: </strong>
-                    {todaysCalories} calories<br></br>
-                    <div className='progress mx-auto'>
-                      {calorieProgress > 100 ? (
-                        <div className='progress-over' style={calorieStyle}>
-                          {calorieProgress}%
-                        </div>
-                      ) : (
-                        <div className='progress-done' style={calorieStyle}>
-                          {calorieProgress}%
-                        </div>
-                      )}
-                    </div>
-                    <span className='text-lowercase fs-6'>
-                      {deficitOrSurplus(
-                        userCalories - todaysCalories,
-                        userCalories,
-                        'calorie'
-                      )}
-                    </span>
+            <div>
+              <Carousel.Caption className='mb-5'>
+                <Card.Text  className='fs-5 text-center'   style={{ color: '#797280' }}>
+                  <h3>Today's Foods</h3>
+
+                  <Card.Text
+                    className='fs-6 text-lowercase text-center'
+                  
+                  >
+                    <ul>
+                      {todaysFoods.map((food) => {
+                        return (
+                          <>
+                            <span>
+                              <strong>{Object.keys(food)[0]}: </strong>
+                              {Object.values(food)[0]} grams
+                            </span>
+                            <br></br>
+                          </>
+                        );
+                      })}
+                    </ul>
                   </Card.Text>
                 </Card.Text>
               </Carousel.Caption>
             </div>
           </Carousel.Item>
-
-          <Carousel.Item style={{ height: '25rem' }}>
+          {/* calories */}
+          <Carousel.Item>
             <img
               className='d-block w-100'
               src={qq}
-              alt='Second slide'
-              //   style={{ height: '20rem' }}
+              alt='First slide'
+              style={{ height: '25rem' }}
             />
-            <Carousel.Caption>
-              <Card.Text style={{ color: '#ffffff' }}>
-                <h3> Carbohydrates</h3>
-                <Card.Text className=' fs-5 my-2 mb-1'>
-                  <strong>Consumed: </strong>
-                  {todaysCarbs} grams
-                  <span>
-                    <div className='progress mx-auto'>
-                      {carbsProgress > 100 ? (
-                        <div className='progress-over' style={carbStyle}>
-                          {carbsProgress}%
-                        </div>
-                      ) : (
-                        <div className='progress-done' style={carbStyle}>
-                          {carbsProgress}%
-                        </div>
-                      )}
-                    </div>
-                  </span>
-                  <span className='text-lowercase fs-6'>
-                    {deficitOrSurplus(
-                      userCarbs - todaysCarbs,
-                      userCarbs,
-                      'carb'
-                    )}{' '}
-                  </span>
-                  <br></br>
-                  <div className='text-lowercase mt-1 fw-bold fs-6'>
-                    {carbRecs.length
-                      ? 'Recommended foods to meet daily carb goals:'
-                      : null}
+            <div>
+              <Carousel.Caption className='mb-5'>
+                <Card.Text style={{ color: '#797280' }}>
+                  <div className='h-100'>
+                    {' '}
+                    <h3> Calories</h3>
+                    <Card.Text className=' fs-5 my-2'>
+                      <strong>Consumed: </strong>
+                      {todaysCalories} calories<br></br>
+                      <div className='progress mx-auto'>
+                        {calorieProgress > 100 ? (
+                          <div className='progress-over' style={calorieStyle}>
+                            {calorieProgress}%
+                          </div>
+                        ) : (
+                          <div className='progress-done' style={calorieStyle}>
+                            {calorieProgress}%
+                          </div>
+                        )}
+                      </div>
+                      <span className='text-lowercase fs-6'>
+                        {deficitOrSurplus(
+                          userCalories - todaysCalories,
+                          userCalories,
+                          'calorie'
+                        )}
+                      </span>
+                    </Card.Text>
                   </div>
-                  <div>
-                    {carbRecs.length ? (
-                      <ul>
-                        {carbRecs.map((foodItem) => {
-                          return (
-                            <>
-                              <span className='fs-6 text-lowercase'>
-                                {foodItem[Object.keys(foodItem)[0]].servingSize}{' '}
-                                {Object.keys(foodItem)[0]} has{' '}
-                                {foodItem[Object.keys(foodItem)[0]].carbs} g
-                              </span>
-                              <br></br>
-                            </>
-                          );
-                        })}
-                      </ul>
-                    ) : null}
-                  </div>
+                  <div></div>
                 </Card.Text>
+              </Carousel.Caption>
+            </div>
+          </Carousel.Item>
+
+          <Carousel.Item className='d-flex'>
+            <img className=' w-100' src={qq} alt='Second slide' />
+            <Carousel.Caption className='mb-5 mt-5'>
+              <Card.Text style={{ color: '#797280' }}>
+                <div>
+                  <div>
+                    <h3> Carbohydrates</h3>
+                    <Card.Text className=' fs-5 my-2 mb-1'>
+                      <strong>Consumed: </strong>
+                      {todaysCarbs} grams
+                      <span>
+                        <div className='progress mx-auto'>
+                          {carbsProgress > 100 ? (
+                            <div className='progress-over' style={carbStyle}>
+                              {carbsProgress}%
+                            </div>
+                          ) : (
+                            <div className='progress-done' style={carbStyle}>
+                              {carbsProgress}%
+                            </div>
+                          )}
+                        </div>
+                      </span>
+                      <span className='text-lowercase fs-6'>
+                        {deficitOrSurplus(
+                          userCarbs - todaysCarbs,
+                          userCarbs,
+                          'carb'
+                        )}{' '}
+                      </span>
+                      <br></br>
+                      <div className='text-lowercase mt-1 fw-bold fs-6'>
+                        {carbRecs.length
+                          ? 'Recommended foods to meet daily carb goals:'
+                          : null}
+                      </div>
+                      <div>
+                        {carbRecs.length ? (
+                          <ul>
+                            {carbRecs.map((foodItem) => {
+                              return (
+                                <>
+                                  <span className='fs-6 text-lowercase'>
+                                    {
+                                      foodItem[Object.keys(foodItem)[0]]
+                                        .servingSize
+                                    }{' '}
+                                    {Object.keys(foodItem)[0]} has{' '}
+                                    {foodItem[Object.keys(foodItem)[0]].carbs} g
+                                  </span>
+                                  <br></br>
+                                </>
+                              );
+                            })}
+                          </ul>
+                        ) : (
+                          <div>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                          </div>
+                        )}
+                      </div>
+                    </Card.Text>
+                  </div>
+                </div>
+
+                <br></br>
+                <br></br>
               </Card.Text>
             </Carousel.Caption>
           </Carousel.Item>
 
-          <Carousel.Item style={{ height: '25rem' }}>
-            <img
-              className='d-block w-100'
-              src={qq}
-              alt='Third slide'
-              //   style={{ height: '20rem' }}
-            />
-            <Carousel.Caption>
-              <Card.Text style={{ color: '#ffffff' }}>
+          <Carousel.Item>
+            <img className='d-block w-100' src={qq} alt='Third slide' />
+            <Carousel.Caption className='mb-5'>
+              <Card.Text style={{ color: '#797280' }}>
                 <h3> Fats</h3>
                 <Card.Text className=' fs-5 my-2'>
                   <strong>Consumed: </strong>
@@ -355,17 +407,26 @@ const DailyLogCarousel = () => {
                           );
                         })}
                       </ul>
-                    ) : null}
+                    ) : (
+                      <div>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                      </div>
+                    )}
                   </div>
                 </Card.Text>
               </Card.Text>
+              <br></br>
+              <br></br>
+              <br></br>
             </Carousel.Caption>
           </Carousel.Item>
 
-          <Carousel.Item style={{ height: '25rem' }}>
+          <Carousel.Item>
             <img className='d-block w-100' src={qq} alt='Fourth slide' />
-            <Carousel.Caption>
-              <Card.Text style={{ color: '#ffffff' }}>
+            <Carousel.Caption className='mb-5'>
+              <Card.Text style={{ color: '#797280' }}>
                 <h3> Proteins</h3>
                 <Card.Text className=' fs-5 my-2'>
                   <strong>Consumed:</strong> {todaysProteins} grams
@@ -408,10 +469,19 @@ const DailyLogCarousel = () => {
                           );
                         })}
                       </ul>
-                    ) : null}
+                    ) : (
+                      <div>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                      </div>
+                    )}
                   </div>
                 </Card.Text>
               </Card.Text>
+              <br></br>
+              <br></br>
+              <br></br>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
