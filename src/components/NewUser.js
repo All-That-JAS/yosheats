@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 const NewUser = () => {
   const { currentUser } = useAuth();
 
-  function CalculateGoals(
+  async function CalculateGoals(
     activityLevel,
     heightFeet,
     heightInches,
@@ -76,7 +76,7 @@ const NewUser = () => {
 
     if (currentUser) {
       const userDoc = doc(db, 'user-goals', currentUser.uid);
-      updateDoc(userDoc, {
+      await updateDoc(userDoc, {
         dailyCalories,
         dailyCarbs,
         dailyFat,
@@ -326,14 +326,16 @@ const NewUser = () => {
                       variant="dark"
                       type="submit"
                       style={{ width: '29rem' }}
-                      onClick={CalculateGoals(
-                        activityLevel,
-                        heightFeet,
-                        heightInches,
-                        weight,
-                        assignedSex,
-                        age
-                      )}
+                      onClick={() =>
+                        CalculateGoals(
+                          activityLevel,
+                          heightFeet,
+                          heightInches,
+                          weight,
+                          assignedSex,
+                          age
+                        )
+                      }
                     >
                       Submit
                     </Button>
