@@ -86,9 +86,9 @@ const NewUser = () => {
         dailyCalories = Math.round(TDEE);
     }
 
-    let dailyCarbs = Math.round((dailyCalories * 0.55) / 4);
-    let dailyFat = Math.round((dailyCalories * 0.27) / 4);
-    let dailyProtein = Math.round((dailyCalories * 0.18) / 9);
+    let dailyCarbs = Math.round((dailyCalories * 0.5) / 4);
+    let dailyFat = Math.round((dailyCalories * 0.2) / 4);
+    let dailyProtein = Math.round((dailyCalories * 0.3) / 9);
 
     if (currentUser) {
       if (isNewUser) {
@@ -121,6 +121,8 @@ const NewUser = () => {
           activityLevel,
           gender,
           pronouns,
+          heightFeet,
+          heightInches,
         });
       }
     }
@@ -265,13 +267,13 @@ const NewUser = () => {
                     </Form.Select>
                   </FloatingLabel>
 
-                  <InputGroup className="m-3" style={{ width: '29rem' }}>
+                  <InputGroup className='m-3' style={{ width: '29rem' }}>
                     <InputGroup.Text style={{ minWidth: '11vh' }}>
                       Gender
                     </InputGroup.Text>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter gender (i.e. non-binary, woman, man)"
+                      type='text'
+                      placeholder='Enter gender (i.e. non-binary, woman, man)'
                       value={gender}
                       onChange={(e) => {
                         setGender(e.target.value);
@@ -283,13 +285,13 @@ const NewUser = () => {
                       {errors.username}
                     </Form.Control.Feedback> */}
                   </InputGroup>
-                  <InputGroup className="m-3" style={{ width: '29rem' }}>
+                  <InputGroup className='m-3' style={{ width: '29rem' }}>
                     <InputGroup.Text style={{ minWidth: '11vh' }}>
                       Pronouns
                     </InputGroup.Text>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter pronouns (i.e. she/her, he/they, ze/zir)"
+                      type='text'
+                      placeholder='Enter pronouns (i.e. she/her, he/they, ze/zir)'
                       value={pronouns}
                       onChange={(e) => {
                         setPronouns(e.target.value);
@@ -304,72 +306,66 @@ const NewUser = () => {
                   {isNewUser ? (
                     <>
                       <FloatingLabel
-                        controlId="floatingSelectGrid"
-                        label="Assigned Sex at Birth:"
-                        className="m-3"
+                        controlId='floatingSelectGrid'
+                        label='Assigned Sex at Birth:'
+                        className='m-3'
                       >
                         <Form.Select
-                          aria-label="Floating label select example"
-                          id="assigned-sex"
+                          aria-label='Floating label select example'
+                          id='assigned-sex'
                           value={assignedSex}
                           onChange={(e) => setAssignedSex(e.target.value)}
                         >
-                          <option value="" disabled hidden></option>
-                          <option value="Female">Female</option>
-                          <option value="Male">Male</option>
+                          <option value='' disabled hidden></option>
+                          <option value='Female'>Female</option>
+                          <option value='Male'>Male</option>
                         </Form.Select>
                       </FloatingLabel>
                       <br></br>
                     </>
                   ) : null}
                   <Row>
-                    {isNewUser ? (
-                      <InputGroup
-                        className="mb-3 m-3"
-                        style={{ width: '30rem' }}
-                      >
-                        <InputGroup.Text style={{ minWidth: '11vh' }}>
-                          Height (ft)
-                        </InputGroup.Text>
-                        <Form.Control
-                          aria-label="Dollar amount (with dot and two decimal places)"
-                          type="number"
-                          placeholder="Feet"
-                          required
-                          value={heightFeet || ''}
-                          onChange={(e) => {
-                            setHeightFeet(e.target.value);
-                            setErrorNull('heightFeet');
-                          }}
-                          isInvalid={!!errors.heightFeet}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.heightFeet}
-                        </Form.Control.Feedback>
-                      </InputGroup>
-                    ) : null}
-                    {isNewUser ? (
-                      <InputGroup className="m-3" style={{ width: '30rem' }}>
-                        <InputGroup.Text style={{ minWidth: '11vh' }}>
-                          Height (in)
-                        </InputGroup.Text>
-                        <Form.Control
-                          aria-label="Dollar amount (with dot and two decimal places)"
-                          type="number"
-                          required
-                          placeholder="Inches"
-                          value={heightInches || ''}
-                          onChange={(e) => {
-                            setHeightInches(e.target.value);
-                            setErrorNull('heightInches');
-                          }}
-                          isInvalid={!!errors.heightInches}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.heightInches}
-                        </Form.Control.Feedback>
-                      </InputGroup>
-                    ) : null}
+                    <InputGroup className='mb-3 m-3' style={{ width: '30rem' }}>
+                      <InputGroup.Text style={{ minWidth: '11vh' }}>
+                        Height (ft)
+                      </InputGroup.Text>
+                      <Form.Control
+                        aria-label='Dollar amount (with dot and two decimal places)'
+                        type='number'
+                        placeholder='Feet'
+                        required
+                        value={heightFeet || ''}
+                        onChange={(e) => {
+                          setHeightFeet(e.target.value);
+                          setErrorNull('heightFeet');
+                        }}
+                        isInvalid={!!errors.heightFeet}
+                      />
+                      <Form.Control.Feedback type='invalid'>
+                        {errors.heightFeet}
+                      </Form.Control.Feedback>
+                    </InputGroup>
+
+                    <InputGroup className='m-3' style={{ width: '30rem' }}>
+                      <InputGroup.Text style={{ minWidth: '11vh' }}>
+                        Height (in)
+                      </InputGroup.Text>
+                      <Form.Control
+                        aria-label='Dollar amount (with dot and two decimal places)'
+                        type='number'
+                        required
+                        placeholder='Inches'
+                        value={heightInches || ''}
+                        onChange={(e) => {
+                          setHeightInches(e.target.value);
+                          setErrorNull('heightInches');
+                        }}
+                        isInvalid={!!errors.heightInches}
+                      />
+                      <Form.Control.Feedback type='invalid'>
+                        {errors.heightInches}
+                      </Form.Control.Feedback>
+                    </InputGroup>
 
                     <InputGroup className='m-3' style={{ width: '30rem' }}>
                       <InputGroup.Text style={{ minWidth: '11vh' }}>
@@ -411,37 +407,19 @@ const NewUser = () => {
                         {errors.age}
                       </Form.Control.Feedback>
                     </InputGroup>
-
-                    <Button
-                      className="m-4 rounded-pill"
-                      variant="dark"
-                      type="submit"
-                      style={{ width: '29rem' }}
-                      onClick={() => CalculateGoals()}
-                    >
-                      Submit
-                    </Button>
                   </Row>
                   <div>
-                    <div className="d-flex justify-content-center">
+                    <div className='d-flex justify-content-center'>
                       <Button
-                        className='m-2 '
+                        className='m-2 mb-3'
                         variant='dark'
                         type='submit'
-                      
-                        onClick={CalculateGoals(
-                          activityLevel,
-                          heightFeet,
-                          heightInches,
-                          weight,
-                          assignedSex,
-                          age
-                        )}
+                        onClick={() => CalculateGoals()}
                       >
                         Submit
                       </Button>
                     </div>
-                  </Row>
+                  </div>
                 </Card.Text>
               </Form>
             </Card>

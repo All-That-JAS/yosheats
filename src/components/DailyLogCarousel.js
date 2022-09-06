@@ -9,6 +9,9 @@ import { Link } from 'react-router-dom';
 import { proteins, carbs, fats } from '../api/dummyData';
 
 import qq from '../images/mariocarousel.jpeg';
+import PopupBad from './PopupBad';
+import PopupGood from './PopupGood';
+import Popup from './Popup';
 
 const DailyLogCarousel = () => {
   function deficitOrSurplus(num, goalQty, goalName) {
@@ -47,7 +50,14 @@ const DailyLogCarousel = () => {
   const [fatRecs, setFatRecs] = useState([]);
   const [proteinRecs, setProteinRecs] = useState([]);
 
- 
+  const [badPop, setBadPop] = useState(false);
+  const [goodPop, setGoodPop] = useState(false);
+  const [progressPop, setProgressPop] = useState(false);
+
+  const calorie = 'calorie';
+  const protein = 'protein';
+  const fat = 'fat';
+  const carb = 'carb';
 
   setTimeout(() => {
     const calorieStyle = {
@@ -194,8 +204,6 @@ const DailyLogCarousel = () => {
     ? (proteinsProgress = Math.round((todaysProteins / userProteins) * 100))
     : (proteinsProgress = 0);
 
-
-    console.log('before return', calorieProgress)
   return (
     <Container>
       <Row>
@@ -207,9 +215,7 @@ const DailyLogCarousel = () => {
               style={{ color: '#ffffff' }}
             >
               Daily Log
-              {    console.log('after return', calorieProgress)}
             </Card.Text>
-     
           </div>
         </Col>
         <Col></Col>
@@ -275,8 +281,7 @@ const DailyLogCarousel = () => {
               <Carousel.Caption className='mb-5'>
                 <Card.Text style={{ color: '#797280' }}>
                   <div className='h-100'>
-                    {' '}
-                    <h3 className='fw-bolder'> Calories</h3>
+                    <h3 className='fw-bolder'>Calories</h3>
                     <Card.Text className=' fs-5 my-2'>
                       <strong>Consumed: </strong>
                       {todaysCalories} calories<br></br>
@@ -288,7 +293,6 @@ const DailyLogCarousel = () => {
                         ) : calorieProgress > 100 ? (
                           <div className='progress-over' style={calorieStyle}>
                             {calorieProgress}%
-                            
                           </div>
                         ) : (
                           <div className='progress-done' style={calorieStyle}>
@@ -305,7 +309,38 @@ const DailyLogCarousel = () => {
                       </span>
                     </Card.Text>
                   </div>
-                  <div></div>
+                  <div>
+                    <Button
+                      variant='info'
+                      className='my-3'
+                      onClick={() => {
+                        calorieProgress > 106
+                          ? setBadPop(true)
+                          : calorieProgress < 95
+                          ? setProgressPop(true)
+                          : setGoodPop(true);
+                      }}
+                    >
+                      <p className='my-1' style={{ color: '#ffffff' }}>
+                        Calorie Status
+                      </p>
+                    </Button>
+                  </div>
+                  <PopupBad
+                    macro={calorie}
+                    trigger={badPop}
+                    setTrigger={setBadPop}
+                  ></PopupBad>
+                  <PopupGood
+                    macro={calorie}
+                    trigger={goodPop}
+                    setTrigger={setGoodPop}
+                  ></PopupGood>
+                  <Popup
+                    macro={calorie}
+                    trigger={progressPop}
+                    setTrigger={setProgressPop}
+                  ></Popup>
                 </Card.Text>
               </Carousel.Caption>
             </div>
@@ -317,7 +352,7 @@ const DailyLogCarousel = () => {
               <Card.Text style={{ color: '#797280' }}>
                 <div>
                   <div>
-                    <h3 className='fw-bolder'> Carbohydrates</h3>
+                    <h3 className='fw-bolder'>Carbohydrates</h3>
                     <Card.Text className=' fs-5 my-2 mb-1'>
                       <strong>Consumed: </strong>
                       {todaysCarbs} grams
@@ -380,6 +415,36 @@ const DailyLogCarousel = () => {
                           </div>
                         )}
                       </div>
+                      <Button
+                        className='my-3'
+                        variant='info'
+                        onClick={() => {
+                          carbsProgress > 106
+                            ? setBadPop(true)
+                            : carbsProgress < 95
+                            ? setProgressPop(true)
+                            : setGoodPop(true);
+                        }}
+                      >
+                        <p className='my-1' style={{ color: '#ffffff' }}>
+                          Carb Status
+                        </p>
+                      </Button>
+                      <PopupBad
+                        macro={carb}
+                        trigger={badPop}
+                        setTrigger={setBadPop}
+                      ></PopupBad>
+                      <PopupGood
+                        macro={carb}
+                        trigger={goodPop}
+                        setTrigger={setGoodPop}
+                      ></PopupGood>
+                      <Popup
+                        macro={carb}
+                        trigger={progressPop}
+                        setTrigger={setProgressPop}
+                      ></Popup>
                     </Card.Text>
                   </div>
                 </div>
@@ -445,6 +510,36 @@ const DailyLogCarousel = () => {
                       </div>
                     )}
                   </div>
+                  <Button
+                    variant='info'
+                    className='my-3'
+                    onClick={() => {
+                      fatsProgress > 106
+                        ? setBadPop(true)
+                        : fatsProgress < 95
+                        ? setProgressPop(true)
+                        : setGoodPop(true);
+                    }}
+                  >
+                    <p className='my-1' style={{ color: '#ffffff' }}>
+                      Fat Status
+                    </p>
+                  </Button>
+                  <PopupBad
+                    macro={fat}
+                    trigger={badPop}
+                    setTrigger={setBadPop}
+                  ></PopupBad>
+                  <PopupGood
+                    macro={fat}
+                    trigger={goodPop}
+                    setTrigger={setGoodPop}
+                  ></PopupGood>
+                  <Popup
+                    macro={fat}
+                    trigger={progressPop}
+                    setTrigger={setProgressPop}
+                  ></Popup>
                 </Card.Text>
               </Card.Text>
               <br></br>
@@ -511,6 +606,36 @@ const DailyLogCarousel = () => {
                       </div>
                     )}
                   </div>
+                  <Button
+                    className='my-3'
+                    variant='info'
+                    onClick={() => {
+                      proteinsProgress > 106
+                        ? setBadPop(true)
+                        : proteinsProgress < 95
+                        ? setProgressPop(true)
+                        : setGoodPop(true);
+                    }}
+                  >
+                    <p className='my-1' style={{ color: '#ffffff' }}>
+                      Protein Status
+                    </p>
+                  </Button>
+                  <PopupBad
+                    macro={protein}
+                    trigger={badPop}
+                    setTrigger={setBadPop}
+                  ></PopupBad>
+                  <PopupGood
+                    macro={protein}
+                    trigger={goodPop}
+                    setTrigger={setGoodPop}
+                  ></PopupGood>
+                  <Popup
+                    macro={protein}
+                    trigger={progressPop}
+                    setTrigger={setProgressPop}
+                  ></Popup>
                 </Card.Text>
               </Card.Text>
               <br></br>
