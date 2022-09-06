@@ -91,14 +91,14 @@ export default function Signup() {
                     className="me-5"
                     src={marioLuigi}
                     alt="marioLuigi"
-                    style={{ maxWidth: '5rem' }}
+                    style={{ maxWidth: '3rem' }}
                   ></img>
                   Sign Up
                   <img
                     className="ms-5"
                     src={marioLuigi}
                     alt="marioLuigi"
-                    style={{ maxWidth: '5rem', transform: 'scaleX(-1)' }}
+                    style={{ maxWidth: '3rem', transform: 'scaleX(-1)' }}
                   ></img>
                 </Card.Text>
               </CardHeader>

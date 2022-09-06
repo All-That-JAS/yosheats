@@ -8,10 +8,12 @@ import { useAuth } from '../contexts/AuthContext';
 
 import { motion } from 'framer-motion';
 
+
 function CalendarApp() {
   const [date, setDate] = useState(new Date());
   const [foodList, setFoodList] = useState([]);
   const [pickedDate, setPickedDate] = useState();
+
 
   const { currentUser } = useAuth();
 
@@ -84,7 +86,7 @@ function CalendarApp() {
 
   return (
     <motion.div
-      className="app"
+      className='app'
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -92,44 +94,39 @@ function CalendarApp() {
       <Container>
         <Row>
           <Col>
-            <Card className="my-2" style={{ width: '24rem', height: '9rem' }}>
+            <Card className='my-2'>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-4 text-center">
-                  User History
+                <Card.Text className=' fw-bolder fs-4 text-center'>
+                  Log History
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <Card.Text className=" fs-6 text-center text-lowercase ">
-                  Please select and submit a date to preview past food logs
+                <Card.Text className=' fs-6 text-center text-lowercase '>
+                  Please select and submit a date
+                  <br></br>to preview past food logs
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
-          <Col className="my-2 ">
-            <div className="calendar-container ">
+          <Col className='my-2 '>
+            <div className='d-flex justify-content-center'>
               <div>
                 <Calendar onChange={setDate} value={date} />
               </div>
-              <p className="my-3" style={{ color: '#cccccc' }}></p>
-              <div className="text-center me-5">
-                <Button variant="dark" onClick={() => handleClick()}>
-                  Submit
-                </Button>
-              </div>
+              <p className='my-3' style={{ color: '#cccccc' }}></p>
             </div>
-            <p className="my-3" style={{ color: '#cccccc' }}></p>
           </Col>
-          <Col>
-            <Card className="" style={{ width: '24rem' }}>
+          <Col className='my-2 '>
+            <Card className=''>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-4 text-center">
+                <Card.Text className=' fw-bolder fs-4 text-center'>
                   {pickedDate
-                    ? `Food(s) on ${pickedDate}`
-                    : `Please submit a date`}
+                    ? `Food eaten on ${pickedDate}`
+                    : `Date not submitted`}
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <Card.Text className=" fs-6 text-center text-lowercase mb-2">
+                <Card.Text className=' fs-6 text-center text-lowercase mb-2'>
                   {pickedDate
                     ? foodList.length > 0
                       ? foodList.map((food) => {
@@ -155,7 +152,13 @@ function CalendarApp() {
         </Row>
         <Row>
           <Col></Col>
-          <Col></Col>
+          <Col>
+            <div className='d-flex justify-content-center'>
+              <Button variant='dark' onClick={() => handleClick()}>
+                Submit
+              </Button>
+            </div>
+          </Col>
           <Col></Col>
         </Row>
       </Container>

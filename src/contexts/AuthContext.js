@@ -22,8 +22,12 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 
+
 // import {app, auth} from '../firebase' - could delete if not broken
 import { auth } from '../firebase';
+import { FirebaseError } from 'firebase/app';
+
+
 
 const AuthContext = createContext();
 
@@ -101,6 +105,8 @@ export function AuthProvider({ children }) {
   function updateUserPassword(password) {
     return updatePassword(auth.currentUser, password);
   }
+
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

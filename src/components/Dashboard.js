@@ -9,8 +9,10 @@ import useSound from 'use-sound';
 
 import SetGoals from './SetGoals';
 import Calendar from './Calendar';
+import Popup from './Popup';
 
 import mush from '../images/toad.png';
+import qq from '../images/qq.png';
 import { marioQuotes } from '../api/MarioQuotes';
 import marioSound from '../images/mario-coin.mp3';
 import videoBg from '../images/mariocrop.mov';
@@ -23,6 +25,7 @@ const Dashboard = () => {
   const [goals, setGoals] = useState({});
   const [showGoals, setShowGoals] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [popUp, setPopUp] = useState(false);
   const [playSound] = useSound(marioSound, { volume: 0.25 });
 
   useNavigate();
@@ -62,18 +65,19 @@ const Dashboard = () => {
           autoPlay
           loop
           muted
-          className="mt-5"
-          style={{ objectFit: 'fill', height: '30vh', width: '100%' }}
+
+          className='mt-5'
+          style={{ objectFit: 'fill', height: '40vh', width: '100%' }}
         />
 
-        <Row classname="dash-content">
+        <Row>
+
           <Col xs={5}>
             <Card className=" my-5" style={{ marginTop: 15 }}>
               <Card.Header>
-                <Card.Text className=" fw-bolder fs-5 text-center">
-                  {goals.username
-                    ? `${goals.username}'s Progress`
-                    : 'My Progress'}
+                <Card.Text className=' fw-bolder fs-5 text-center'>
+                  {goals.username ? `${goals.username}'s Goals` : 'My Goals'}
+
                 </Card.Text>
               </Card.Header>
               <Card.Body>
@@ -122,17 +126,8 @@ const Dashboard = () => {
                   <div className="card-body">
                     <div className="d-flex justify-content-around my-2">
                       <h6>
-                        <Button
-                          variant="dark"
-                          style={{ color: '#cccccc' }}
-                          onClick={() => {
-                            setShowGoals(!showGoals);
-                          }}
-                        >
-                          Daily Goals
-                        </Button>
+                      <SetGoals> </SetGoals>
 
-                        {showGoals && <SetGoals>show/hide typography</SetGoals>}
                       </h6>
                     </div>
                   </div>
@@ -188,20 +183,24 @@ const Dashboard = () => {
                   <strong>Email: </strong>
                   {currentUser.email}
                   <br></br>
-                  {goals.username ? (
+                  {/*  TODO : does this solve usename issue? */}
+                  {!goals.username ? (
+                    !currentUser.displayName ? null : (
+                      <div>
+                        <strong>Name: </strong>
+                        {currentUser.displayName}
+                      </div>
+                    )
+                  ) : (
                     `Name: ${goals.username}`
-                  ) : !currentUser.displayName ? null : (
-                    <div>
-                      <strong>Name: </strong>
-                      {currentUser.displayName}
-                    </div>
                   )}
                   <br></br>
                   {goals.pronouns ? `Pronouns: ${goals.pronouns}` : null}
                 </Card.Text>
-                <div className="text-center">
-                  <Button variant="dark">
-                    <Link to="/update-profile" className="btn btn-dark w-40">
+                <div className='text-center'>
+                  <Button variant='dark'>
+                    <Link to='/update-user' className='btn btn-dark'>
+
                       Update Profile
                     </Link>
                   </Button>
@@ -210,25 +209,52 @@ const Dashboard = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="mt-5 text-center">
-              <CardHeader className=" fw-bolder fs-5 text-center">
-                <Card.Text>My Log History</Card.Text>
+            <Card className='mt-5 text-center'>
+              <CardHeader className=' fw-bolder fs-5 text-center'>
+                <Card.Text>My Calendar Log</Card.Text>
               </CardHeader>
               <Card.Body>
-                <Card.Text>
-                  <Button
-                    variant="dark"
-                    style={{ color: '#cccccc' }}
-                    onClick={() => {
-                      setShowCalendar(!showCalendar);
-                    }}
-                  >
-                    Calendar
-                  </Button>
-                  <br></br>
-                  <br></br>
-                  {showCalendar && <Calendar>show/hide typography</Calendar>}
+                <Card.Text className=' fw-light fs-6 text-lowercase text-center'>
+                  click below for your calendar
+
                 </Card.Text>
+                <img
+                  src={qq}
+                  alt='question mark'
+                  style={{
+                    maxWidth: '3rem',
+                    maxHeight: '3rem',
+                  }}
+                  onClick={() => {
+                    setShowCalendar(!showCalendar);
+                  }}
+                ></img>
+                <img
+                  src={qq}
+                  alt='question mark'
+                  style={{
+                    maxWidth: '3rem',
+                    maxHeight: '3rem',
+                  }}
+                  onClick={() => {
+                    setShowCalendar(!showCalendar);
+                  }}
+                ></img>
+                <img
+                  src={qq}
+                  alt='question mark'
+                  style={{
+                    maxWidth: '3rem',
+                    maxHeight: '3rem',
+                  }}
+                  onClick={() => {
+                    setShowCalendar(!showCalendar);
+                  }}
+                ></img>
+
+                <br></br>
+                <br></br>
+                {showCalendar && <Calendar>show/hide typography</Calendar>}
               </Card.Body>
             </Card>
           </Col>
