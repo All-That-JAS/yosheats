@@ -191,7 +191,56 @@ p {
   right: 16px;
 }
 
+message::-webkit-scrollbar {
+  width: 0.25rem;
+}
 
+message::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+message::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
+
+.message-container {
+  padding: 10px;
+  height: 30vh;
+  margin: 10vh 0 10vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+.message-form {
+  height: 4vh;
+  position: fixed;
+  /* justify-content: flex-end; */
+  align-content: flex-start;
+  width: 100%;
+  max-width: 728px;
+  display: flex;
+  font-size: 1.5rem;
+}
+.message {
+  display: flex;
+  align-items: center;
+}
+
+.sent {
+  flex-direction: row-reverse;
+}
+
+.sent p {
+  color: white;
+  background: #0b93f6;
+  background-size: 7rem;
+  align-self: flex-end;
+  margin-top: 3rem;
+}
+.received p {
+  background: #e5e5ea;
+  color: black;
+}
 
 @media only screen and (max-width: 600px) {
   .search {

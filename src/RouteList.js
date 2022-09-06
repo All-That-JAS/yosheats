@@ -14,8 +14,10 @@ import UpdateUser from './components/UpdateUser';
 import ForgotPassword from './components/ForgotPassword';
 import NotFound from './components/NotFound';
 import CalendarApp from './components/Calendar';
-
 import DailyLogCarousel from './components/DailyLogCarousel';
+
+import Chatroom from './components/Chatroom';
+import Chat from './components/Chat';
 
 function RouteList() {
   const location = useLocation();
@@ -83,11 +85,20 @@ function RouteList() {
                   </PrivateRoute>
                 }
               />
+              <Route
+                exact
+                path="/chat"
+                element={
+                  <PrivateRoute>
+                    <Chat />
+                  </PrivateRoute>
+                }
+              />
 
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
-              {/* TODO: Not Found page & check difference between updateUser & newUser */}
+             
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>

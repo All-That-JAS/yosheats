@@ -7,7 +7,6 @@ import { Card, Container, Col, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { proteins, carbs, fats } from '../api/dummyData';
-import PopupBad from './PopupBad';
 import PopupGood from './PopupGood';
 
 import qq from '../images/mariocarousel.jpeg';
@@ -49,7 +48,7 @@ const DailyLogCarousel = () => {
   const [fatRecs, setFatRecs] = useState([]);
   const [proteinRecs, setProteinRecs] = useState([]);
 
-  const [badPopUp, setBadPopUp] = useState(false);
+  // const [badPopUp, setBadPopUp] = useState(false);
   const [goodPopUp, setGoodPopUp] = useState(false);
 
   setTimeout(() => {
@@ -215,6 +214,7 @@ const DailyLogCarousel = () => {
             <PopupGood trigger={goodPopUp} setTrigger={setGoodPopUp}>
               <h3>Good popup</h3>
             </PopupGood>
+           
             {/* ends */}
           </div>
         </Col>
@@ -294,30 +294,19 @@ const DailyLogCarousel = () => {
                         ) : calorieProgress > 100 ? (
                           <div className='progress-over' style={calorieStyle}>
                             {calorieProgress}%
- {/* TODO: check out good and bad pop up
-                           
-            {/* <Button variant='light' onClick={() => setGoodPopUp(true)}>
-              pop
-            </Button>
-            <PopupGood trigger={goodPopUp} setTrigger={setGoodPopUp}>
-              <h3>Good popup</h3>
-            </PopupGood>
-            <Button variant='info' onClick={() => setBadPopUp(true)}>
-              b pop
-            </Button>
-            <PopupBad trigger={badPopUp} setTrigger={setBadPopUp}>
-              <h3>Bad popup</h3>
-            </PopupBad> */}
-                          </div>
-                        ) : (
-                          <div className='progress-done' style={calorieStyle}>
-                            {calorieProgress}%
-                            {/* <PopupGood
+                            <PopupGood
                               trigger={goodPopUp}
                               setTrigger={setGoodPopUp}
                             >
                               <h3>Good popup</h3>
-                            </PopupGood> */}
+                            </PopupGood>
+                            {/* <Button variant='info' onClick={() => setBadPopUp(true)}>
+              b pop
+            </Button> */}
+                          </div>
+                        ) : (
+                          <div className='progress-done' style={calorieStyle}>
+                            {calorieProgress}%
                           </div>
                         )}
                       </div>
@@ -359,14 +348,6 @@ const DailyLogCarousel = () => {
                           ) : (
                             <div className='progress-done' style={carbStyle}>
                               {carbsProgress}%
-                              {/* TODO: how can i change this without a button onclick */}
-                              {setGoodPopUp(true)}
-                              <PopupGood
-                                trigger={goodPopUp}
-                                setTrigger={setGoodPopUp}
-                              >
-                                <h3>Good popup</h3>
-                              </PopupGood>
                             </div>
                           )}
                         </div>

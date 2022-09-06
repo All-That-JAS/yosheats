@@ -14,7 +14,6 @@ export default function Popup(props) {
         >
           x
         </Button>
-        {/* {props.children} */}
         <div
           className=' fw-bolder fs-1 text-center text-lowercase'
           style={{ color: '#ffffff' }}
