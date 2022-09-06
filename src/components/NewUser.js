@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { updateDoc, doc } from 'firebase/firestore';
+import { updateDoc, getDoc, doc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Card, Container, Col, Row } from 'react-bootstrap';
@@ -12,14 +12,30 @@ import { motion } from 'framer-motion';
 const NewUser = () => {
   const { currentUser } = useAuth();
 
-  function CalculateGoals(
-    activityLevel,
-    heightFeet,
-    heightInches,
-    weight,
-    assignedSex,
-    age
-  ) {
+  useEffect(() => {
+    const userDoc = doc(db, 'user-goals', currentUser.uid);
+    const determineNewUser = async () => {
+      const userDocSnap = await getDoc(userDoc);
+      if (!userDocSnap.data().assignedSex) {
+        setIsNewUser(true);
+      } else {
+        setHeightFeet(userDocSnap.data().heightFeet);
+        setHeightInches(userDocSnap.data().heightInches);
+        setAssignedSex(userDocSnap.data().assignedSex);
+        setGender(userDocSnap.data().gender);
+        setPronouns(userDocSnap.data().pronouns);
+        setUsername(userDocSnap.data().username);
+        setAge(userDocSnap.data().age);
+        setWeight(userDocSnap.data().weight);
+        setGoal(userDocSnap.data().goal);
+        setActivityLevel(userDocSnap.data().activityLevel);
+      }
+    };
+    determineNewUser();
+  }, [currentUser.uid]);
+
+  async function CalculateGoals() {
+    const userDoc = doc(db, 'user-goals', currentUser.uid);
     let weightCalc = 10 * (weight / 2.2);
     let feetInInches = heightFeet * 12;
     let totalInches = Number(feetInInches) + Number(heightInches);
@@ -75,14 +91,38 @@ const NewUser = () => {
     let dailyProtein = Math.round((dailyCalories * 0.18) / 9);
 
     if (currentUser) {
-      const userDoc = doc(db, 'user-goals', currentUser.uid);
-      updateDoc(userDoc, {
-        dailyCalories,
-        dailyCarbs,
-        dailyFat,
-        dailyProtein,
-        username,
-      });
+      if (isNewUser) {
+        updateDoc(userDoc, {
+          dailyCalories,
+          dailyCarbs,
+          dailyFat,
+          dailyProtein,
+          username,
+          heightFeet,
+          heightInches,
+          assignedSex,
+          age,
+          weight,
+          goal,
+          activityLevel,
+          gender,
+          pronouns,
+        });
+      } else {
+        updateDoc(userDoc, {
+          dailyCalories,
+          dailyCarbs,
+          dailyFat,
+          dailyProtein,
+          username,
+          age,
+          weight,
+          goal,
+          activityLevel,
+          gender,
+          pronouns,
+        });
+      }
     }
   }
 
@@ -94,6 +134,9 @@ const NewUser = () => {
   const [age, setAge] = useState(null);
   const [assignedSex, setAssignedSex] = useState('');
   const [username, setUsername] = useState('');
+  const [gender, setGender] = useState('');
+  const [pronouns, setPronouns] = useState('');
+  const [isNewUser, setIsNewUser] = useState(false);
   const [errors, setErrors] = useState({});
   let navigate = useNavigate();
 
@@ -222,64 +265,111 @@ const NewUser = () => {
                     </Form.Select>
                   </FloatingLabel>
 
-                  <FloatingLabel
-                    controlId='floatingSelectGrid'
-                    label='Assigned Sex at Birth:'
-                    className='m-3'
-                  >
-                    <Form.Select
-                      aria-label='Floating label select example'
-                      id='assigned-sex'
-                      value={assignedSex}
-                      onChange={(e) => setAssignedSex(e.target.value)}
-                    >
-                      <option value='' disabled hidden></option>
-                      <option value='Female'>Female</option>
-                      <option value='Male'>Male</option>
-                    </Form.Select>
-                  </FloatingLabel>
-                  <br></br>
+                  <InputGroup className="m-3" style={{ width: '29rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Gender
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter gender (i.e. non-binary, woman, man)"
+                      value={gender}
+                      onChange={(e) => {
+                        setGender(e.target.value);
+                        // setErrorNull('username');
+                      }}
+                      // isInvalid={!!errors.username}
+                    />
+                    {/* <Form.Control.Feedback type="invalid">
+                      {errors.username}
+                    </Form.Control.Feedback> */}
+                  </InputGroup>
+                  <InputGroup className="m-3" style={{ width: '29rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Pronouns
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter pronouns (i.e. she/her, he/they, ze/zir)"
+                      value={pronouns}
+                      onChange={(e) => {
+                        setPronouns(e.target.value);
+                        // setErrorNull('username');
+                      }}
+                      // isInvalid={!!errors.username}
+                    />
+                    {/* <Form.Control.Feedback type="invalid">
+                      {errors.username}
+                    </Form.Control.Feedback> */}
+                  </InputGroup>
+                  {isNewUser ? (
+                    <>
+                      <FloatingLabel
+                        controlId="floatingSelectGrid"
+                        label="Assigned Sex at Birth:"
+                        className="m-3"
+                      >
+                        <Form.Select
+                          aria-label="Floating label select example"
+                          id="assigned-sex"
+                          value={assignedSex}
+                          onChange={(e) => setAssignedSex(e.target.value)}
+                        >
+                          <option value="" disabled hidden></option>
+                          <option value="Female">Female</option>
+                          <option value="Male">Male</option>
+                        </Form.Select>
+                      </FloatingLabel>
+                      <br></br>
+                    </>
+                  ) : null}
                   <Row>
-                    <InputGroup className='mb-3 m-3' style={{ width: '30rem' }}>
-                      <InputGroup.Text style={{ minWidth: '11vh' }}>
-                        Height (ft)
-                      </InputGroup.Text>
-                      <Form.Control
-                        aria-label='Dollar amount (with dot and two decimal places)'
-                        type='number'
-                        placeholder='Feet'
-                        required
-                        value={heightFeet || ''}
-                        onChange={(e) => {
-                          setHeightFeet(e.target.value);
-                          setErrorNull('heightFeet');
-                        }}
-                        isInvalid={!!errors.heightFeet}
-                      />
-                      <Form.Control.Feedback type='invalid'>
-                        {errors.heightFeet}
-                      </Form.Control.Feedback>
-                    </InputGroup>
-                    <InputGroup className='m-3' style={{ width: '30rem' }}>
-                      <InputGroup.Text style={{ minWidth: '11vh' }}>
-                        Height (in)
-                      </InputGroup.Text>
-                      <Form.Control
-                        aria-label='Dollar amount (with dot and two decimal places)'
-                        type='number'
-                        required
-                        placeholder='Inches'
-                        value={heightInches || ''}
-                        onChange={(e) => {
-                          setHeightInches(e.target.value);
-                          setErrorNull('heightInches');
-                        }}
-                        isInvalid={!!errors.heightInches}
-                      />
-                      <Form.Control.Feedback type='invalid'>
-                        {errors.heightInches}
-                      </Form.Control.Feedback>
-                    </InputGroup>
+                    {isNewUser ? (
+                      <InputGroup
+                        className="mb-3 m-3"
+                        style={{ width: '30rem' }}
+                      >
+                        <InputGroup.Text style={{ minWidth: '11vh' }}>
+                          Height (ft)
+                        </InputGroup.Text>
+                        <Form.Control
+                          aria-label="Dollar amount (with dot and two decimal places)"
+                          type="number"
+                          placeholder="Feet"
+                          required
+                          value={heightFeet || ''}
+                          onChange={(e) => {
+                            setHeightFeet(e.target.value);
+                            setErrorNull('heightFeet');
+                          }}
+                          isInvalid={!!errors.heightFeet}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.heightFeet}
+                        </Form.Control.Feedback>
+                      </InputGroup>
+                    ) : null}
+                    {isNewUser ? (
+                      <InputGroup className="m-3" style={{ width: '30rem' }}>
+                        <InputGroup.Text style={{ minWidth: '11vh' }}>
+                          Height (in)
+                        </InputGroup.Text>
+                        <Form.Control
+                          aria-label="Dollar amount (with dot and two decimal places)"
+                          type="number"
+                          required
+                          placeholder="Inches"
+                          value={heightInches || ''}
+                          onChange={(e) => {
+                            setHeightInches(e.target.value);
+                            setErrorNull('heightInches');
+                          }}
+                          isInvalid={!!errors.heightInches}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.heightInches}
+                        </Form.Control.Feedback>
+                      </InputGroup>
+                    ) : null}
 
                     <InputGroup className='m-3' style={{ width: '30rem' }}>
                       <InputGroup.Text style={{ minWidth: '11vh' }}>
@@ -322,7 +412,18 @@ const NewUser = () => {
                       </Form.Control.Feedback>
                     </InputGroup>
 
-                    <div className='text-center mt-1 mb-4'>
+                    <Button
+                      className="m-4 rounded-pill"
+                      variant="dark"
+                      type="submit"
+                      style={{ width: '29rem' }}
+                      onClick={() => CalculateGoals()}
+                    >
+                      Submit
+                    </Button>
+                  </Row>
+                  <div>
+                    <div className="d-flex justify-content-center">
                       <Button
                         className='m-2 '
                         variant='dark'
