@@ -22,6 +22,8 @@ const NewUser = () => {
         setHeightFeet(userDocSnap.data().heightFeet);
         setHeightInches(userDocSnap.data().heightInches);
         setAssignedSex(userDocSnap.data().assignedSex);
+        setGender(userDocSnap.data().gender);
+        setPronouns(userDocSnap.data().pronouns);
         setUsername(userDocSnap.data().username);
         setAge(userDocSnap.data().age);
         setWeight(userDocSnap.data().weight);
@@ -103,6 +105,8 @@ const NewUser = () => {
           weight,
           goal,
           activityLevel,
+          gender,
+          pronouns,
         });
       } else {
         updateDoc(userDoc, {
@@ -115,6 +119,8 @@ const NewUser = () => {
           weight,
           goal,
           activityLevel,
+          gender,
+          pronouns,
         });
       }
     }
@@ -128,6 +134,8 @@ const NewUser = () => {
   const [age, setAge] = useState(null);
   const [assignedSex, setAssignedSex] = useState('');
   const [username, setUsername] = useState('');
+  const [gender, setGender] = useState('');
+  const [pronouns, setPronouns] = useState('');
   const [isNewUser, setIsNewUser] = useState(false);
   const [errors, setErrors] = useState({});
   let navigate = useNavigate();
@@ -256,6 +264,42 @@ const NewUser = () => {
                       <option value="Extra active">Extra active</option>
                     </Form.Select>
                   </FloatingLabel>
+                  <InputGroup className="m-3" style={{ width: '29rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Gender
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter gender (i.e. non-binary, woman, man)"
+                      value={gender}
+                      onChange={(e) => {
+                        setGender(e.target.value);
+                        // setErrorNull('username');
+                      }}
+                      // isInvalid={!!errors.username}
+                    />
+                    {/* <Form.Control.Feedback type="invalid">
+                      {errors.username}
+                    </Form.Control.Feedback> */}
+                  </InputGroup>
+                  <InputGroup className="m-3" style={{ width: '29rem' }}>
+                    <InputGroup.Text style={{ minWidth: '11vh' }}>
+                      Pronouns
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter pronouns (i.e. she/her, he/they, ze/zir)"
+                      value={pronouns}
+                      onChange={(e) => {
+                        setPronouns(e.target.value);
+                        // setErrorNull('username');
+                      }}
+                      // isInvalid={!!errors.username}
+                    />
+                    {/* <Form.Control.Feedback type="invalid">
+                      {errors.username}
+                    </Form.Control.Feedback> */}
+                  </InputGroup>
                   {isNewUser ? (
                     <>
                       <FloatingLabel
