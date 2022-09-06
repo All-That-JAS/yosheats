@@ -19,12 +19,13 @@ export default function Popup(props) {
           style={{ color: '#ffffff' }}
         >
           <Card.Text className=' text-lowercase'>
-            Don't forget to add to your log!
+            Eat more {props.macro}s, don't forget to add to
+            your log!
           </Card.Text>
         </div>
 
         <div className='d-flex justify-content-around my-2'>
-          <img src={toad} alt='toad' style={{ width: '25rem' }} />
+          <img src={toad} alt='toad' style={{ width: '15rem' }} />
         </div>
       </div>
     </div>

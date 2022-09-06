@@ -19,7 +19,7 @@ export default function Popup(props) {
           style={{ color: '#ffffff' }}
         >
           <Card.Text className=' text-lowercase'>
-            You have met your goals!
+            You have met your {props.macro} goals!
           </Card.Text>
         </div>
 
