@@ -123,18 +123,7 @@ const Dashboard = () => {
                   <div className='card-body'>
                     <div className='d-flex justify-content-around my-2'>
                       <h6>
-                        <Button
-                          variant='dark'
-                          style={{ color: '#cccccc' }}
-                          onClick={() => {
-                            setShowGoals(!showGoals);
-                            setPopUp(true);
-                          }}
-                        >
-                          Daily Goals
-                        </Button>
-                        <Popup trigger={popUp} setTrigger={setPopUp}></Popup>
-                        {showGoals && <SetGoals>show/hide typography</SetGoals>}
+                      <SetGoals> </SetGoals>
                       </h6>
                     </div>
                   </div>
@@ -204,7 +193,7 @@ const Dashboard = () => {
                 </Card.Text>
                 <div className='text-center'>
                   <Button variant='dark'>
-                    <Link to='/update-profile' className='btn btn-dark'>
+                    <Link to='/update-user' className='btn btn-dark'>
                       Update Profile
                     </Link>
                   </Button>

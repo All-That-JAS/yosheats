@@ -51,7 +51,7 @@ export default function UpdateUser() {
         <Card>
           <CardHeader>
             <Card.Text className="fw-bolder fs-4 text-center my-3">
-              Update Profile{' '}
+             Account Info
             </Card.Text>
           </CardHeader>
           <Card.Body>
@@ -101,7 +101,7 @@ export default function UpdateUser() {
                 style={{ textDecoration: 'none', color: '#cccccc' }}
                 to="/update-user"
               >
-                Update Goals
+                Update Profile
               </Link>
             </Button>
 

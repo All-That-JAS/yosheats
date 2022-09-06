@@ -140,32 +140,32 @@ const NewUser = () => {
 
   return (
     <motion.div
-      className="main-container"
+      className='main-container'
       initial={{ width: 0 }}
       animate={{ width: '100%' }}
       exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
     >
-      <Container className="mt-5">
+      <Container className='mt-5'>
         <Row>
           <Col></Col>
           <Col>
             <Card style={{ width: '31rem' }}>
-              <Card.Text className="fw-bolder fs-4 text-center">
+              <Card.Text className='fw-bolder mt-5 fs-4 text-center'>
                 User Profile
               </Card.Text>
 
-              <Card.Text className=" fs-6 text-center text-lowercase mt-4 mb-1">
+              <Card.Text className=' fs-6 text-center text-lowercase mt-4 mb-1'>
                 Input information for personalized daily nutritional goals
               </Card.Text>
-              <Form className="newUser-info" onSubmit={handleSubmit}>
-                <Card.Text className="text-lowercase">
-                  <InputGroup className="m-3" style={{ width: '29rem' }}>
+              <Form className='newUser-info' onSubmit={handleSubmit}>
+                <Card.Text className='text-lowercase'>
+                  <InputGroup className='m-3' style={{ width: '29rem' }}>
                     <InputGroup.Text style={{ minWidth: '11vh' }}>
                       Username
                     </InputGroup.Text>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter username"
+                      type='text'
+                      placeholder='Enter username'
                       value={username}
                       onChange={(e) => {
                         setUsername(e.target.value);
@@ -173,81 +173,81 @@ const NewUser = () => {
                       }}
                       isInvalid={!!errors.username}
                     />
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type='invalid'>
                       {errors.username}
                     </Form.Control.Feedback>
                   </InputGroup>
                   <FloatingLabel
-                    controlId="floatingSelect"
-                    label="Choose Your Goal:"
-                    className="m-3"
+                    controlId='floatingSelect'
+                    label='Choose Your Goal:'
+                    className='m-3'
                   >
                     <Form.Select
-                      aria-label="Floating label select example"
-                      id="filterGoal"
+                      aria-label='Floating label select example'
+                      id='filterGoal'
                       value={goal}
                       onChange={(e) => setGoal(e.target.value)}
                     >
-                      <option value="" disabled hidden></option>
-                      <option value="General well-being">
+                      <option value='' disabled hidden></option>
+                      <option value='General well-being'>
                         General well-being
                       </option>
-                      <option value="Weight loss">Weight loss</option>
-                      <option value="Muscle gain">Muscle gain</option>
-                      <option value="High-performance athlete">
+                      <option value='Weight loss'>Weight loss</option>
+                      <option value='Muscle gain'>Muscle gain</option>
+                      <option value='High-performance athlete'>
                         High-performance athlete
                       </option>
                     </Form.Select>
                   </FloatingLabel>
 
                   <FloatingLabel
-                    controlId="floatingSelectGrid"
-                    label="Activity Level"
-                    className="m-3"
+                    controlId='floatingSelectGrid'
+                    label='Activity Level'
+                    className='m-3'
                   >
                     <Form.Select
-                      aria-label="Floating label select example"
-                      id="filterActivityLevel"
+                      aria-label='Floating label select example'
+                      id='filterActivityLevel'
                       value={activityLevel}
                       onChange={(e) => setActivityLevel(e.target.value)}
                     >
-                      <option value="" disabled hidden></option>
-                      <option value="Not active">Not active</option>
-                      <option value="Lightly active">Lightly active</option>
-                      <option value="Moderately active">
+                      <option value='' disabled hidden></option>
+                      <option value='Not active'>Not active</option>
+                      <option value='Lightly active'>Lightly active</option>
+                      <option value='Moderately active'>
                         Moderately active
                       </option>
-                      <option value="Very active">Very active</option>
-                      <option value="Extra active">Extra active</option>
+                      <option value='Very active'>Very active</option>
+                      <option value='Extra active'>Extra active</option>
                     </Form.Select>
                   </FloatingLabel>
 
                   <FloatingLabel
-                    controlId="floatingSelectGrid"
-                    label="Assigned Sex at Birth:"
-                    className="m-3"
+                    controlId='floatingSelectGrid'
+                    label='Assigned Sex at Birth:'
+                    className='m-3'
                   >
                     <Form.Select
-                      aria-label="Floating label select example"
-                      id="assigned-sex"
+                      aria-label='Floating label select example'
+                      id='assigned-sex'
                       value={assignedSex}
                       onChange={(e) => setAssignedSex(e.target.value)}
                     >
-                      <option value="" disabled hidden></option>
-                      <option value="Female">Female</option>
-                      <option value="Male">Male</option>
+                      <option value='' disabled hidden></option>
+                      <option value='Female'>Female</option>
+                      <option value='Male'>Male</option>
                     </Form.Select>
                   </FloatingLabel>
                   <br></br>
                   <Row>
-                    <InputGroup className="mb-3 m-3" style={{ width: '30rem' }}>
+                    <InputGroup className='mb-3 m-3' style={{ width: '30rem' }}>
                       <InputGroup.Text style={{ minWidth: '11vh' }}>
                         Height (ft)
                       </InputGroup.Text>
                       <Form.Control
-                        aria-label="Dollar amount (with dot and two decimal places)"
-                        type="number"
-                        placeholder="Feet"
+                        aria-label='Dollar amount (with dot and two decimal places)'
+                        type='number'
+                        placeholder='Feet'
                         required
                         value={heightFeet || ''}
                         onChange={(e) => {
@@ -256,19 +256,19 @@ const NewUser = () => {
                         }}
                         isInvalid={!!errors.heightFeet}
                       />
-                      <Form.Control.Feedback type="invalid">
+                      <Form.Control.Feedback type='invalid'>
                         {errors.heightFeet}
                       </Form.Control.Feedback>
                     </InputGroup>
-                    <InputGroup className="m-3" style={{ width: '30rem' }}>
+                    <InputGroup className='m-3' style={{ width: '30rem' }}>
                       <InputGroup.Text style={{ minWidth: '11vh' }}>
                         Height (in)
                       </InputGroup.Text>
                       <Form.Control
-                        aria-label="Dollar amount (with dot and two decimal places)"
-                        type="number"
+                        aria-label='Dollar amount (with dot and two decimal places)'
+                        type='number'
                         required
-                        placeholder="Inches"
+                        placeholder='Inches'
                         value={heightInches || ''}
                         onChange={(e) => {
                           setHeightInches(e.target.value);
@@ -276,20 +276,20 @@ const NewUser = () => {
                         }}
                         isInvalid={!!errors.heightInches}
                       />
-                      <Form.Control.Feedback type="invalid">
+                      <Form.Control.Feedback type='invalid'>
                         {errors.heightInches}
                       </Form.Control.Feedback>
                     </InputGroup>
 
-                    <InputGroup className="m-3" style={{ width: '30rem' }}>
+                    <InputGroup className='m-3' style={{ width: '30rem' }}>
                       <InputGroup.Text style={{ minWidth: '11vh' }}>
                         Weight (lb)
                       </InputGroup.Text>
                       <Form.Control
-                        aria-label="Dollar amount (with dot and two decimal places)"
-                        type="number"
+                        aria-label='Dollar amount (with dot and two decimal places)'
+                        type='number'
                         required
-                        placeholder="Pounds"
+                        placeholder='Pounds'
                         value={weight || ''}
                         onChange={(e) => {
                           setWeight(e.target.value);
@@ -297,19 +297,19 @@ const NewUser = () => {
                         }}
                         isInvalid={!!errors.weight}
                       />
-                      <Form.Control.Feedback type="invalid">
+                      <Form.Control.Feedback type='invalid'>
                         {errors.weight}
                       </Form.Control.Feedback>
                     </InputGroup>
-                    <InputGroup className="m-3" style={{ width: '30rem' }}>
+                    <InputGroup className='m-3' style={{ width: '30rem' }}>
                       <InputGroup.Text style={{ minWidth: '11vh' }}>
                         Age
                       </InputGroup.Text>
                       <Form.Control
-                        aria-label="Dollar amount (with dot and two decimal places)"
-                        type="number"
+                        aria-label='Dollar amount (with dot and two decimal places)'
+                        type='number'
                         required
-                        placeholder="Age"
+                        placeholder='Age'
                         value={age || ''}
                         onChange={(e) => {
                           setAge(e.target.value);
@@ -317,47 +317,52 @@ const NewUser = () => {
                         }}
                         isInvalid={!!errors.age}
                       />
-                      <Form.Control.Feedback type="invalid">
+                      <Form.Control.Feedback type='invalid'>
                         {errors.age}
                       </Form.Control.Feedback>
                     </InputGroup>
-                    <Button
-                      className="m-4 rounded-pill"
-                      variant="dark"
-                      type="submit"
-                      style={{ width: '29rem' }}
-                      onClick={CalculateGoals(
-                        activityLevel,
-                        heightFeet,
-                        heightInches,
-                        weight,
-                        assignedSex,
-                        age
-                      )}
-                    >
-                      Submit
-                    </Button>
-                  </Row>
-                  <div>
-                    <div className="d-flex justify-content-center">
+
+                    <div className='text-center mt-1 mb-4'>
                       <Button
-                        className="mb-4  rounded-pill"
-                        variant="danger"
-                        style={{ width: '29rem' }}
+                        className='m-2 '
+                        variant='dark'
+                        type='submit'
+                      
+                        onClick={CalculateGoals(
+                          activityLevel,
+                          heightFeet,
+                          heightInches,
+                          weight,
+                          assignedSex,
+                          age
+                        )}
                       >
-                        {' '}
-                        <Link
-                          to="/"
-                          style={{ textDecoration: 'none', color: '#ffffff' }}
-                        >
-                          Cancel
-                        </Link>
+                        Submit
                       </Button>
                     </div>
-                  </div>
+                  </Row>
                 </Card.Text>
               </Form>
             </Card>
+            <div className='d-flex justify-content-between mt-2'>
+              <Button variant='secondary' className='m-1 '>
+                <Link
+                  style={{ textDecoration: 'none', color: '#cccccc' }}
+                  to='/update-profile'
+                >
+                  Update Account Info
+                </Link>
+              </Button>
+
+              <Button className='m-1 ' variant='secondary'>
+                <Link
+                  style={{ textDecoration: 'none', color: '#cccccc' }}
+                  to='/'
+                >
+                  Cancel
+                </Link>
+              </Button>
+            </div>
           </Col>
           <Col></Col>
         </Row>

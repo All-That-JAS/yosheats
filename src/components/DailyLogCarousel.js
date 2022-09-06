@@ -7,7 +7,6 @@ import { Card, Container, Col, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { proteins, carbs, fats } from '../api/dummyData';
-import PopupGood from './PopupGood';
 
 import qq from '../images/mariocarousel.jpeg';
 
@@ -48,8 +47,7 @@ const DailyLogCarousel = () => {
   const [fatRecs, setFatRecs] = useState([]);
   const [proteinRecs, setProteinRecs] = useState([]);
 
-  // const [badPopUp, setBadPopUp] = useState(false);
-  const [goodPopUp, setGoodPopUp] = useState(false);
+ 
 
   setTimeout(() => {
     const calorieStyle = {
@@ -195,6 +193,9 @@ const DailyLogCarousel = () => {
   Math.round((todaysProteins / userProteins) * 100)
     ? (proteinsProgress = Math.round((todaysProteins / userProteins) * 100))
     : (proteinsProgress = 0);
+
+
+    console.log('before return', calorieProgress)
   return (
     <Container>
       <Row>
@@ -206,16 +207,9 @@ const DailyLogCarousel = () => {
               style={{ color: '#ffffff' }}
             >
               Daily Log
+              {    console.log('after return', calorieProgress)}
             </Card.Text>
-            {/* get rid */}
-            <Button variant='light' onClick={() => setGoodPopUp(true)}>
-              Button
-            </Button>
-            <PopupGood trigger={goodPopUp} setTrigger={setGoodPopUp}>
-              <h3>Good popup</h3>
-            </PopupGood>
-           
-            {/* ends */}
+     
           </div>
         </Col>
         <Col></Col>
@@ -294,15 +288,7 @@ const DailyLogCarousel = () => {
                         ) : calorieProgress > 100 ? (
                           <div className='progress-over' style={calorieStyle}>
                             {calorieProgress}%
-                            <PopupGood
-                              trigger={goodPopUp}
-                              setTrigger={setGoodPopUp}
-                            >
-                              <h3>Good popup</h3>
-                            </PopupGood>
-                            {/* <Button variant='info' onClick={() => setBadPopUp(true)}>
-              b pop
-            </Button> */}
+                            
                           </div>
                         ) : (
                           <div className='progress-done' style={calorieStyle}>
