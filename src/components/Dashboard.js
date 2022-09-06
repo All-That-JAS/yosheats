@@ -62,56 +62,56 @@ const Dashboard = () => {
           autoPlay
           loop
           muted
-          className='mt-5'
+          className="mt-5"
           style={{ objectFit: 'fill', height: '30vh', width: '100%' }}
         />
 
-        <Row classname='dash-content'>
+        <Row classname="dash-content">
           <Col xs={5}>
-            <Card className=' my-5' style={{ marginTop: 15 }}>
+            <Card className=" my-5" style={{ marginTop: 15 }}>
               <Card.Header>
-                <Card.Text className=' fw-bolder fs-5 text-center'>
+                <Card.Text className=" fw-bolder fs-5 text-center">
                   {goals.username
                     ? `${goals.username}'s Progress`
                     : 'My Progress'}
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                <div className='card text-center'>
-                  <div className='card-header d-flex justify-content-center'>
-                    <Card.Text className='mb-3'>
+                <div className="card text-center">
+                  <div className="card-header d-flex justify-content-center">
+                    <Card.Text className="mb-3">
                       <ul
-                        className='nav nav-tabs card-header-tabs'
+                        className="nav nav-tabs card-header-tabs"
                         style={{ height: '1rem' }}
                       >
-                        <li className='nav-item nav-link'>
+                        <li className="nav-item nav-link">
                           <Link
                             style={{
                               textDecoration: 'none',
                               color: '#818080',
                               height: '2rem',
                             }}
-                            to='/nutrition'
+                            to="/nutrition"
                           >
                             Nutrition
                           </Link>
                         </li>
-                        <li className='nav-item nav-link'>
+                        <li className="nav-item nav-link">
                           <Link
                             style={{
                               textDecoration: 'none',
                               color: '#818080',
                               height: '2rem',
                             }}
-                            to='/dailylog'
+                            to="/dailylog"
                           >
                             Daily Log
                           </Link>
                         </li>
-                        <li className='nav-item  nav-link'>
+                        <li className="nav-item  nav-link">
                           <Link
                             style={{ textDecoration: 'none', color: '#818080' }}
-                            to='/calendar'
+                            to="/calendar"
                           >
                             Calendar
                           </Link>
@@ -119,11 +119,11 @@ const Dashboard = () => {
                       </ul>
                     </Card.Text>
                   </div>
-                  <div className='card-body'>
-                    <div className='d-flex justify-content-around my-2'>
+                  <div className="card-body">
+                    <div className="d-flex justify-content-around my-2">
                       <h6>
                         <Button
-                          variant='dark'
+                          variant="dark"
                           style={{ color: '#cccccc' }}
                           onClick={() => {
                             setShowGoals(!showGoals);
@@ -138,17 +138,17 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className=' me-3 ms-5'>
+                <div className=" me-3 ms-5">
                   <br></br>
-                  <blockquote className='blockquote mb-1 text-end '>
-                    <p className='fs-5 '>
+                  <blockquote className="blockquote mb-1 text-end ">
+                    <p className="fs-5 ">
                       "{marioQuote}"<br></br>
                     </p>
 
-                    <footer className='blockquote-footer'>
+                    <footer className="blockquote-footer">
                       <img
                         src={mush}
-                        alt='mush'
+                        alt="mush"
                         style={{ maxWidth: '3rem', marginTop: 15 }}
                         onClick={() => {
                           handleCoinAudio();
@@ -162,28 +162,28 @@ const Dashboard = () => {
           </Col>
           <Col xs={3}>
             <Card
-              className='card text-white bg-secondary my-5'
+              className="card text-white bg-secondary my-5"
               style={{ marginTop: 15 }}
             >
               <Card.Header>
-                <Card.Text className=' fw-bolder fs-4 text-center'>
+                <Card.Text className=" fw-bolder fs-4 text-center">
                   <img
                     src={yoshiPixel}
-                    alt='yoshi'
-                    className='me-3'
+                    alt="yoshi"
+                    className="me-3"
                     style={{ maxWidth: '2rem' }}
                   ></img>
                   My Info
                   <img
                     src={yoshiPixel}
-                    alt='yoshi'
-                    className='ms-3'
+                    alt="yoshi"
+                    className="ms-3"
                     style={{ maxWidth: '2rem', transform: 'scaleX(-1)' }}
                   ></img>
                 </Card.Text>
               </Card.Header>
               <Card.Body>
-                {error && <Alert variant='danger'>{error}</Alert>}
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Card.Text>
                   <strong>Email: </strong>
                   {currentUser.email}
@@ -196,10 +196,12 @@ const Dashboard = () => {
                       {currentUser.displayName}
                     </div>
                   )}
+                  <br></br>
+                  {goals.pronouns ? `Pronouns: ${goals.pronouns}` : null}
                 </Card.Text>
-                <div className='text-center'>
-                  <Button variant='dark'>
-                    <Link to='/update-profile' className='btn btn-dark w-40'>
+                <div className="text-center">
+                  <Button variant="dark">
+                    <Link to="/update-profile" className="btn btn-dark w-40">
                       Update Profile
                     </Link>
                   </Button>
@@ -208,14 +210,14 @@ const Dashboard = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className='mt-5 text-center'>
-              <CardHeader className=' fw-bolder fs-5 text-center'>
+            <Card className="mt-5 text-center">
+              <CardHeader className=" fw-bolder fs-5 text-center">
                 <Card.Text>My Log History</Card.Text>
               </CardHeader>
               <Card.Body>
                 <Card.Text>
                   <Button
-                    variant='dark'
+                    variant="dark"
                     style={{ color: '#cccccc' }}
                     onClick={() => {
                       setShowCalendar(!showCalendar);
